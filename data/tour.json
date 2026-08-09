@@ -1,0 +1,3087 @@
+[
+  {
+    "artist": "anonymous",
+    "artistUri": "https://id.rijksmuseum.nl/210640",
+    "attribution": "anonymous",
+    "closer": "Look at the sides of the cabinet, in the leaf-work: her initials, B O.",
+    "date": "c. 1686 - c. 1710",
+    "dateEarliest": 1686,
+    "dateLatest": 1710,
+    "detail": [
+      "Before you reach a single miniature the container is already a luxury object — an oak carcass veneered in tortoiseshell and tin, on eight S-shaped scroll legs, with six facetted panes in each front door. Her daughter Hendrina said her mother spent some 30,000 guilders on it, which at the time would have bought a canal house.",
+      "Jacob Appel painted the house in 1710, and that painting hangs in this same room; the rooms have changed remarkably little since he recorded them. What is missing is the people: the original dolls are gone. The state bought the house in 1821 and the Rijksmuseum acquired it in 1875."
+    ],
+    "dimensions": {
+      "display": "height 255 cm x width 190 cm x depth 78 cm x depth 28 cm",
+      "height_cm": 255.0,
+      "width_cm": 190.0
+    },
+    "displayTitle": "Dolls' house of Petronella Oortman",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.20",
+      "floor": 2,
+      "name": {
+        "en": "Dolls' houses",
+        "nl": "Poppenhuizen"
+      },
+      "position": [
+        186.0,
+        66.1
+      ],
+      "room": "2.20"
+    },
+    "image": {
+      "aspectRatio": "1.103",
+      "pixels": [
+        3168,
+        2872
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/vacBr",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Which room would you sleep in?",
+    "look": [
+      "The tortoiseshell and tin marquetry, and the initials B O on the sides.",
+      "The kitchen, and then each floor above it in turn.",
+      "Appel's painting of this house nearby, to see what has and has not survived."
+    ],
+    "medium": {
+      "nl": "kast van eikenhout, belijmd met schildpad en tin"
+    },
+    "objectNumber": "BK-NM-1010",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/BK-NM-1010--62700ab4ff22218345de76f77d58ad39",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/BK-NM-1010--62700ab4ff22218345de76f77d58ad39",
+      "https://id.rijksmuseum.nl/2002678",
+      "https://en.wikipedia.org/wiki/Petronella_Oortman"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "golden",
+      "decorative",
+      "kidsfav"
+    ],
+    "timeline": "Not a child's toy. Petronella Oortman, married to the silk merchant Johannes Brandt, spent the years between about 1686 and 1710 filling this cabinet — two and a half metres of it — with rooms furnished to scale by the trades that furnished real ones. Wealthy Amsterdam women kept houses like this the way their husbands kept cabinets of curiosities, and showed them to visitors over a whole evening.",
+    "title": {
+      "en": "Dolls’ house of Petronella Oortman",
+      "nl": "Poppenhuis van Petronella Oortman"
+    },
+    "uri": "https://id.rijksmuseum.nl/2002678"
+  },
+  {
+    "artist": "Adriaen de Vriend, Adriaen Davidsen, Cornelis Moerman",
+    "artistUri": "https://id.rijksmuseum.nl/21089541",
+    "attribution": "Adriaen de Vriend, Adriaen Davidsen, Cornelis Moerman",
+    "closer": "The stern. The arms of Zeeland, the year 1698, an encircled St George's cross, and four ‘RWR’ monograms along the taffrail.",
+    "date": "1698",
+    "dateEarliest": 1698,
+    "dateLatest": 1698,
+    "detail": [
+      "It was never a toy or a shipyard tool. It stood in the council chamber of the Admiralty of Zeeland in Middelburg, where its job was to impress: a demonstration of what the province could build, carved with foliage, putti and an allegorical figure, and picked out in yellow.",
+      "The work was divided the way a real ship's would be. Adriaen de Vriend and Adriaen Davidsen made the model in Flushing, Cornelis Moerman did the carving, and Cornelis Evertsen II oversaw the rigging. No actual vessel matches it exactly, although it may loosely stand for the 94-gun Koning William."
+    ],
+    "dimensions": {
+      "display": "height 410 cm x length 452 cm x width 205 cm",
+      "height_cm": 410.0,
+      "width_cm": 205.0
+    },
+    "displayTitle": "Model of the William Rex",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.15",
+      "floor": 2,
+      "name": {
+        "en": "Power at see",
+        "nl": "Macht op zee"
+      },
+      "room": "2.15"
+    },
+    "image": {
+      "aspectRatio": "1.1",
+      "pixels": [
+        6462,
+        5874
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/BsWYL",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "This ship is a model. How much bigger was the real one? About twelve times.",
+    "look": [
+      "The lion with an English crown under the bowsprit.",
+      "The rigging, which is a working diagram of how such a ship was sailed.",
+      "The gunports, and how few of them are on the top deck."
+    ],
+    "medium": {
+      "en": "wood, brass, iron, glass, rope, textile and paint",
+      "nl": "hout, messing, ijzer, glas, touw en textiel"
+    },
+    "objectNumber": "NG-MC-651",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/NG-MC-651--c8440c600263839cf45524b9477620ad",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/NG-MC-651--c8440c600263839cf45524b9477620ad",
+      "https://id.rijksmuseum.nl/200315848"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "golden",
+      "decorative",
+      "kidsfav"
+    ],
+    "timeline": "A warship four metres high and four and a half long, built in 1698, rigged, painted and armed with 74 guns on three decks. It is a model at about one to twelve — which means the ship it stands for would have been more than twelve times this size.",
+    "title": {
+      "en": "Model of the William Rex",
+      "nl": "Scheepsmodel William Rex"
+    },
+    "uri": "https://id.rijksmuseum.nl/200315848"
+  },
+  {
+    "artist": "Jan Willem Pieneman",
+    "artistUri": "https://id.rijksmuseum.nl/2101244",
+    "attribution": "Jan Willem Pieneman",
+    "closer": "The canvas has two halves. Everything around Wellington is already victory; everything to the left and right of him is still costing somebody a limb.",
+    "date": "1824",
+    "dateEarliest": 1824,
+    "dateLatest": 1824,
+    "detail": [
+      "It is a group portrait as much as a battle. Pieneman spent nearly four months in London in 1821, working from a studio Wellington let him set up in Apsley House; the duke sat for him, arranged sittings with other commanders, and had Copenhagen brought over to be painted from life. The finished canvas took almost three years.",
+      "Wellington may have meant to buy it. Instead the Prince of Orange did, for 40,000 guilders, a sum his father William I actually paid. Pieneman made it a condition of the sale that he could show the painting in London first: a pavilion was built for it in Hyde Park, and it drew crowds there for some ten months from May 1825, including the tenth anniversary of the battle."
+    ],
+    "dimensions": {
+      "display": "height 567 cm x width 823 cm",
+      "height_cm": 567.0,
+      "width_cm": 823.0
+    },
+    "displayTitle": "The Battle of Waterloo",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.12",
+      "floor": 1,
+      "name": {
+        "en": "1815: Waterloo and King Willem I",
+        "nl": "1815: Waterloo en koning Willem I"
+      },
+      "position": [
+        154.4,
+        24.4
+      ],
+      "room": "1.12"
+    },
+    "image": {
+      "aspectRatio": "1.501",
+      "pixels": [
+        8106,
+        5399
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/GebpD",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "There are more than a hundred people here. How long does it take you to find the man on the stretcher?",
+    "look": [
+      "Wellington at the centre, at the moment the message reaches him.",
+      "The wounded Prince of Orange on his stretcher, low and to the left.",
+      "The captured French imperial eagles being waved aloft by British dragoons."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-1115",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1115--9fc8b4d132695d9b276b9c92522386f3",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-1115--9fc8b4d132695d9b276b9c92522386f3",
+      "https://id.rijksmuseum.nl/200107874",
+      "https://en.wikipedia.org/wiki/The_Battle_of_Waterloo_(Pieneman_painting)"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "19c",
+      "portrait"
+    ],
+    "timeline": "Five and a half metres high and eight metres wide, the largest painting in the museum. The Duke of Wellington sits at the centre on his horse Copenhagen, at the moment the news reaches him that Prussian help is on its way. Lying wounded on a stretcher at the lower left is the Dutch Prince of Orange, later King William II — which is the reason a Dutch museum owns the picture at all.",
+    "title": {
+      "en": "The Battle of Waterloo",
+      "nl": "De Slag bij Waterloo"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107874"
+  },
+  {
+    "artist": "Frans Hals",
+    "artistUri": "https://id.rijksmuseum.nl/2102576",
+    "attribution": "Frans Hals",
+    "closer": "Her hand on his shoulder. In a marriage portrait of 1622 that gesture is the whole argument of the picture.",
+    "date": "c. 1622",
+    "dateEarliest": 1622,
+    "dateLatest": 1622,
+    "detail": [
+      "The museum's description records a thistle at the left of the couple and ivy at the right, and behind them, at the right, elegant couples strolling in a garden with a fountain beside a country house. That garden is doing the work a formal portrait would have given to columns and drapery: it places the sitters in a world of leisure and property.",
+      "The identification is likely rather than certain — the museum titles it 'Portrait of a Married Couple, Likely Isaac Abrahamsz Massa and Beatrix van der Laen'. It was once supposed to show Hals and his own wife, which it does not."
+    ],
+    "dimensions": {
+      "display": "support: height 140 cm x width 166.5 cm",
+      "height_cm": 140.0,
+      "width_cm": 166.5
+    },
+    "displayTitle": "Marriage Portrait of Isaac Massa and Beatrix van der Laen",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.1",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.1"
+    },
+    "image": {
+      "aspectRatio": "1.176",
+      "pixels": [
+        6964,
+        5923
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/ZrjcE",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "Her right hand, resting on his shoulder.",
+      "The thistle at the left and the ivy at the right.",
+      "The garden party in the distance, and the fountain beyond it."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-133",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-133--29d98c79eda4e9d954f80ce0bb0c8b17",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-133--29d98c79eda4e9d954f80ce0bb0c8b17",
+      "https://id.rijksmuseum.nl/200109346",
+      "https://en.wikipedia.org/wiki/Marriage_Portrait_of_Isaac_Massa_and_Beatrix_van_der_Laen"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "golden",
+      "portrait"
+    ],
+    "timeline": "Isaac Massa and Beatrix van der Laen married in Haarlem on 25 April 1622, and Hals painted them sitting on the ground under a tree, leaning on each other, grinning at us. Married couples of the period were painted upright, formal, and usually on two separate canvases. This is what the alternative looked like.",
+    "title": {
+      "en": "Portrait of a Married Couple, Likely Isaac Abrahamsz Massa and Beatrix van der Laen",
+      "nl": "Portret van een echtpaar, mogelijk Isaac Abrahamsz Massa en Beatrix van der Laen"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109346"
+  },
+  {
+    "artist": "Frans Hals",
+    "attribution": "Frans Hals (signed by artist)",
+    "closer": "Look at the collar from a metre away, then from arm's length. Close up it is a dozen crossing slashes of grey and white; there is no drawing underneath any of it.",
+    "date": "c. 1628 - c. 1630",
+    "dateEarliest": 1628,
+    "dateLatest": 1630,
+    "detail": [
+      "This is the high point of Hals's rough manner: loose strokes laid in varying thicknesses, sometimes shaped with the wrong end of the brush, reading as speed close up and as movement from across the room. Painters who work this way have no way back — nothing here is corrected or glazed over.",
+      "Whether it is a portrait at all is disputed. The man shows his teeth, and polite company of the 1620s did not laugh with its mouth open, which argues for a genre figure rather than a sitter. Nobody has identified him. The museum bought the painting in 1816, and a restoration in 1971 took off a discoloured varnish that had been flattening Hals's colours."
+    ],
+    "dimensions": {
+      "display": "support: height 81 cm x width 66.5 cm",
+      "height_cm": 81.0,
+      "width_cm": 66.5
+    },
+    "displayTitle": "The Merry Drinker",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.1",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.1"
+    },
+    "image": {
+      "aspectRatio": "0.836",
+      "pixels": [
+        4639,
+        5551
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/CgrHr",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "He is about to say something. What?",
+    "look": [
+      "The open right hand, which comes forward out of the picture plane at you.",
+      "The wine in the glass balanced on the fingertips of the other hand.",
+      "The mouth: open mid-sentence, teeth showing, which is why nobody is sure who he is."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-135",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-135--884b50ad9157e0b12a90e4a5e8acf336",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-135--884b50ad9157e0b12a90e4a5e8acf336",
+      "https://id.rijksmuseum.nl/200109347",
+      "https://en.wikipedia.org/wiki/The_Merry_Drinker"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "golden",
+      "portrait",
+      "hits"
+    ],
+    "timeline": "Hals paints at the speed of talking. The lips are parted mid-word, the right hand is open towards you, and a glass of white wine sits balanced on the fingertips of the left. It is a portrait of a moment rather than of a man.",
+    "title": {
+      "en": "The Merry Drinker",
+      "nl": "De vrolijke drinker"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109347"
+  },
+  {
+    "artist": "Johannes Vermeer",
+    "artistUri": "https://id.rijksmuseum.nl/2101778",
+    "attribution": "Johannes Vermeer",
+    "closer": "Look at the two pictures on the back wall. The lower one is a stormy sea — and it is the only seascape anywhere in Vermeer's work.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "c. 1669 - c. 1670",
+    "dateEarliest": 1669,
+    "dateLatest": 1670,
+    "detail": [
+      "The props carry the argument. A cittern in Dutch painting of the period stands for love, often the carnal sort; the slipper kicked off in the foreground says much the same thing; the broom and the chair left in the doorway say that the housework has been set down mid-task. Above the seascape hangs a landscape with a traveller on a sandy road, which is usually read as the absent man who wrote the letter.",
+      "In 1971 the painting was stolen from a loan exhibition in Brussels. The thief hid in a cupboard until closing time, found the frame would not fit through the window, cut the canvas out with a potato peeler and eventually kept it in his pillowcase. His demand was 200 million Belgian francs for famine relief in East Pakistan. It came back eight days later, badly damaged, and took almost a year to restore."
+    ],
+    "dimensions": {
+      "display": "height 68.5 cm x width 62.5 cm x thickness 7 cm",
+      "height_cm": 68.5,
+      "width_cm": 38.5
+    },
+    "displayTitle": "The Love Letter",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.3",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.3"
+    },
+    "image": {
+      "aspectRatio": "0.869",
+      "pixels": [
+        5268,
+        6064
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/hqxQG",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "She has just been given a letter. What do you think it says?",
+    "look": [
+      "The doorway and the drawn-back curtain, which make you an eavesdropper.",
+      "The seascape and the landscape on the back wall.",
+      "The slippers, the broom and the chair, left where they fell."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-1595",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1595--508513eb7ee162ec2f68ea3d3138d912",
+    "priority": 1,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-1595--508513eb7ee162ec2f68ea3d3138d912",
+      "https://id.rijksmuseum.nl/200108370",
+      "https://en.wikipedia.org/wiki/The_Love_Letter_(Vermeer)"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "vermeer",
+      "golden",
+      "hits"
+    ],
+    "timeline": "You are in the dark, looking through an open doorway into a lit room, past a curtain that has been pulled aside. A maid has just handed her mistress a letter; the woman has a cittern in her lap and has looked up from it. Everything about the framing says that you are not supposed to be seeing this.",
+    "title": {
+      "en": "The Love Letter",
+      "nl": "De liefdesbrief"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108370"
+  },
+  {
+    "artist": "Hendrick Avercamp",
+    "attribution": "Hendrick Avercamp (signed by artist)",
+    "closer": "He signed it as graffiti. Look on the wall of the wooden shed for the ligatured letters ‘HAenricus / Av’.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "c. 1608",
+    "dateEarliest": 1608,
+    "dateLatest": 1608,
+    "detail": [
+      "The picture owes a great deal to Pieter Bruegel the Elder's Winter Landscape with a Bird Trap of 1565, and the bird trap itself reappears here at the left, among the farm implements. Avercamp used the motif in other paintings too.",
+      "Nothing has been prettified. A dog is at a carcass in the lower left corner, and in the foreground a group of men are working to free a boat frozen into the ice. The museum bought the panel in 1897 with the support of the Vereniging Rembrandt."
+    ],
+    "dimensions": {
+      "display": "support: height 77.3 cm x width 131.9 cm",
+      "height_cm": 77.3,
+      "width_cm": 131.9
+    },
+    "displayTitle": "Winter Landscape with Ice Skaters",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.6",
+      "floor": 2,
+      "name": {
+        "en": "Specialisation in painting",
+        "nl": "Specialisme in de schilderkunst"
+      },
+      "position": [
+        14.0,
+        65.7
+      ],
+      "room": "2.6"
+    },
+    "image": {
+      "aspectRatio": "1.725",
+      "pixels": [
+        6337,
+        3674
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/aXnzA",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Find someone who has fallen over. Now find three more.",
+    "look": [
+      "The signature scratched into the wall of the shed.",
+      "Rich and poor on the same ice, at the same size.",
+      "The dog and the carcass at the lower left, which nobody has tidied away."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-1718",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1718--918895dc18da94e357c6763adda8882f",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-1718--918895dc18da94e357c6763adda8882f",
+      "https://id.rijksmuseum.nl/200108163",
+      "https://en.wikipedia.org/wiki/Winter_Landscape_with_Skaters"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "golden",
+      "landscape",
+      "kidsfav"
+    ],
+    "timeline": "A whole society on one frozen river, seen from high up so that nobody outranks anybody else: skaters, kolf players, people out walking, a horse-drawn sleigh at the right, a church at the left. Avercamp painted it around 1608, after the bitter winter of 1607–08, and was the first Dutch painter to make snow his speciality.",
+    "title": {
+      "en": "Winter Landscape with Ice Skaters",
+      "nl": "Winterlandschap met schaatsers"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108163"
+  },
+  {
+    "artist": "Gerard ter Borch",
+    "artistUri": "https://id.rijksmuseum.nl/21043093",
+    "attribution": "Gerard ter Borch (II)",
+    "closer": "The white dress is not white. Come close enough to see the pink and the blue-grey he used to keep it alive.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "c. 1648",
+    "dateEarliest": 1648,
+    "dateLatest": 1648,
+    "detail": [
+      "She is dressed as a small adult, which is what seventeenth-century children were dressed as; her parents, the cloth merchant Gerard van der Schalcke and Johanna Bardoel, were painted by Ter Borch too. The carnation in her hand is a standard motif in portraits of the period, read as resurrection and the hope of eternal life.",
+      "That reading is worth holding onto. Helena died in 1671, at twenty-five, and the picture of her at two is the one that survived."
+    ],
+    "dimensions": {
+      "display": "height 34.1 cm x width 28.5 cm",
+      "height_cm": 59.0,
+      "width_cm": 28.5
+    },
+    "displayTitle": "Helena van der Schalcke",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.25",
+      "floor": 2,
+      "name": {
+        "en": "Painting",
+        "nl": "Schilderkunst"
+      },
+      "room": "2.25"
+    },
+    "image": {
+      "aspectRatio": "0.825",
+      "pixels": [
+        4799,
+        5819
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/HUjVm",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "She is two years old. Do you think she wanted to stand still for this?",
+    "look": [
+      "The dress: white built out of pink and blue-grey.",
+      "The wicker basket, sized for a two-year-old.",
+      "The carnation, held out towards you."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-1786",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1786--afe781ab16974c11bcb26b5bdbdbb5cd",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-1786--afe781ab16974c11bcb26b5bdbdbb5cd",
+      "https://id.rijksmuseum.nl/200108271",
+      "https://en.wikipedia.org/wiki/Portrait_of_Helena_van_der_Schalcke"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "golden",
+      "portrait",
+      "kidsfav"
+    ],
+    "timeline": "Helena van der Schalcke was two years old when Ter Borch painted her, standing full length in white silk with a wicker basket over her arm and a carnation in her hand. The panel is about the size of a sheet of paper.",
+    "title": {
+      "en": "Helena van der Schalcke",
+      "nl": "Helena van der Schalcke"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108271"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "Find the edge of the light. Rembrandt lets it fall on one small part of the picture and leaves the rest in half-tone.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt and A. Bredius, Amsterdam",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt en de heer A. Bredius, Amsterdam"
+    },
+    "date": "c. 1638",
+    "dateEarliest": 1638,
+    "dateLatest": 1638,
+    "detail": [
+      "Rembrandt painted very few landscapes, and most of them are imaginary mountain country. This one is built out of thoroughly Dutch parts — a stone bridge, a hay barn, a waterway, a tower — and is very probably still invented, assembled for the light rather than observed from a spot.",
+      "It is a small panel, under thirty centimetres high, and it has been treated as a major work for two centuries: a French sale catalogue of 1817 already called its rarity and perfection remarkable despite its small size."
+    ],
+    "dimensions": {
+      "display": "height 29.5 cm x width 42.5 cm x depth 5.5 cm",
+      "height_cm": 29.5,
+      "width_cm": 42.5
+    },
+    "displayTitle": "Landscape with a Stone Bridge",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "1.42",
+      "pixels": [
+        6108,
+        4301
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/hodeb",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The lit barn and trees at the centre, and how little else is lit.",
+      "The boats on the water under the bridge.",
+      "The church tower on the horizon at the right."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-1935",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1935--d27d7ce1f58c87131f14425799c2d0a4",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-1935--d27d7ce1f58c87131f14425799c2d0a4",
+      "https://id.rijksmuseum.nl/200106038"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "landscape"
+    ],
+    "timeline": "A shaft of sunlight comes through the cloud and lands on a barn and a clump of trees, which makes the storm behind it twice as bad. Under the bridge, boats; on the road, a cart and a few people walking; in the distance to the right, a church tower.",
+    "title": {
+      "en": "Landscape with a Stone Bridge",
+      "nl": "Landschap met stenen brug"
+    },
+    "uri": "https://id.rijksmuseum.nl/200106038"
+  },
+  {
+    "artist": "Willem Kalf",
+    "artistUri": "https://id.rijksmuseum.nl/2103265",
+    "attribution": "Willem Kalf",
+    "closer": "The peeled lemon in the bowl, and the whole one lying in front of it. They are the brightest things in the picture, and they are there to make the silver read as silver.",
+    "date": "1655 - 1660",
+    "dateEarliest": 1655,
+    "dateLatest": 1660,
+    "detail": [
+      "Every object is imported or expensive: Chinese export porcelain, Amsterdam silverwork, southern fruit, a timepiece. This is a portrait of what a Dutch merchant household could afford in the 1650s, painted with the same care other painters gave to faces.",
+      "The watch is the only object that is not simply wealth. In still-life painting of the period a clock is the standard reminder that the meal, the fruit and the owner are all on a clock. The museum bought the canvas at an Amsterdam sale on 29 October 1821."
+    ],
+    "dimensions": {
+      "display": "height 73.8 cm x width 65.2 cm",
+      "height_cm": 73.8,
+      "width_cm": 65.2
+    },
+    "displayTitle": "Still Life with a Silver Jug and a Porcelain Bowl",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.5",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.5"
+    },
+    "image": {
+      "aspectRatio": "0.898",
+      "pixels": [
+        4388,
+        4886
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/KOxfP",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The curl of lemon peel in the porcelain bowl.",
+      "The figures worked into the silver of the jug, and the gilt stand under the glass.",
+      "The watch on its ribbon, half in shadow at the front edge of the ledge."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-199",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-199--4e711e3145b1a3937a6b88a2586e1a92",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-199--4e711e3145b1a3937a6b88a2586e1a92",
+      "https://id.rijksmuseum.nl/200109415",
+      "https://en.wikipedia.org/wiki/Still_Life_with_a_Silver_Jug"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "golden",
+      "decorative"
+    ],
+    "timeline": "A few expensive things on a stone ledge, in a niche, in almost no light: an ornamented silver jug with a lid, a römer of white wine on a gilt stand, a Wan-Li porcelain bowl with lemons and oranges, and a watch. Kalf gives them the darkness a portrait painter would give a face.",
+    "title": {
+      "en": "Still Life with a Silver Jug and a Porcelain Bowl",
+      "nl": "Stilleven met zilveren kan en porseleinen kom"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109415"
+  },
+  {
+    "artist": "Geertgen tot Sint Jans",
+    "artistUri": "https://id.rijksmuseum.nl/2101938",
+    "attribution": "Geertgen tot Sint Jans",
+    "closer": "Each king appears twice. Look above their heads, into the landscape, where all three retinues are still on the road.",
+    "date": "c. 1480 - c. 1485",
+    "dateEarliest": 1480,
+    "dateLatest": 1485,
+    "detail": [
+      "Showing the processions in miniature is the point of the picture: the kings were understood to have come from Europe, Asia and Africa, so the whole known world is arriving at one shed in the same instant.",
+      "An x-ray of the underdrawing found a change of mind. In Melchior's European train, an animal first drawn as a horse became a dromedary — surprising, because in Adoration paintings the camels usually belong to Balthasar, who was said to have come from Ethiopia. The panel's history can be traced no further back than 1904, when the museum bought it."
+    ],
+    "dimensions": {
+      "display": "support: height 91.6 cm x width 71.8 cm",
+      "height_cm": 91.6,
+      "width_cm": 71.8
+    },
+    "displayTitle": "The Adoration of the Magi",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-0.1",
+      "floor": 0,
+      "name": {
+        "en": "Christian art in the Netherlands",
+        "nl": "Christelijke kunst in de Nederlanden"
+      },
+      "room": "0.1"
+    },
+    "image": {
+      "aspectRatio": "0.778",
+      "pixels": [
+        4401,
+        5656
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/rPTyJ",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Three kings came from three different places. Can you find all three roads?",
+    "look": [
+      "Melchior's crown, taken off and lying on the ground.",
+      "The three retinues in the background, arriving from three directions.",
+      "The dromedary, which began as a horse."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-2150",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2150--8fa4df643e7cf7542a4e1603df185efa",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-2150--8fa4df643e7cf7542a4e1603df185efa",
+      "https://id.rijksmuseum.nl/200109296",
+      "https://en.wikipedia.org/wiki/The_Adoration_of_the_Magi_(Geertgen_tot_Sint_Jans)"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "middle"
+    ],
+    "timeline": "The holy family shelters in a ruin at the right; the three kings arrive from the left with their gifts. Melchior kneels and offers gold, his crown on the ground at his feet. Caspar stands behind him, crown hanging at the back of his head, taking frankincense from an assistant. Balthasar, at the left, is still wearing his crown and holds an orb of myrrh.",
+    "title": {
+      "en": "The Adoration of the Magi",
+      "nl": "De aanbidding van de koningen"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109296"
+  },
+  {
+    "artist": "Rachel Ruysch",
+    "attribution": "Rachel Ruysch (mentioned on object)",
+    "closer": "Go looking for the insects. The museum's own description says the picture teems with them, and they are easy to walk past.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "1716",
+    "dateEarliest": 1716,
+    "dateLatest": 1716,
+    "detail": [
+      "No such bouquet ever stood on a table. There are more than ten species here and they flower at different times of the year, so the arrangement had to be assembled from study rather than observed: a year of the garden, compressed into one vase.",
+      "The insects are the second subject. Her father, Frederik Ruysch, was a professor of anatomy and botany with a vast collection of specimens, and she learned to draw on it; a fly or a beetle gets the same attention here as a petal. Her teacher, Willem van Aelst, taught her to arrange a bouquet so that it looks unarranged."
+    ],
+    "dimensions": {
+      "display": "height 48.5 cm x width 39.5 cm",
+      "height_cm": 48.5,
+      "width_cm": 39.5
+    },
+    "displayTitle": "Still Life with Flowers on a Marble Tabletop",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.1",
+      "floor": 1,
+      "name": {
+        "en": "Citizens and regents",
+        "nl": "Burgers en regenten"
+      },
+      "room": "1.1"
+    },
+    "image": {
+      "aspectRatio": "0.817",
+      "pixels": [
+        4483,
+        5486
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/OZhex",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The blue glass of the vase, and what the marble does under it.",
+      "The insects, one by one.",
+      "How natural the arrangement looks, given that it cannot exist."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-2338",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2338--570d1419506e38cb3916f640fe5a2328",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-2338--570d1419506e38cb3916f640fe5a2328",
+      "https://id.rijksmuseum.nl/20027537",
+      "https://en.wikipedia.org/wiki/Rachel_Ruysch"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "19c",
+      "decorative"
+    ],
+    "timeline": "Roses, poppies, irises, carnations and bindweed in a blue glass vase on a marble top, signed 'Rachel Ruysch 1716'. Ruysch painted flowers professionally for more than six decades and was famous internationally in her own lifetime — the best documented woman painter of the Dutch Golden Age.",
+    "title": {
+      "en": "Still Life with Flowers on a Marble Tabletop",
+      "nl": "Stilleven met bloemen op een marmeren tafelblad"
+    },
+    "uri": "https://id.rijksmuseum.nl/20027537"
+  },
+  {
+    "artist": "Master of Alkmaar",
+    "artistUri": "https://id.rijksmuseum.nl/2102727",
+    "attribution": "Master of Alkmaar",
+    "closer": "Christ is standing among the onlookers in every panel. Once you have found him in one, you will find him in the rest.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt and the Commissie voor Fotoverkoop",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt en de Commissie voor Fotoverkoop"
+    },
+    "date": "1504",
+    "dateEarliest": 1504,
+    "dateLatest": 1504,
+    "detail": [
+      "The acts come from Matthew 25, where they decide the Last Judgement — which is why the Judgement is painted in the upper centre of the middle panel. The series was probably commissioned by the Holy Ghost confraternity of Alkmaar, whose members ran a house where the sick were cared for and travellers put up: the seven scenes are the work they actually did.",
+      "The panels have been attacked. Faces were cut away with a sharp tool, before 1582 and probably during the iconoclasm of 1566; in 1582 two men painted the whole thing over in black. When the museum, which bought the work in 1918, had it restored between 1971 and 1975, it decided not to fill the losses in. What you are looking at is the damage as well as the painting."
+    ],
+    "dimensions": {
+      "display": "frame: height 119.1 cm x width 469.5 cm x thickness 4 cm",
+      "height_cm": 119.1,
+      "width_cm": 469.5
+    },
+    "displayTitle": "The Seven Works of Mercy",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-0.4",
+      "floor": 0,
+      "name": {
+        "en": "Emperor, nobility, bourgeoisie",
+        "nl": "Keizer, adel, burgerij"
+      },
+      "position": [
+        186.0,
+        54.4
+      ],
+      "room": "0.4"
+    },
+    "image": {
+      "aspectRatio": "4.0",
+      "pixels": [
+        8335,
+        2084
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/ogTdF",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Seven different ways of helping someone. How many can you name before you read the labels?",
+    "look": [
+      "Christ, standing unremarked among the spectators in panel after panel.",
+      "The town itself: real doorways, real clothing, real Dutch weather.",
+      "The cut and missing faces, which have deliberately not been painted back."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-2815",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2815--14aaec41ef8d5849daa5f6a4d08978bf",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-2815--14aaec41ef8d5849daa5f6a4d08978bf",
+      "https://id.rijksmuseum.nl/200109466",
+      "https://en.wikipedia.org/wiki/The_Seven_Works_of_Mercy_(Master_of_Alkmaar)"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "middle"
+    ],
+    "timeline": "Seven panels, painted in 1504, showing how a good Christian is supposed to help people who need it: feeding the hungry, giving drink to the thirsty, clothing the naked, burying the dead, sheltering the traveller, comforting the sick, ransoming the captive. The setting is not the Holy Land but a Dutch town, with its own streets, doorways and passers-by.",
+    "title": {
+      "en": "The Seven Works of Mercy",
+      "nl": "De zeven werken van barmhartigheid"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109466"
+  },
+  {
+    "artist": "Johannes Vermeer",
+    "artistUri": "https://id.rijksmuseum.nl/2101778",
+    "attribution": "Johannes Vermeer",
+    "closer": "The old walls are almost tangible — brick, whitewash, cracks, and repairs. Vermeer painted the repairs.",
+    "credit": {
+      "en": "Gift of H.W.A. Deterding, London",
+      "nl": "Schenking van de heer H.W.A. Deterding, Londen"
+    },
+    "date": "c. 1658",
+    "dateEarliest": 1658,
+    "dateLatest": 1658,
+    "detail": [
+      "The museum places the view at Vlamingstraat 40–42 in Delft. Vermeer's aunt, Ariaentgen Claes, lived in the house on the right with her children from around 1645 until her death in 1670, which gives the picture a family address rather than a picturesque one.",
+      "The composition is held together entirely by masonry and shutters: two doorways, two windows, a passage between the houses, and a strip of sky. Everything that would normally carry a painting — event, gesture, expression — has been removed, and the balance still holds."
+    ],
+    "dimensions": {
+      "display": "height 54.3 cm x width 44 cm x depth 9 cm",
+      "height_cm": 54.3,
+      "width_cm": 44.0
+    },
+    "displayTitle": "The Little Street",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.3",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.3"
+    },
+    "image": {
+      "aspectRatio": "0.818",
+      "pixels": [
+        5190,
+        6344
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/VWEov",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "How many people are hiding in this painting? There are four.",
+    "look": [
+      "The mortar, painted joint by joint, and the patched whitewash over it.",
+      "Four people are in the picture; two of them are easy to miss.",
+      "The green shutters, which set the colour of everything else."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-2860",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2860--a7dbf937cbd6f7c30f66f8aca4a0207c",
+    "priority": 1,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-2860--a7dbf937cbd6f7c30f66f8aca4a0207c",
+      "https://id.rijksmuseum.nl/200108371",
+      "https://en.wikipedia.org/wiki/The_Little_Street"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "vermeer",
+      "golden",
+      "hits"
+    ],
+    "timeline": "An ordinary Delft house front, painted with the attention normally reserved for altarpieces. Two women work, two children play on the pavement, and nothing else happens. For its time a portrait of ordinary houses was an unusual thing to want to make, and it is unusual within Vermeer's own work too.",
+    "title": {
+      "en": "View of Houses in Delft, Known as ‘The Little Street’",
+      "nl": "Gezicht op huizen in Delft, bekend als ‘Het straatje’"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108371"
+  },
+  {
+    "artist": "Francisco de Goya",
+    "artistUri": "https://id.rijksmuseum.nl/2102559",
+    "attribution": "Francisco de Goya",
+    "closer": "The hands in the pockets. In 1823 that is not how a judge had himself painted.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "1823",
+    "dateEarliest": 1823,
+    "dateLatest": 1823,
+    "detail": [
+      "There is another man underneath. Researchers using X-ray fluorescence found a second portrait beneath this one: a senior French officer in uniform, medals across his chest, painted around 1810 during the Peninsular War, possibly a general and possibly Joseph Bonaparte, whom Napoleon had made king of Spain.",
+      "Goya lived through both regimes and survived both. After 1820 a French general on your easel was dangerous property, and the surface we can see dates from 1823. The painting was bought by the Vereniging Rembrandt in 1922 and given to the museum."
+    ],
+    "dimensions": {
+      "display": "outersize: height 135.5 cm (support incl. frame) x width 112 cm x depth 7 cm",
+      "height_cm": 107.0,
+      "width_cm": 83.5
+    },
+    "displayTitle": "Portrait of Don Ramón Satué",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.13",
+      "floor": 1,
+      "name": {
+        "en": "European court art",
+        "nl": "Europese hofkunst"
+      },
+      "position": [
+        186.0,
+        24.3
+      ],
+      "room": "1.13"
+    },
+    "image": {
+      "aspectRatio": "0.798",
+      "pixels": [
+        4575,
+        5735
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/GRbAZ",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The open collar and the hands in the pockets.",
+      "The face, which is doing something more complicated than sitting still.",
+      "The dark ground, and the thought that a uniform is under it."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-2963",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2963--f8b3d988b1b2392222edf10e954aa003",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-2963--f8b3d988b1b2392222edf10e954aa003",
+      "https://id.rijksmuseum.nl/200109334",
+      "https://en.wikipedia.org/wiki/Portrait_of_Don_Ram%C3%B3n_Satu%C3%A9"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "19c",
+      "portrait"
+    ],
+    "timeline": "A judge of the Madrid court, painted by Goya in 1823, standing with his hands in his trouser pockets and his shirt open at the neck. He is not posing. This is the only Goya in a public collection in the Netherlands.",
+    "title": {
+      "en": "Portrait of Don Ramón Satué",
+      "nl": "Portret van Don Ramón Satué"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109334"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "attribution": "Rembrandt van Rijn (mentioned on object)",
+    "closer": "The hand on the page. It is the brightest thing in the painting, brighter than her face.",
+    "date": "1631",
+    "dateEarliest": 1631,
+    "dateLatest": 1631,
+    "detail": [
+      "Rembrandt signed it 'RHL 1631' — the monogram of his Leiden years, before he became simply Rembrandt. His mother sat for him repeatedly in that period, which is how a scriptural figure comes to have the face of somebody from Leiden.",
+      "The text is unreadable, deliberately: what the picture is about is an old woman deep in a book, not a passage of scripture. He painted the fur, the velvet and the gold of the binding with far more attention than the words."
+    ],
+    "dimensions": {
+      "display": "height 60 cm x width 48 cm",
+      "height_cm": 60.0,
+      "width_cm": 48.0
+    },
+    "displayTitle": "Old Woman Reading, Probably the Prophetess Anna",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.799",
+      "pixels": [
+        6387,
+        7998
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/CNSQg",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The lit hand resting on the open page.",
+      "The monogram 'RHL 1631' at the lower left.",
+      "Her face, which is turned away from the light he gave the book."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-3066",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3066--c40e58abcb8b5d2d29343e130836d538",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3066--c40e58abcb8b5d2d29343e130836d538",
+      "https://id.rijksmuseum.nl/200107947"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "An old woman sits with a large book open on her lap, reading. She is probably Rembrandt's mother, Neeltgen Willemsdr van Zuydtbroeck, and she is probably standing in for the prophetess Anna. Both of those are 'probably', and the picture is better for it.",
+    "title": {
+      "en": "Old Woman Reading, Probably the Prophetess Anna",
+      "nl": "Oude lezende vrouw, waarschijnlijk de profetes Hanna"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107947"
+  },
+  {
+    "artist": "Master of the St Elizabeth Panels",
+    "attribution": "Master of the St Elizabeth Panels",
+    "closer": "It is a map as much as a painting. Read the flooded landscape village by village and see how much of it is water.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt"
+    },
+    "date": "c. 1490 - c. 1495",
+    "dateEarliest": 1490,
+    "dateLatest": 1495,
+    "detail": [
+      "The survivors commissioned an altarpiece for the Grote Kerk in Dordrecht to remember what had happened, and this is its outer left wing; scenes from the life of Saint Elizabeth of Hungary are painted on the other side. Disaster reporting and devotional painting were the same object.",
+      "Nobody knows who painted it. The artist is called the Master of the St Elizabeth Panels after this commission, and is dated by it to about 1490 to 1495 — some seventy years after the flood itself, which is to say within living memory of nobody."
+    ],
+    "dimensions": {
+      "display": "support: height 127.3 cm x width 109.5 cm x height 125.4 cm x width 108.6 cm",
+      "height_cm": 127.3,
+      "width_cm": 109.5
+    },
+    "displayTitle": "The Saint Elizabeth's Day Flood",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-0.4",
+      "floor": 0,
+      "name": {
+        "en": "Emperor, nobility, bourgeoisie",
+        "nl": "Keizer, adel, burgerij"
+      },
+      "position": [
+        186.0,
+        54.4
+      ],
+      "room": "0.4"
+    },
+    "image": {
+      "aspectRatio": "0.872",
+      "pixels": [
+        5313,
+        6093
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/eoWJb",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Count the church towers standing in the water. Each one was a village.",
+    "look": [
+      "The break in the dike at the right, where the water is coming through.",
+      "Dordrecht at the left, dry, with the Vuilpoort gate.",
+      "The rescues in the foreground: goods being loaded from a boat onto a cart."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-3147-A",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3147-A--7f19663091ec7283decd600aaf9bbbf1",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3147-A--7f19663091ec7283decd600aaf9bbbf1",
+      "https://id.rijksmuseum.nl/200109490"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "middle",
+      "landscape"
+    ],
+    "timeline": "On the night of 18–19 November 1421 the sea came through the dikes. Around Dordrecht 23 villages went under and some 2,000 people died. This panel shows the breach at the right and the town, undamaged, at the left, with the drowned villages named across the water.",
+    "title": {
+      "en": "The Saint Elizabeth’s Day Flood",
+      "nl": "De Sint-Elisabethsvloed"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109490"
+  },
+  {
+    "artist": "Vincent van Gogh",
+    "artistUri": "https://id.rijksmuseum.nl/2102256",
+    "attribution": "Vincent van Gogh",
+    "closer": "The background is not a colour but hundreds of separate strokes. Step back three paces and they mix in your eye instead of on the palette.",
+    "credit": {
+      "en": "Gift of F.W.M., Baroness Bonger-van der Borch van Verwolde, Almen",
+      "nl": "Schenking van F.W.M. barones Bonger-van der Borch van Verwolde, Almen"
+    },
+    "date": "1887",
+    "dateEarliest": 1887,
+    "dateLatest": 1887,
+    "detail": [
+      "It is painted on cardboard rather than canvas — cheap, absorbent, and unforgiving of second thoughts. He was two years out from the brown peasant pictures of Nuenen.",
+      "Paris is where the palette changed, and a small board like this is where the change is easiest to watch happening. Nothing is blended. Colours are set beside each other and left to do their work at viewing distance."
+    ],
+    "dimensions": {
+      "display": "depth 8 cm",
+      "height_cm": 42.0,
+      "width_cm": 34.0
+    },
+    "displayTitle": "Self-portrait",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.18",
+      "floor": 1,
+      "name": {
+        "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
+        "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
+      },
+      "position": [
+        159.4,
+        82.0
+      ],
+      "room": "1.18"
+    },
+    "image": {
+      "aspectRatio": "0.807",
+      "pixels": [
+        4487,
+        5558
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/vjYfT",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "He painted this looking in a mirror. Which hand really held the brush?",
+    "look": [
+      "The background: dozens of separate strokes, no single colour anywhere in it.",
+      "The beard, built from short parallel dashes following the direction of the hair.",
+      "The bare cardboard left showing through, doing the work of a mid-tone."
+    ],
+    "medium": {
+      "nl": "olieverf op karton"
+    },
+    "objectNumber": "SK-A-3262",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3262--72f97ac66c33f86b161cd51d62f7d365",
+    "priority": 1,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3262--72f97ac66c33f86b161cd51d62f7d365",
+      "https://id.rijksmuseum.nl/200109794",
+      "https://en.wikipedia.org/wiki/Portraits_of_Vincent_van_Gogh"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "vangogh",
+      "19c",
+      "hits",
+      "portrait"
+    ],
+    "timeline": "Van Gogh moved to Paris in 1886 after his brother Theo wrote to him about the new, colourful French painting. He tried it out on himself, in one self-portrait after another, mostly because it saved paying a model. Here he is a fashionably dressed Parisian, built out of rhythmic strokes in striking colour.",
+    "title": {
+      "en": "Self-portrait",
+      "nl": "Zelfportret"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109794"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "attribution": "Rembrandt van Rijn (mentioned on object)",
+    "closer": "The panel is small, 58 by 46 centimetres. Nearly all of it is dark, and the light is spent on an old man's forehead and the gold at his elbow.",
+    "credit": {
+      "en": "Purchased with the support of private collectors, the Vereniging Rembrandt and the Stichting tot Bevordering van de Belangen van het Rijksmuseum",
+      "nl": "Aankoop met steun van particulieren, de Vereniging Rembrandt en de Stichting tot Bevordering van de Belangen van het Rijksmuseum"
+    },
+    "date": "1630",
+    "dateEarliest": 1630,
+    "dateLatest": 1630,
+    "detail": [
+      "The subject is not the catastrophe but the reaction to it. The city is painted small and far off; the figure is close, still, and doing nothing at all. Rembrandt would spend the rest of his life on that decision — the moment after the event rather than the event.",
+      "It is one of the very few paintings from the Leiden years that is regularly called a masterpiece, and it hangs here in the room devoted to the young Rembrandt, before Amsterdam, before the commissions, before the Night Watch."
+    ],
+    "dimensions": {
+      "display": "height 58 cm x width 46 cm",
+      "height_cm": 58.0,
+      "width_cm": 46.0
+    },
+    "displayTitle": "Jeremiah Lamenting the Destruction of Jerusalem",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.794",
+      "pixels": [
+        3869,
+        4874
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/zQBxS",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The head on the hand, and the eyes, which are not looking at the fire.",
+      "The gold vessels and the books on the stone, saved from the temple.",
+      "The burning city at the lower left, small enough to miss."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-3276",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3276--8e1adedeb8e339890121dc4228dce95d",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3276--8e1adedeb8e339890121dc4228dce95d",
+      "https://id.rijksmuseum.nl/200107946",
+      "https://en.wikipedia.org/wiki/Jeremiah_Lamenting_the_Destruction_of_Jerusalem"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "rembrandt",
+      "golden"
+    ],
+    "timeline": "Rembrandt was twenty-four and still in Leiden. The prophet sits on a rocky slope with his head propped on his left hand while, down at the left, Jerusalem burns and soldiers move through it. Beside him on the stone lie a gold dish and jug and some books: what he managed to carry out of the temple.",
+    "title": {
+      "en": "Jeremiah Lamenting the Destruction of Jerusalem",
+      "nl": "Jeremia treurend over de verwoesting van Jeruzalem"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107946"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "The lighting is the subject. The turban and the right side of his face are brilliantly lit; the left side is simply given away to shadow.",
+    "credit": {
+      "en": "Gift of Mr and Mrs Kessler-Hülsmann, Kapelle op den Bosch",
+      "nl": "Schenking van de heer en mevrouw Kessler-Hülsmann, Kapelle op den Bosch"
+    },
+    "date": "1635",
+    "dateEarliest": 1635,
+    "dateLatest": 1635,
+    "detail": [
+      "Tronies sold. They were popular, widely copied and imitated, and they let a painter show off costume, texture and light without a client telling him what the sitter should look like. Nobody knows who sat for this one, if anybody did.",
+      "The turban is not documentary either. It is studio property standing in for a whole imagined East, of the kind Amsterdam traded with and did not otherwise look at closely."
+    ],
+    "dimensions": {
+      "display": "height 72 cm x width 54.5 cm",
+      "height_cm": 72.0,
+      "width_cm": 54.5
+    },
+    "displayTitle": "Man in Oriental Dress",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.753",
+      "pixels": [
+        4193,
+        5569
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/VzuFK",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The pearl hanging from the gold chain on the turban.",
+      "The hard division between the lit and shadowed halves of the face.",
+      "The signature and date at the middle right: 'Rembrandt f 1635'."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-3340",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3340--7aaadc1f26ec652044aa6e1150576fd6",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3340--7aaadc1f26ec652044aa6e1150576fd6",
+      "https://id.rijksmuseum.nl/200107930"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "Not a portrait. This is a tronie — a character head, painted to be a type rather than a person — and in the seventeenth century pictures like this were called Turkish tronies. The man wears a turban with a gold chain and a single large pearl.",
+    "title": {
+      "en": "Man in Oriental Dress",
+      "nl": "Man in oosterse kleding"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107930"
+  },
+  {
+    "artist": "George Hendrik Breitner",
+    "attribution": "George Hendrik Breitner (mentioned on object)",
+    "closer": "Notice where the edges cut. Figures are sliced off at the frame as if nobody had waited to be composed.",
+    "credit": {
+      "en": "Mr and Mrs Drucker-Fraser Bequest, Montreux",
+      "nl": "Legaat van de heer en mevrouw Drucker-Fraser, Montreux"
+    },
+    "date": "1896",
+    "dateEarliest": 1896,
+    "dateLatest": 1896,
+    "detail": [
+      "Breitner worked from his own photographs, and the picture shows it: the woman coming head-on, the arbitrary cropping, the moment caught rather than arranged. That is what a camera taught painting to do, and he was among the first Dutch painters to take the lesson.",
+      "She was not always a lady. Breitner first painted her as a maid, and changed her into an elegant woman after a bad review and a request from his dealer. The costume is a correction; the walk is the original."
+    ],
+    "dimensions": {
+      "display": "height 100 cm x width 152 cm",
+      "height_cm": 100.0,
+      "width_cm": 152.0
+    },
+    "displayTitle": "The Singel Bridge at the Paleisstraat in Amsterdam",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.18",
+      "floor": 1,
+      "name": {
+        "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
+        "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
+      },
+      "position": [
+        159.4,
+        82.0
+      ],
+      "room": "1.18"
+    },
+    "image": {
+      "aspectRatio": "1.518",
+      "pixels": [
+        5805,
+        3825
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/RXguV",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The woman's face under the veil, and the fact that she is looking at you.",
+      "The figures cut off by the edges of the canvas.",
+      "The wet stone of the bridge, and how little of the city he bothers to describe."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-3580",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3580--596ea47fa3632feadb1469236bc9838f",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3580--596ea47fa3632feadb1469236bc9838f",
+      "https://id.rijksmuseum.nl/200108317"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "19c",
+      "landscape"
+    ],
+    "timeline": "A wet winter afternoon on a bridge in Amsterdam, and a woman in a veil and a fur-trimmed coat walking straight at you out of the crowd. Breitner painted it in 1896, a metre by a metre and a half — the scale of a history painting, spent on people crossing a road.",
+    "title": {
+      "en": "The Singel Bridge at the Paleisstraat in Amsterdam",
+      "nl": "De Singelbrug bij de Paleisstraat in Amsterdam"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108317"
+  },
+  {
+    "artist": "George Hendrik Breitner",
+    "attribution": "George Hendrik Breitner (mentioned on object)",
+    "closer": "The white is barely white — pink, grey and pale blue, laid on wet into wet.",
+    "credit": {
+      "en": "Mr and Mrs Drucker-Fraser Bequest, Montreux",
+      "nl": "Legaat van de heer en mevrouw Drucker-Fraser, Montreux"
+    },
+    "date": "1894",
+    "dateEarliest": 1894,
+    "dateLatest": 1894,
+    "detail": [
+      "The canvas is smaller than it photographs, 59 by 57 centimetres, and almost all of it is spent on the fall of the cloth in grey studio light. The background is left barely resolved.",
+      "Breitner sketched this composition in a letter to his fellow painter Willem Witsen, which survives in the Witsen archive in The Hague. The painting reached the museum through the Drucker-Fraser bequest, part of a group of more than seventy paintings."
+    ],
+    "dimensions": {
+      "display": "height 59 cm x width 57 cm x depth 11 cm",
+      "height_cm": 59.0,
+      "width_cm": 57.0
+    },
+    "displayTitle": "Girl in a White Kimono",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.18",
+      "floor": 1,
+      "name": {
+        "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
+        "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
+      },
+      "position": [
+        159.4,
+        82.0
+      ],
+      "room": "1.18"
+    },
+    "image": {
+      "aspectRatio": "0.971",
+      "pixels": [
+        4543,
+        4678
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/cQMKz",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The white cloth: pink, grey and pale blue worked wet into wet.",
+      "Her expression, which Breitner kept exactly as it came.",
+      "How little attention the background gets by comparison."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-3584",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3584--40fc3390d77e969fabd1189b1770fd5a",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-3584--40fc3390d77e969fabd1189b1770fd5a",
+      "https://id.rijksmuseum.nl/200108304",
+      "https://en.wikipedia.org/wiki/Girl_in_a_White_Kimono"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "19c",
+      "portrait"
+    ],
+    "timeline": "A girl in a kimono, lying back on a bench: probably Geesje Kwak, who was sixteen. Breitner photographed and painted her repeatedly in red and white kimonos, out of the enthusiasm for Japanese prints that ran through European painting of the 1890s.",
+    "title": {
+      "en": "Girl in a White Kimono",
+      "nl": "Meisje in witte kimono"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108304"
+  },
+  {
+    "artist": "Jan van Scorel",
+    "artistUri": "https://id.rijksmuseum.nl/2101398",
+    "attribution": "Jan van Scorel",
+    "closer": "Her bodice is embroidered with Hebrew lettering, and her shawl carries a pattern of Haarlem damask — the local cloth trade, worked into a biblical scene.",
+    "date": "c. 1530",
+    "dateEarliest": 1530,
+    "dateLatest": 1530,
+    "detail": [
+      "The ointment jar is how you know who she is. Without it this would read as the portrait of a rich woman sitting out of doors, which is very close to what Van Scorel has painted.",
+      "The panel has been confiscated twice. It hung in the Commandery of St John in Haarlem until 1572, when it was taken for the city after the iconoclastic revolt, and it was taken again in 1804, this time by the Dutch state, catalogued then as the work of an unknown hand. It has been shown as a highlight of the national collection ever since."
+    ],
+    "dimensions": {
+      "display": "support: height 66.3 cm x width 76 cm",
+      "height_cm": 86.5,
+      "width_cm": 96.0
+    },
+    "displayTitle": "Mary Magdalene",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-0.6",
+      "floor": 0,
+      "name": {
+        "en": "Renaissance in the Netherlands",
+        "nl": "Renaissance in de Nederlanden"
+      },
+      "position": [
+        149.7,
+        22.9
+      ],
+      "room": "0.6"
+    },
+    "image": {
+      "aspectRatio": "1.154",
+      "pixels": [
+        5186,
+        4495
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/VGOCe",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The ointment jar, the one attribute that names her.",
+      "The Hebrew lettering on her bodice.",
+      "The landscape behind her: Italy and the Holy Land, remembered."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-372",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-372--9f57e2dc4c3c546e1ddef2246281e0dd",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-372--9f57e2dc4c3c546e1ddef2246281e0dd",
+      "https://id.rijksmuseum.nl/200107985",
+      "https://en.wikipedia.org/wiki/Mary_Magdalene_(Scorel)"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "middle",
+      "portrait"
+    ],
+    "timeline": "A saint painted as a wealthy woman. She sits under a tree with her jar of ointment in her lap, in a landscape of mountains and jagged rock that exists nowhere in the Netherlands. Everything else about her — the sleeves, the jewellery, the composure — belongs to Haarlem around 1530, and to money.",
+    "title": {
+      "en": "Mary Magdalene",
+      "nl": "Maria Magdalena"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107985"
+  },
+  {
+    "artist": "Jan Asselijn",
+    "artistUri": "https://id.rijksmuseum.nl/2101556",
+    "attribution": "Jan Asselijn",
+    "closer": "The feathers nearest you are laid on thickly enough to cast their own shadow. The dog, by contrast, is barely there.",
+    "date": "c. 1650",
+    "dateEarliest": 1650,
+    "dateLatest": 1650,
+    "detail": [
+      "Someone later decided the swan was Johan de Witt, the Grand Pensionary, defending Holland against its enemies, and wrote the reading onto the painting: ‘de Raad-Pensionaris’ under the swan, ‘Holland’ on the egg, ‘de viand van de staat’ above the dog. Asselijn did not put them there — he died in 1652, and the inscriptions are now thought to date from the 1750s, from a pamphlet war. His own mark is the monogram ‘JA’ at the lower right.",
+      "It was under that political meaning that the picture became the first purchase of the Nationale Konst-Gallery, the forerunner of this museum, in 1800, for a hundred guilders. The collection you are standing in began with a hissing bird."
+    ],
+    "dimensions": {
+      "display": "height 144 cm x width 171 cm",
+      "height_cm": 144.0,
+      "width_cm": 171.0
+    },
+    "displayTitle": "The Threatened Swan",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.5",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.5"
+    },
+    "image": {
+      "aspectRatio": "1.202",
+      "pixels": [
+        5892,
+        4903
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/hZepb",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "The swan is much bigger than the dog. Who do you think wins?",
+    "look": [
+      "The three inscriptions, which turn a swan into a statesman.",
+      "The near feathers, thick enough to throw shadows onto the ones behind.",
+      "The dog, deliberately vague — he is a threat, not a subject."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-4",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4--22040f90565e730131983a44a85b989f",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4--22040f90565e730131983a44a85b989f",
+      "https://id.rijksmuseum.nl/200108146",
+      "https://en.wikipedia.org/wiki/The_Threatened_Swan"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "golden",
+      "kidsfav"
+    ],
+    "timeline": "A swan defends her nest against a dog, wings out, hissing, at close to life size — the canvas is 144 by 171 centimetres. Asselijn gave an animal picture the scale and front-on force of a history painting, and it works on anyone who walks past it without reading a word.",
+    "title": {
+      "en": "The Threatened Swan",
+      "nl": "De bedreigde zwaan"
+    },
+    "uri": "https://id.rijksmuseum.nl/200108146"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "The clothes give it away. Nobody in Amsterdam dressed like this in the 1630s — the costume is borrowed from earlier centuries.",
+    "credit": {
+      "en": "De Bruijn-van der Leeuw Bequest, Muri, Switzerland",
+      "nl": "Legaat van de heer en mevrouw De Bruijn-van der Leeuw, Muri, Zwitserland"
+    },
+    "date": "1633",
+    "dateEarliest": 1633,
+    "dateLatest": 1633,
+    "detail": [
+      "The face has the domed forehead, slightly protruding eyes and pronounced chin that recur in Rembrandt's goddesses and heroines of the same years. That is an argument for a type rather than a likeness, and it is why the picture was renamed.",
+      "What is not in doubt is the jewellery. A thin veil over the hair, pearl earrings, a rope of pearls at the throat, all painted at a size where you can see how each one is made of two or three strokes."
+    ],
+    "dimensions": {
+      "display": "height 65 cm x width 48 cm",
+      "height_cm": 65.0,
+      "width_cm": 48.0
+    },
+    "displayTitle": "Young Woman in Fantasy Costume",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.813",
+      "pixels": [
+        4770,
+        5867
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/ryBbQ",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The veil, and how little paint it takes.",
+      "The pearls at the ear and the throat.",
+      "The costume, which belongs to no decade she lived in."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-4057",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4057--74e5d98ac8bb3d68d3a00d6eeb2b22ff",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4057--74e5d98ac8bb3d68d3a00d6eeb2b22ff",
+      "https://id.rijksmuseum.nl/200107944"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "She was long called Saskia van Uylenburgh, Rembrandt's wife, and the museum's own record still says the sitter may be her. The title has changed because this is not strictly a portrait: it is a tronie, a fantasy head, painted in 1633.",
+    "title": {
+      "en": "Young Woman in Fantasy Costume",
+      "nl": "Jonge vrouw in gefantaseerde kleding"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107944"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "His hands. The whole accusation and the whole apology are in a pair of folded hands and a face that cannot see the animal it is arguing about.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt, the Rijksmuseum-Stichting, the Prins Bernhard Fonds and an additional government funding",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt, de Rijksmuseum-Stichting, het Prins Bernhard Fonds en een extra Rijksbijdrage"
+    },
+    "date": "1626",
+    "dateEarliest": 1626,
+    "dateLatest": 1626,
+    "detail": [
+      "Rembrandt fills the room with the evidence of their poverty: a string of onions and a birdcage by the window, shelves of household things along the back wall, a basket in a niche, a spool of yarn left on a chair, a stick on the floor beside him, a small dog at the fire. Anna stands holding the goat and says nothing.",
+      "He was barely twenty when he painted it, and the picture is already about the wrong conclusion drawn in a moment. In the Book of Tobit the couple's fortunes are restored, but that is not the part he chose."
+    ],
+    "dimensions": {
+      "display": "height 39.5 cm x width 30 cm",
+      "height_cm": 39.5,
+      "width_cm": 30.0
+    },
+    "displayTitle": "Tobit and Anna with the Kid",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.749",
+      "pixels": [
+        6166,
+        8229
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/myXdn",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "He thinks she stole the goat. She did not. How can you tell she is upset?",
+    "look": [
+      "Tobit's folded hands, and the direction his blind face is turned.",
+      "The onions and the birdcage at the window.",
+      "Anna's expression as she is accused."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-4717",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4717--04e00112e65cde2ed5705578f4a21f15",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4717--04e00112e65cde2ed5705578f4a21f15",
+      "https://id.rijksmuseum.nl/200107945",
+      "https://en.wikipedia.org/wiki/Tobit_and_Anna_with_the_Kid"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "rembrandt",
+      "golden"
+    ],
+    "timeline": "Signed and dated 1626, from Rembrandt's Leiden years, and the size of a sheet of paper. Tobit has gone blind; his wife Anna keeps them alive by sewing for the neighbours. She has come home with a goat she was paid with, he hears it bleating and accuses her of stealing it, and he is praying to be allowed to die.",
+    "title": {
+      "en": "Tobit and Anna with the Kid",
+      "nl": "Tobit en Anna met het bokje"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107945"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "The ruff. It looks austere until you know that a millstone collar like this took up to fifteen metres of cloth.",
+    "credit": {
+      "en": "Purchased with the support of the Stichting Jubileumfonds Rijksmuseum, the State of the Netherlands,  the Vereniging Rembrandt, the Rijksmuseum-Stichting, the Grote Loterij Nederland, the Stichting Klaver Vier, the Stichting Teleslag, the business community and private collectors",
+      "nl": "Aankoop met steun van de Stichting Jubileumfonds Rijksmuseum, de Staat der Nederlanden, de Vereniging Rembrandt, de Rijksmuseum-Stichting, de Grote Loterij Nederland, de Stichting Klaver Vier, de Stichting Teleslag, het bedrijfsleven en particulieren"
+    },
+    "date": "1634",
+    "dateEarliest": 1634,
+    "dateLatest": 1634,
+    "detail": [
+      "That is the trick of the picture, and probably of the sitter. Everything reads as restraint — black cloth, white linen, no jewellery worth mentioning — and everything is expensive. Sober dress was how a certain kind of Dutch money preferred to be seen.",
+      "The two portraits were painted as a pair and hung as a pair, and they have been apart for long enough that the museum's record has to explain the absence. Buying this one back took a consortium: the state, the Vereniging Rembrandt, four foundations, a lottery, businesses and private donors."
+    ],
+    "dimensions": {
+      "display": "height 68.6 cm x width 53.4 cm",
+      "height_cm": 68.6,
+      "width_cm": 53.4
+    },
+    "displayTitle": "Portrait of Haesje Jacobsdr van Cleyburg",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.765",
+      "pixels": [
+        7166,
+        9366
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/pNusU",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The ruff, and the volume of linen folded into it.",
+      "Her hands, and how little of them Rembrandt shows.",
+      "The signature at the right, worn to 'Rembran… f. 1634'."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-4833",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4833--98719e83615f7d4f74a2a866ecc3749f",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4833--98719e83615f7d4f74a2a866ecc3749f",
+      "https://id.rijksmuseum.nl/200107936"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "In 1634 Rembrandt travelled to Rotterdam to paint a brewer and his wife: Dirck Pesser and Haesje van Cleyburg, of the city's Remonstrant elite. She is the one who stayed. Her husband's portrait is in Los Angeles.",
+    "title": {
+      "en": "Portrait of Haesje Jacobsdr van Cleyburg",
+      "nl": "Portret van Haesje Jacobsdr van Cleyburg"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107936"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "The gaze. Everything else in the picture — the black, the fur, the book — is arranged so that you meet it.",
+    "credit": {
+      "en": "Purchased with the support of the Vereniging Rembrandt, with additional funding from the Prins Bernhard Fonds, the VSBfonds, the Rijksmuseum-Stichting, the State of the Netherlands and private collectors",
+      "nl": "Aankoop met steun van de Vereniging Rembrandt, mede dankzij het Prins Bernhard Fonds, het VSBfonds, de Rijksmuseum-Stichting, De Staat der Nederlanden en particulieren"
+    },
+    "date": "1633",
+    "dateEarliest": 1633,
+    "dateLatest": 1633,
+    "detail": [
+      "It was not the church that ordered this. Abraham Anthonisz Recht, an Amsterdam merchant and an admirer, commissioned the portrait and hung it in his own house — a private statement of loyalty to a man on the wrong side of an argument the state had settled.",
+      "The open book leaning against the wall marks him as a man of the Word. Nobody has identified the text. The museum bought the painting in December 1992 for £4,180,000, with the Vereniging Rembrandt, three funds, the Dutch state and private collectors."
+    ],
+    "dimensions": {
+      "display": "height 130 cm x width 103 cm x thickness 10 cm x thickness 3 cm",
+      "height_cm": 130.0,
+      "width_cm": 103.0
+    },
+    "displayTitle": "Johannes Wtenbogaert",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.801",
+      "pixels": [
+        4978,
+        6216
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/vWfAy",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The face, and the age written beside it.",
+      "The gloves held in the right hand — a standing convention for a man of standing.",
+      "The open book and the broad-brimmed hat set down in front of it."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-4885",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4885--648ec94734a4e68faf568ace93add229",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4885--648ec94734a4e68faf568ace93add229",
+      "https://id.rijksmuseum.nl/200138946",
+      "https://en.wikipedia.org/wiki/Portrait_of_Johannes_Wtenbogaert"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "A preacher of seventy-six, standing life-size, gloves in one hand and the other on his chest, looking straight at you. Johannes Wtenbogaert led the Remonstrants, the losing side of the religious conflict that split the young Dutch Republic. Rembrandt painted him in 1633 and wrote his age on the canvas: 'Aet:.76'.",
+    "title": {
+      "en": "Johannes Wtenbogaert",
+      "nl": "Johannes Wtenbogaert"
+    },
+    "uri": "https://id.rijksmuseum.nl/200138946"
+  },
+  {
+    "artist": "Isaac Israels",
+    "attribution": "Isaac Israels (signed by artist)",
+    "closer": "The two ribbons on his chest. The blue one is the Aceh Medal; the green and orange is the Cross for Important Military Service.",
+    "date": "1882",
+    "dateEarliest": 1882,
+    "dateLatest": 1882,
+    "detail": [
+      "He served twelve years and fought in the Aceh War in Sumatra, one of the longest and bloodiest campaigns of the Dutch colonial era. Isaac Israels painted him in 1882, in the Netherlands, while he was on sick leave and shortly before he went back to Africa.",
+      "Almost everything about him reaches us through Dutch paperwork: a European name given at a recruiting post, medals awarded by the army he was recruited into, a rank and a campaign. The portrait is here because the museum now shows that history rather than storing it."
+    ],
+    "dimensions": {
+      "display": "height 37 cm x width 23 cm",
+      "height_cm": 37.0,
+      "width_cm": 23.0
+    },
+    "displayTitle": "Portrait of a Wounded KNIL Soldier",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.17",
+      "floor": 1,
+      "name": {
+        "en": "The Netherlands overseas",
+        "nl": "Nederland overzee"
+      },
+      "position": [
+        186.0,
+        87.3
+      ],
+      "room": "1.17"
+    },
+    "image": {
+      "aspectRatio": "0.626",
+      "pixels": [
+        4860,
+        7765
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/UqUud",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The medals, and what each of them was awarded for.",
+      "The scale of the panel — this is a picture you have to walk up to.",
+      "His expression, which the painter did not arrange."
+    ],
+    "medium": {
+      "nl": "olieverf op hardboard"
+    },
+    "objectNumber": "SK-A-4954",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4954--691fdf5662eb62defab3542a3c4d3648",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4954--691fdf5662eb62defab3542a3c4d3648",
+      "https://id.rijksmuseum.nl/200412933"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "19c",
+      "portrait"
+    ],
+    "timeline": "A small portrait, 37 by 23 centimetres, of a soldier in the Royal Netherlands East Indies Army. He was recruited in Ghana at Elmina, a fortress the Dutch had used for the slave trade, and given the name Kees Pop. His own name is not known. His parents were called Kwamena and Ekoerva.",
+    "title": {
+      "en": "Portrait of a Wounded KNIL soldier",
+      "nl": "Portret van een gewonde KNIL-militair"
+    },
+    "uri": "https://id.rijksmuseum.nl/200412933"
+  },
+  {
+    "artist": "Jan Havicksz. Steen",
+    "artistUri": "https://id.rijksmuseum.nl/2103131",
+    "attribution": "Jan Havicksz. Steen",
+    "closer": "Follow the three pairs of eyes. The daughter looks out at you, the beggar looks at the father, and the father looks at nothing in particular.",
+    "credit": {
+      "en": "Purchased with the support of the Mondriaan Fonds, the Nationaal Aankoopfonds of the Ministerie van OCenW, the BankGiro Lottery, the Stichting Nationaal Fonds Kunstbezit, the VSBfonds, the Vereniging Rembrandt, with additional funding from the Prins Bernhard Cultuurfonds and the Rijksmuseum Fonds",
+      "nl": "Aankoop met steun van het Mondriaan Fonds samen met het Nationaal Aankoopfonds van het Ministerie van OCW, de BankGiro Loterij, de Stichting Nationaal Fonds Kunstbezit, het VSBfonds, de Vereniging Rembrandt, mede dankzij het Prins Bernhard Cultuurfonds en het Rijksmuseum Fonds"
+    },
+    "date": "1655",
+    "dateEarliest": 1655,
+    "dateLatest": 1655,
+    "detail": [
+      "Jan Steen dated it 1655 and set it precisely: the tower of the Oude Kerk stands behind, and the bridge over the Oude Delft carries the arms of the town. For most of its life the sitters were unknown and the picture went under the name 'The Burgomaster of Delft and his Daughter' — a title it has kept in speech although the man was never the burgomaster. Research on the cityscape and the sitters in 2006 identified them as Adolf Croeser and his daughter Catharina.",
+      "It hung at Penrhyn Castle in Wales for over a century. The Rijksmuseum bought it in July 2004 for 11.9 million euros, the most it has ever paid for a painting, after the British government held back the export licence to give British institutions a chance to match the offer."
+    ],
+    "dimensions": {
+      "display": "height 82.5 cm x width 68.5 cm x depth cm",
+      "height_cm": 82.5,
+      "width_cm": 68.5
+    },
+    "displayTitle": "The Burgomaster of Delft and his Daughter",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.4",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.4"
+    },
+    "image": {
+      "aspectRatio": "0.839",
+      "pixels": [
+        4732,
+        5639
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/QQWEh",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The letter in his left hand, and how completely it occupies him.",
+      "The old woman and the boy at the right, and the distance Steen puts between them.",
+      "The Oude Kerk tower, which fixes the scene in a real street."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-4981",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4981--9d0b6b75646aaaa22fc25e7eacdb65b5",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4981--9d0b6b75646aaaa22fc25e7eacdb65b5",
+      "https://id.rijksmuseum.nl/20020408",
+      "https://en.wikipedia.org/wiki/A_Mayor_of_Delft_and_his_Daughter"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "golden",
+      "portrait"
+    ],
+    "timeline": "A man in black sits on the steps of his house on the Oude Delft with a letter in his hand. His richly dressed daughter is coming down the steps towards you. From the right, an old woman in worn clothes, a small boy beside her, is asking him for something. He is not looking at her.",
+    "title": {
+      "en": "Adolf and Catharina Croeser, Known as ‘The Burgomaster of Delft and his Daughter’",
+      "nl": "Adolf en Catharina Croeser, bekend als ‘De burgemeester van Delft en zijn dochter’"
+    },
+    "uri": "https://id.rijksmuseum.nl/20020408"
+  },
+  {
+    "artist": "Piet Mondriaan",
+    "attribution": "Piet Mondriaan (signed by artist)",
+    "closer": "Compare the two paintings in the room. Same country, same kind of mill — one of them is describing a place, the other is arranging one.",
+    "credit": {
+      "en": "Purchased with the support of the BankGiro Lottery and the Rijksmuseum Fonds",
+      "nl": "Aankoop met steun van de BankGiro Loterij en het Rijksmuseum Fonds"
+    },
+    "date": "c. 1903",
+    "dateEarliest": 1903,
+    "dateLatest": 1903,
+    "detail": [
+      "What Mondrian changed were the lines and the colours, deliberately, to get away from description. The result is flatter, more decorative and less real than its model, and that was the intention.",
+      "Seen from the far end of his career the picture reads as a first move: the landscape is still recognisable, but it is already being treated as a set of shapes that can be tuned."
+    ],
+    "dimensions": {
+      "display": "height 63 cm x width 75.4 cm",
+      "height_cm": 63.0,
+      "width_cm": 75.4
+    },
+    "displayTitle": "Oostzijdse Mill by Moonlight",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-3.1",
+      "floor": 3,
+      "name": {
+        "en": "Men",
+        "nl": "Mens"
+      },
+      "room": "3.1"
+    },
+    "image": {
+      "aspectRatio": "1.22",
+      "pixels": [
+        5259,
+        4310
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/xrcfh",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The mill's silhouette, simplified almost to a flat shape.",
+      "The reflection in the Gein, handled as pattern rather than water.",
+      "Gabriël's painting elsewhere in this gallery, for the comparison Mondrian invited."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-4987",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4987--d8ebf6668c0af4286d5bdb3dcf1cd043",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-4987--d8ebf6668c0af4286d5bdb3dcf1cd043",
+      "https://id.rijksmuseum.nl/200471926"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "20c",
+      "landscape"
+    ],
+    "timeline": "Mondrian before the grid, and openly in debt to the Hague School. A few years earlier he had sat in this museum copying Paul Gabriël's *In the Month of July*, which hangs in this same gallery. The compositions are close relatives; the effect is nothing alike.",
+    "title": {
+      "en": "Oostzijdse Mill along the River Gein by Moonlight",
+      "nl": "Oostzijdse molen aan het Gein bij maanlicht"
+    },
+    "uri": "https://id.rijksmuseum.nl/200471926"
+  },
+  {
+    "artist": "Jan Jansz Mostaert",
+    "artistUri": "https://id.rijksmuseum.nl/2101107",
+    "attribution": "Jan Jansz Mostaert",
+    "closer": "Look at the weapons on each side. The picture states the outcome in the equipment before it states anything else.",
+    "credit": {
+      "en": "Purchased with the support of the BankGiro Lottery, the Vereniging Rembrandt and the Stichting Nationaal Fonds Kunstbezit, the Mondriaan Fonds and the Nationaal Aankoopfonds van het Ministerie van OCenW, VSBfonds, Fonds 21 and the Goudstikker Family (in memory of Jacques Goudstikker)",
+      "nl": "Aankoop met steun van de BankGiro Loterij, de Vereniging Rembrandt en de Stichting Nationaal Fonds Kunstbezit, het Mondriaan Fonds en het Nationaal Aankoopfonds van het Ministerie van OCenW, VSBfonds, Fonds 21 en de familie Goudstikker (ter nagedachtenis aan Jacques Goudstikker)"
+    },
+    "date": "c. 1535",
+    "dateEarliest": 1535,
+    "dateLatest": 1535,
+    "detail": [
+      "The museum calls it the first painting to show Spanish soldiers subduing the people who lived there. Mostaert worked in Haarlem all his life and knew the subject only from report, so the setting is an ordinary European landscape with exotica added to it: a monkey, a porcupine, parrots.",
+      "It is his most famous painting and it took a coalition to buy it: the lottery, the Vereniging Rembrandt, three national funds, and the family of the dealer Jacques Goudstikker, in his memory."
+    ],
+    "dimensions": {
+      "display": "height 86.5 cm x width 152.5 cm",
+      "height_cm": 86.5,
+      "width_cm": 152.5
+    },
+    "displayTitle": "Landscape with an Episode from the Conquest of America",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-0.4",
+      "floor": 0,
+      "name": {
+        "en": "Emperor, nobility, bourgeoisie",
+        "nl": "Keizer, adel, burgerij"
+      },
+      "position": [
+        186.0,
+        54.4
+      ],
+      "room": "0.4"
+    },
+    "image": {
+      "aspectRatio": "1.814",
+      "pixels": [
+        7434,
+        4099
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/EnZbu",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The two kinds of weapon, and what that difference decides.",
+      "The rock, which organises the whole landscape.",
+      "The monkey, the porcupine and the parrots, added to make Europe look like America."
+    ],
+    "medium": {
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-A-5021",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5021--e5905da5447c6881b0b5b1551cbcd10c",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-5021--e5905da5447c6881b0b5b1551cbcd10c",
+      "https://id.rijksmuseum.nl/200552425",
+      "https://en.wikipedia.org/wiki/Jan_Mostaert"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "middle",
+      "landscape"
+    ],
+    "timeline": "A wide hilly landscape under a great rock, and a battle running through it. Indigenous people with bows, sticks and flails are defending themselves against Spanish troops with lances, halberds, firearms and cannon. Mostaert painted it around 1535, in Haarlem, without ever having crossed the Atlantic.",
+    "title": {
+      "en": "Landscape with an Episode from the Conquest of America",
+      "nl": "Landschap met een episode uit de verovering van Amerika"
+    },
+    "uri": "https://id.rijksmuseum.nl/200552425"
+  },
+  {
+    "artist": "Charley Toorop",
+    "attribution": "Charley Toorop (signed by artist)",
+    "closer": "The window behind her is dark, and an electric lamp is reflected in it. That lamp is the light falling on her face.",
+    "credit": {
+      "en": "Purchased with the support of Pon Holdings B.V.",
+      "nl": "Aankoop met steun van Pon Holdings B.V."
+    },
+    "date": "1933",
+    "dateEarliest": 1933,
+    "dateLatest": 1933,
+    "detail": [
+      "Three roses, each a different colour, are painted at the lower left. They are loose and alive next to a face built out of flat, deliberate planes, and the contrast is the picture's whole argument about what a portrait is for.",
+      "The frame is flat and undecorated, and she painted the inscription 'Bergen Zelfportret' onto the work. The museum bought it in 2021 with support from a private company — a recent addition to a collection whose Dutch holdings mostly stop three centuries earlier."
+    ],
+    "dimensions": {
+      "display": "height 40.3 cm x width 35.5 cm",
+      "height_cm": 40.3,
+      "width_cm": 35.5
+    },
+    "displayTitle": "Self-Portrait with Flowers",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-3.2",
+      "floor": 3,
+      "name": {
+        "en": "Machine",
+        "nl": "Machine"
+      },
+      "room": "3.2"
+    },
+    "image": {
+      "aspectRatio": "0.871",
+      "pixels": [
+        8481,
+        9741
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/PkZrK",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The lamp reflected in the black window.",
+      "The three roses, painted in a different manner from the face.",
+      "The edge of the collar, which is the only soft thing she allows herself."
+    ],
+    "medium": {
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-A-5087",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5087--39204ee420fc9a9fadc909ecb52a618d",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-A-5087--39204ee420fc9a9fadc909ecb52a618d",
+      "https://id.rijksmuseum.nl/200815187"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "20c",
+      "portrait"
+    ],
+    "timeline": "Charley Toorop painted herself in 1933 at Bergen in North Holland: a hard three-quarter turn, bobbed hair, red lipstick, and a light that gives her no help at all. She is looking straight out, and she has not made herself likeable.",
+    "title": {
+      "en": "Self-Portrait with Flowers",
+      "nl": "Zelfportret met bloemen"
+    },
+    "uri": "https://id.rijksmuseum.nl/200815187"
+  },
+  {
+    "artist": "Pieter de Hooch",
+    "artistUri": "https://id.rijksmuseum.nl/2102630",
+    "attribution": "Pieter de Hooch",
+    "closer": "The picture is built on one straight line: doorway, passage, front door, street. Stand where you can look right down it.",
+    "credit": {
+      "en": "On loan from the City of Amsterdam",
+      "nl": "Bruikleen van de gemeente Amsterdam"
+    },
+    "date": "1663",
+    "dateEarliest": 1663,
+    "dateLatest": 1663,
+    "detail": [
+      "The cupboard is the point. In a household of this class the linen press was the store of the family's most valuable movable goods, and the mistress of the house carried its key and handed out the sheets. Painting a woman at an open linen cupboard is painting a woman in charge of something.",
+      "Everything else is arranged around that transaction: the child at her game, the light from the street, the small sculpture on the doorframe. Nothing dramatic happens, and the whole composition is engineered so that you notice."
+    ],
+    "dimensions": {
+      "display": "height 70 cm x width 75.5 cm",
+      "height_cm": 70.0,
+      "width_cm": 75.5
+    },
+    "displayTitle": "Interior with Women beside a Linen Cupboard",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.3",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.3"
+    },
+    "image": {
+      "aspectRatio": "1.094",
+      "pixels": [
+        6250,
+        5713
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/NYvCK",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "The girl is playing a game called kolf. Can you find her stick?",
+    "look": [
+      "The line of sight from the tiles through the passage to the sunlit houses.",
+      "The key, the linen and the hands doing the work.",
+      "The child with her kolf club, kept to the edge of the picture."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-C-1191",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1191--50874e6f82c7190c896320bf39c7f4c9",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-1191--50874e6f82c7190c896320bf39c7f4c9",
+      "https://id.rijksmuseum.nl/2003051"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "golden",
+      "portrait"
+    ],
+    "timeline": "Two women are putting freshly pressed linen away in a cupboard. A girl plays kolf, a kind of hockey, on the tiles. Through the door, sunlight is full on the canal houses across the street. De Hooch signed and dated it 1663.",
+    "title": {
+      "en": "Interior with Women beside a Linen Cupboard",
+      "nl": "Binnenhuis met vrouwen bij een linnenkast"
+    },
+    "uri": "https://id.rijksmuseum.nl/2003051"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "attribution": "Rembrandt van Rijn (signed by artist)",
+    "closer": "Stand close. At this size the ruff is a few strokes and the face is barely more.",
+    "credit": {
+      "en": "On loan from the Henry M. Holterman Family",
+      "nl": "Bruikleen van de familie Henry M. Holterman"
+    },
+    "date": "1635",
+    "dateEarliest": 1635,
+    "dateLatest": 1635,
+    "detail": [
+      "These are family likenesses, not commissions, and the handling is correspondingly free and sketchy — quite possibly done as a personal favour rather than for a fee. Rembrandt worked here at the scale of a miniature but with the brush of a full-size portrait.",
+      "They come from the Leiden world he grew up in: a tradesman's family with money, painted by a painter who had already left for Amsterdam. The pair are on loan from the Holterman family and hang together, which is the only way to see them properly."
+    ],
+    "dimensions": {
+      "display": "height 20.8 cm x width 16.7 cm",
+      "height_cm": 20.8,
+      "width_cm": 16.7
+    },
+    "displayTitle": "Portrait of Jan Willemsz van der Pluym",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.836",
+      "pixels": [
+        6877,
+        8226
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/HQCLy",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The size, before anything else.",
+      "The ruff, made of about a dozen marks.",
+      "His wife's portrait next to it, painted the same year."
+    ],
+    "medium": {
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-C-1841",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1841--555942764a41765175fb9abcc50cb646",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-1841--555942764a41765175fb9abcc50cb646",
+      "https://id.rijksmuseum.nl/200320381"
+    ],
+    "stayMinutes": 3,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "Twenty-one centimetres tall. This and the portrait of his wife beside it are the smallest paintings Rembrandt ever made. Jan Willemsz van der Pluym was sixty-nine, a prosperous slater and plumber in Leiden who left fifteen houses to his four children.",
+    "title": {
+      "en": "Portrait of Jan Willemsz van der Pluym",
+      "nl": "Portret van Jan Willemsz van der Pluym"
+    },
+    "uri": "https://id.rijksmuseum.nl/200320381"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "attribution": "Rembrandt van Rijn (signed by artist)",
+    "closer": "Seventy years old, and he tells you so on the picture. Then look at how much of her face he actually paints.",
+    "credit": {
+      "en": "On loan from the Henry M. Holterman Family",
+      "nl": "Bruikleen van de familie Henry M. Holterman"
+    },
+    "date": "1635",
+    "dateEarliest": 1635,
+    "dateLatest": 1635,
+    "detail": [
+      "Jaapgen Caerlsdr was the wife of Jan Willemsz van der Pluym, whose portrait hangs beside hers. The two were made as a pendant pair and have stayed together, which for seventeenth-century marriage portraits is closer to luck than to planning.",
+      "Painted the same year as the Man in Oriental Dress in this room, and by any measure of ambition the opposite of it: no costume, no theatre, no light effects. Just a face the painter knew."
+    ],
+    "dimensions": {
+      "display": "height 19.9 cm x width 16.7 cm",
+      "height_cm": 19.9,
+      "width_cm": 16.7
+    },
+    "displayTitle": "Portrait of Jaapgen Caerlsdr",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.86",
+      "pixels": [
+        6930,
+        8056
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/ORqmw",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The inscription giving her age as seventy.",
+      "The ruff, and how it is built out of grey rather than white.",
+      "Her husband's portrait beside her, the same size and the same year."
+    ],
+    "medium": {
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-C-1842",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1842--f6c471acab8551d09159561f1170df64",
+    "priority": 3,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-1842--f6c471acab8551d09159561f1170df64",
+      "https://id.rijksmuseum.nl/20012763"
+    ],
+    "stayMinutes": 3,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "The other half of the smallest pair Rembrandt ever painted: a woman in black with a pleated ruff, turned to the left, twenty centimetres of panel. He inscribed her age and his name and the year on it — 'Æ 70 / Rembrandt / f. 1635'.",
+    "title": {
+      "en": "Portrait of Jaapgen Caerlsdr",
+      "nl": "Portret van Jaapgen Caerlsdr"
+    },
+    "uri": "https://id.rijksmuseum.nl/20012763"
+  },
+  {
+    "artist": "Bartholomeus van der Helst",
+    "artistUri": "https://id.rijksmuseum.nl/2101893",
+    "attribution": "Bartholomeus van der Helst",
+    "closer": "The handshake at the centre is the subject. Everything else in the picture is arranged around two men agreeing that the war is over.",
+    "credit": {
+      "en": "On loan from the City of Amsterdam",
+      "nl": "Bruikleen van de gemeente Amsterdam"
+    },
+    "date": "1648",
+    "dateEarliest": 1648,
+    "dateLatest": 1648,
+    "detail": [
+      "Almost everyone here has a name — the museum lists two dozen of them, from the ensign Jacob Banningh sitting beside the big drum down to Willem the drummer — and most of the objects on the table have survived as well. That is unusual even among civic-guard portraits, and it is why this canvas is used as evidence about how such dinners actually looked.",
+      "Paper hangs on the drum with a poem by Jan Vos on it, spelling out the occasion for anyone who needed telling. Through the open windows you can see the front of the brewery 'het Lam' on the Singel. The painting is dated 1648, but historians think it was finished a year or more later; van der Helst seems to have dated his group portraits from the commission, not the completion."
+    ],
+    "dimensions": {
+      "display": "height 232 cm x width 547 cm",
+      "height_cm": 232.0,
+      "width_cm": 547.0
+    },
+    "displayTitle": "Banquet at the Crossbowmen's Guild",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "2.154",
+      "pixels": [
+        9504,
+        4413
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/stWFo",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The handshake, and the silver drinking horn beside it.",
+      "The poem pinned to the drum.",
+      "Out of the window: the brewery on the Singel, a real building in a real street."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-C-2",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-2--83051231f37623a4692404315a9887fd",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-2--83051231f37623a4692404315a9887fd",
+      "https://id.rijksmuseum.nl/200109366",
+      "https://en.wikipedia.org/wiki/Banquet_of_the_Amsterdam_Civic_Guard_in_Celebration_of_the_Peace_of_M%C3%BCnster"
+    ],
+    "stayMinutes": 6,
+    "tags": [
+      "golden",
+      "portrait"
+    ],
+    "timeline": "Five and a half metres of celebration dinner. On 18 June 1648 the Amsterdam crossbowmen sat down in their own hall to mark the Peace of Münster, which ended eighty years of war with Spain, and had themselves painted doing it. Captain Cornelis Jansz Witsen holds the guild's silver drinking horn; Lieutenant Johan Oetgens van Waveren is shaking his hand.",
+    "title": {
+      "en": "Banquet at the Crossbowmen’s Guild in Celebration of the Treaty of Münster",
+      "nl": "Schuttersmaaltijd ter viering van de Vrede van Munster"
+    },
+    "uri": "https://id.rijksmuseum.nl/200109366"
+  },
+  {
+    "artist": "Jacob Isaacksz van Ruisdael",
+    "artistUri": "https://id.rijksmuseum.nl/2106183",
+    "attribution": "Jacob Isaacksz van Ruisdael",
+    "closer": "Two thirds of the canvas is weather. Watch how much of the land is in shadow, and how little of the water the light actually reaches.",
+    "credit": {
+      "en": "On loan from the City of Amsterdam (A. van der Hoop Bequest)",
+      "nl": "Bruikleen van de gemeente Amsterdam (legaat A. van der Hoop)"
+    },
+    "date": "c. 1668 - c. 1670",
+    "dateEarliest": 1668,
+    "dateLatest": 1670,
+    "detail": [
+      "Seymour Slive, who catalogued Ruisdael's paintings, noted that the detail holds up to specialist reading: the set of the sails and the movement of the water are both correct. The canvas is signed 'Ruisdael' at the lower right but carries no date — Ruisdael dated almost nothing after 1653 — so the museum gives it as about 1668 to 1670.",
+      "The mill is gone; its foundations can still be seen. Another mill a few hundred metres away is regularly mistaken for it, a confusion that goes back to a description published in 1911. The painting itself belongs to the City of Amsterdam, from the Van der Hoop bequest, and has been on loan to the Rijksmuseum since 1885."
+    ],
+    "dimensions": {
+      "display": "height 83 cm x width 101 cm",
+      "height_cm": 83.0,
+      "width_cm": 101.0
+    },
+    "displayTitle": "The Windmill at Wijk bij Duurstede",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.30.6",
+      "floor": 2,
+      "name": {
+        "en": "Gallery of Honour",
+        "nl": "Eregalerij"
+      },
+      "position": [
+        100.0,
+        49.0
+      ],
+      "room": "2.30.6"
+    },
+    "image": {
+      "aspectRatio": "1.18",
+      "pixels": [
+        7021,
+        5952
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/XWEFp",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The signature at the lower right, on the bank.",
+      "The women walking along the bank, who set the scale for the mill.",
+      "The bank of cloud, and where it lets the sun through."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-C-211",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-211--fb2b57919550092bf709472f81426eab",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-211--fb2b57919550092bf709472f81426eab",
+      "https://id.rijksmuseum.nl/200107959",
+      "https://en.wikipedia.org/wiki/Windmill_at_Wijk_bij_Duurstede"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "golden",
+      "landscape"
+    ],
+    "timeline": "The mill takes the whole picture. The Lek comes in from the left with a boat on it, the towers of Kasteel Duurstede and the Sint-Janskerk stand in the distance, and a working mill is painted taller than either of them.",
+    "title": {
+      "en": "The Windmill at Wijk bij Duurstede",
+      "nl": "De molen bij Wijk bij Duurstede"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107959"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "Follow the captain's outstretched hand. Its shadow falls across the lieutenant's gold coat, and that single detail fixes the two men in real space.",
+    "credit": {
+      "en": "On loan from the City of Amsterdam",
+      "nl": "Bruikleen van de gemeente Amsterdam"
+    },
+    "date": "1642",
+    "dateEarliest": 1642,
+    "dateLatest": 1642,
+    "detail": [
+      "The company belongs to District II of Amsterdam's civic guard, and the painting hung in their hall on the Kloveniersburgwal before moving to the town hall in 1715. It was cut down to fit that wall, losing figures from the left side and part of the arch behind. Rembrandt signed and dated it 1642.",
+      "What the militiamen bought was novelty, and it is still the reason the picture works. Group portraits of the period line their sitters up so each paid face is equally legible. Rembrandt subordinated all eighteen to a single moment of movement — a drum starting up, a musket going off, a dog barking — and let some of them fall into shadow to do it."
+    ],
+    "dimensions": {
+      "display": "height 379.5 cm x width 453.5 cm x weight 337 kg x weight 170 kg",
+      "height_cm": 379.5,
+      "width_cm": 453.5
+    },
+    "displayTitle": "The Night Watch",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.31",
+      "floor": 2,
+      "name": {
+        "en": "Night Watch Gallery",
+        "nl": "Nachtwachtzaal"
+      },
+      "position": [
+        100.0,
+        12.0
+      ],
+      "room": "2.31"
+    },
+    "image": {
+      "aspectRatio": "1.205",
+      "pixels": [
+        14645,
+        12158
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/PJEZO",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "kids": "Find the dog, the drum, and the girl with a chicken hanging from her belt.",
+    "look": [
+      "The captain's hand and the shadow it throws onto the lieutenant's coat.",
+      "The girl in gold behind the captain, with a chicken hanging from her belt — its claws are the militia's emblem.",
+      "The light: count the sources. There is no single sun in this picture."
+    ],
+    "medium": {
+      "en": "oil on canvas",
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-C-5",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-5--3137deb45cd7765f9a76084a16c99544",
+    "priority": 1,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-5--3137deb45cd7765f9a76084a16c99544",
+      "https://id.rijksmuseum.nl/200107928",
+      "https://en.wikipedia.org/wiki/The_Night_Watch"
+    ],
+    "stayMinutes": 9,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait",
+      "hits",
+      "kidsfav"
+    ],
+    "timeline": "Eighteen militiamen paid to appear in a group portrait and Rembrandt gave them a scene instead. Captain Frans Banninck Cocq, in black, is telling his lieutenant to march the company out; everyone else is still catching up with the order. It is not a night scene — the dark came from centuries of varnish, since removed.",
+    "title": {
+      "en": "The Night Watch Militia Company of District II under the Command of Captain Frans Banninck Cocq",
+      "nl": "De Nachtwacht"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107928"
+  },
+  {
+    "artist": "Rembrandt van Rijn",
+    "artistUri": "https://id.rijksmuseum.nl/2103429",
+    "attribution": "Rembrandt van Rijn",
+    "closer": "The fan in her left hand is Chinese and folds. In 1639 that was a rare and expensive thing to be holding.",
+    "credit": {
+      "en": "On loan from the Familie Van Weede Stichting",
+      "nl": "Bruikleen van de Familie Van Weede Stichting"
+    },
+    "date": "1639",
+    "dateEarliest": 1639,
+    "dateLatest": 1639,
+    "detail": [
+      "Rembrandt gives the jewellery everything he has: each pearl is a stroke of grey and a stroke of white, and from two metres away they hang and swing. The lace is done the same way, as pattern implied rather than drawn.",
+      "The identification is likely rather than proven, which is why the museum's title says 'probably'. What is certain is the money, and that a painter who could handle it this well was the one an Amsterdam family of that class would go to."
+    ],
+    "dimensions": {
+      "display": "height 107 cm x width 82 cm",
+      "height_cm": 107.0,
+      "width_cm": 82.0
+    },
+    "displayTitle": "Portrait of a Woman, Probably Maria Trip",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-2.8",
+      "floor": 2,
+      "name": {
+        "en": "The young Rembrandt / The peace treaty of Münster 1648",
+        "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
+      },
+      "room": "2.8"
+    },
+    "image": {
+      "aspectRatio": "0.765",
+      "pixels": [
+        7965,
+        10415
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/FeurF",
+      "widths": [
+        480,
+        960,
+        1600
+      ]
+    },
+    "look": [
+      "The pearls, first from across the room and then from close up.",
+      "The folding fan, held out at her hip.",
+      "The lace collar, and how few actual lines it is made of."
+    ],
+    "medium": {
+      "en": "oil on panel",
+      "nl": "olieverf op paneel"
+    },
+    "objectNumber": "SK-C-597",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-597--6f7272f48fb3fbb02ceecf7aa897f1a7",
+    "priority": 2,
+    "retrieved": "2026-08-09",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-597--6f7272f48fb3fbb02ceecf7aa897f1a7",
+      "https://id.rijksmuseum.nl/200107942",
+      "https://en.wikipedia.org/wiki/Portrait_of_Maria_Trip"
+    ],
+    "stayMinutes": 5,
+    "tags": [
+      "rembrandt",
+      "golden",
+      "portrait"
+    ],
+    "timeline": "She was about twenty, and her family sold arms. Maria Trip stands with one arm on a balustrade, wearing a collar of the finest lace, a brooch with earrings to match, and a fortune in pearls — at the ear, at the throat, on the wrists.",
+    "title": {
+      "en": "Portrait of a Woman, Probably Maria Trip (1619-1683)",
+      "nl": "Portret van een vrouw, waarschijnlijk Maria Trip"
+    },
+    "uri": "https://id.rijksmuseum.nl/200107942"
+  }
+]

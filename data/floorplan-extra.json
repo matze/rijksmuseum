@@ -1,0 +1,21 @@
+{
+  "_comment": [
+    "Positions the plan shows but does not label with a room number. The central",
+    "spine of each floor is captioned in words on the drawing — VOORHAL,",
+    "EREGALERIJ, NACHTWACHT — while the collection API files the works there under",
+    "room numbers. These coordinates were read off the rendered plan pages named in",
+    "each entry and converted into the same normalised frame that",
+    "tools/fetch_floorplan.py produces from the text layer, whose accuracy was",
+    "checked against those same pages.",
+    "Regenerate the pages with: just floorplan"
+  ],
+  "floors": {
+    "2": {
+      "rooms": {
+        "2.30": [100.0, 49.0],
+        "2.31": [100.0, 12.0]
+      },
+      "source": {"page": 9, "read": "hall captions EREGALERIJ and NACHTWACHT"}
+    }
+  }
+}
