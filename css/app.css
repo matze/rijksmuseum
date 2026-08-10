@@ -228,21 +228,14 @@ a:hover { color: var(--color-accent); }
 .stop-head .where { color: var(--color-accent-700); }
 .stop-head .stay { opacity: .75; }
 
-.plate-wrap { margin-top: 10px; position: relative; display: block; }
+.plate-wrap { margin-top: 17px; position: relative; display: block; }
 .plate-wrap img { width: 100%; height: auto; display: block; }
 
-.plate-caption {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  font-family: var(--font-heading);
-  font-size: 11.5px;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  background: var(--color-bg);
-  padding: 3px 7px;
-  border-radius: 2px;
-}
+/* The design system mats its plates. Here the painting already carries its own
+   frame, painted or gilt, and a second one drawn in CSS reads as a mistake. The
+   mat was also holding the plate off the text around it, so the space it took
+   moves out into the margins rather than disappearing with it. */
+.plate { border: 0; outline: 0; }
 
 .entry-stop h2 {
   font-family: var(--font-heading);
@@ -251,7 +244,7 @@ a:hover { color: var(--color-accent); }
   line-height: 1.12;
   letter-spacing: normal;
   text-wrap: balance;
-  margin: 14px 0 2px;
+  margin: 21px 0 2px;
 }
 
 .byline { font-size: 14.5px; font-style: italic; }
@@ -362,7 +355,7 @@ a:hover { color: var(--color-accent); }
   line-height: 1.08;
   letter-spacing: normal;
   text-wrap: balance;
-  margin: 18px 0 4px;
+  margin: 25px 0 4px;
 }
 
 .sheet-body p { text-align: justify; hyphens: auto; font-size: 16.5px; margin: 14px 0 0; }
