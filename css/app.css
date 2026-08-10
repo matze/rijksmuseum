@@ -201,6 +201,18 @@ a:hover { color: var(--color-accent); }
   white-space: nowrap;
 }
 
+/* The one way back to the setup screen, so it is reachable from anywhere on the
+   line rather than only from the Atrium the visitor has already walked past. */
+.chrome-edit { padding: 0; white-space: nowrap; }
+
+/* Four things do not fit one narrow row, and the pacing nudge is the one the
+   visitor cannot read anywhere else: the phone shows the time in its own status
+   bar, and the nudge names the finishing time itself. */
+@media (max-width: 389px) {
+  .chrome-clock { display: none; }
+  .chrome-row { gap: 8px; }
+}
+
 .progress { height: 1px; background: var(--color-divider); position: relative; }
 .progress > i { position: absolute; inset: 0 auto 0 0; background: var(--color-accent); }
 

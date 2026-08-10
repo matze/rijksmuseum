@@ -110,14 +110,7 @@ function terminusEntry(item, state, actions) {
     el('div', { class: 'term-title', text: item.title }),
     el('div', { class: 'term-text muted', text: item.text }),
     item.at === 'start'
-      ? [
-        el('div', { class: 'selection muted', text: selection }),
-        el('div', { class: 'actions' },
-          el('button', {
-            type: 'button', class: 'btn btn-secondary',
-            onClick: actions.edit, text: 'Change the plan',
-          })),
-      ]
+      ? el('div', { class: 'selection muted', text: selection })
       : el('div', { class: 'actions' },
         el('button', {
           type: 'button', class: 'btn btn-secondary',
@@ -138,7 +131,11 @@ export function renderTour(state, route, actions) {
     el('div', { class: 'chrome-row' },
       el('span', { class: 'kicker chrome-here' }),
       el('span', { class: 'chrome-nudge' }),
-      el('span', { class: 'chrome-clock' })),
+      el('span', { class: 'chrome-clock' }),
+      el('button', {
+        type: 'button', class: 'btn btn-ghost chrome-edit',
+        onClick: actions.edit, text: 'Change plan',
+      })),
     el('div', { class: 'progress' }, el('i')));
 
   const line = el('div', { class: 'line' },
