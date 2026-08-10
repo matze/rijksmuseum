@@ -117,6 +117,14 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
 - Persistence: one localStorage key. A started visit resumes on the timeline.
 - Dark only. There is no theme switch and no `prefers-color-scheme` branch; the tokens in
   `app.css` sit on bare `:root` and override the design system's light ones.
+- The line is centred on a phone and survives only in the gaps between entries; from 640px
+  up it straightens into a continuous rail to the left of the text. Marker geometry is CSS
+  (`.row-<kind>`, `--axis`, `--mark-y`), never inline styles — a media query has to reach it.
+- Each marker stands level with the first line of its entry, and the rail ends on the
+  marker's edge rather than under it, so the line meets every marker without a gap. On a
+  phone that puts the marker in the middle of a label's line: `.stop-head .where` is capped
+  at `50% - 10px` so a long room code wraps instead of colliding. A walk is the exception —
+  its text runs the full width, so its ring stays up in the gap.
 - Nothing may leave the page at runtime — fonts, images and justif are all local. Grep for
   external URLs in shipped files before claiming otherwise.
 
@@ -135,6 +143,10 @@ the browser's synthesised capitals. Its small caps stand at 468/1000 against a c
 of 625 — set at the 11.5 the transformed capitals used, the capital opening each label
 towers over the rest of it, which is why labels sit two rungs up the ladder at 14.5 and are
 tracked at .09em rather than .15em.
+
+Every entry on the line opens on a label or on the walk line, so `--label-line` (14.5 on
+the body's 1.55 leading) is what the timeline markers align to. Changing the label size
+moves every marker.
 
 Numbers are old-style figures (Cormorant Garamond); list markers hang in the page margin.
 

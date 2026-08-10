@@ -23,6 +23,11 @@
   --shadow-md: 0 3px 10px rgb(0 0 0 / .55);
 
   --dim: .32;
+  /* The gap the centred connector opens above every entry on a phone. */
+  --connector: 34px;
+  /* Every entry opens on a label or on the walk line, both 14.5px on the body's
+     1.55 leading. Half of this is how far the marker sits into its entry. */
+  --label-line: 22.5px;
   /* Cormorant SC — a family of its own, because Cormorant Garamond ships no
      `smcp` and `font-variant-caps` would only synthesise shrunken capitals. */
   --font-smallcaps: "Cormorant SC", var(--font-heading);
@@ -218,24 +223,128 @@ a:hover { color: var(--color-accent); }
 
 .line { max-width: 620px; margin: 0 auto; padding: 0 18px 40px; }
 
-.row { position: relative; padding-left: 46px; }
-.row > .rail { position: absolute; left: 15px; top: 0; bottom: 0; width: 1px; background: var(--color-divider); }
+/* The line, on a phone, runs down the middle and survives only in the gaps
+   between entries: an indented rail pushes every card to one side and leaves
+   the page hanging off its own left margin. Each row opens a connector above
+   its content, the segment descends through it, and the marker ends it level
+   with the entry's first line. From the tablet breakpoint up the column is
+   centred in the viewport anyway, so the rail becomes continuous again and
+   moves to the left of the text. `--axis` is the horizontal line the markers
+   sit on; `--mark-y` is where the marker's centre falls inside its own row. */
+.row {
+  --axis: 50%;
+  --mark-y: calc(var(--connector) + var(--entry-top, 0px) + var(--label-line) / 2);
+  position: relative;
+  padding-top: var(--connector);
+}
 
-/* Markers sit in two layers: an opaque backing that masks the rail, and the mark
-   itself. Only the mark dims, so the rail never shows through a dimmed dot. */
-.mark, .mark-back { position: absolute; }
-.mark-back { background: var(--color-bg); }
+/* The line descends through the gap and meets the marker's edge, which stands
+   level with the first line of the entry it belongs to — the way the left rail
+   marks its stops above the breakpoint. It ends on the edge rather than running
+   under the marker, so every kind of marker is joined to the line the same way
+   and none of them needs a backing plate to hide an overshoot. */
+.rail {
+  position: absolute;
+  left: var(--axis);
+  translate: -50% 0;
+  top: 0;
+  height: calc(var(--mark-y) - var(--mark-h, var(--mark)) / 2);
+  width: 1px;
+  background: var(--color-divider);
+}
+
+/* Nothing precedes the Atrium, so the first connector would dangle. */
+.line > .row:first-child > .rail { display: none; }
+
+/* Every other entry opens on a short label that leaves the middle of the page
+   clear; a walk opens on a sentence that runs the full width. Its ring stays in
+   the gap, which is where a walk belongs anyway — between two stops, not level
+   with itself. */
+.row-walk { --mark-y: calc(var(--connector) / 2); }
+
+/* `--mark` is the marker's width and `--mark-h` its height, which differ only
+   for the floor rule. Above the breakpoint the rail runs the whole height of the
+   row and passes behind the marker, so there a second, opaque layer masks it —
+   only the mark dims, and the rail never shows through a dimmed dot. */
+.mark, .mark-back {
+  position: absolute;
+  left: var(--axis);
+  top: var(--mark-y);
+  translate: -50% -50%;
+  width: var(--mark);
+  height: var(--mark-h, var(--mark));
+}
+
+.mark-back { display: none; width: var(--back); height: var(--back); background: var(--color-bg); }
 .mark { transition: opacity .12s linear; }
+
+.row-stop { --mark: 15px; --back: 23px; }
+.row-walk { --mark: 9px; }
+.row-break { --mark: 13px; --back: 21px; }
+.row-terminus { --mark: 17px; --back: 25px; }
+.row-floor { --mark: 15px; --mark-h: 1px; --back: 15px; }
+
+.row-stop > .mark, .row-stop > .mark-back,
+.row-walk > .mark,
+.row-terminus > .mark, .row-terminus > .mark-back { border-radius: 50%; }
+
+.row-stop > .mark { background: var(--color-accent); }
+.row-walk > .mark { background: var(--color-bg); border: 1px solid var(--color-divider); }
+.row-break > .mark, .row-terminus > .mark {
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent);
+}
+
+/* The floor marker is a rule across the line, not a point on it. */
+.row-floor > .mark { background: var(--color-divider); }
+.row-floor > .mark-back { height: 9px; }
 
 .card { transition: opacity .12s linear; border: 0; padding: 0; gap: 0; border-radius: 0; }
 .card[data-lit="false"], .mark[data-lit="false"] { opacity: var(--dim); }
 
-.entry-stop { padding: 8px 0 22px; cursor: pointer; display: block; width: 100%;
+/* On a phone the connector carries all the space above an entry. Above the
+   breakpoint the entry pads itself instead, and `--entry-top` is that padding —
+   one value, so the marker cannot drift away from the line it belongs to. */
+.entry-stop, .entry-floor, .entry-walk, .entry-break, .entry-term {
+  padding-top: var(--entry-top, 0px);
+}
+
+.entry-stop { padding-bottom: 22px; cursor: pointer; display: block; width: 100%;
   text-align: left; background: none; color: inherit; font: inherit; }
-.entry-floor { padding: 26px 0 6px; }
-.entry-walk { padding: 14px 0; }
-.entry-break, .entry-term { padding: 14px 0; }
-.entry-term { padding: 22px 0; }
+.entry-floor { padding-bottom: 6px; }
+/* A transition sits between two entries and takes the same whitespace on both
+   sides of itself — the wider of the two, which is the one above. */
+.entry-walk { padding-bottom: 22px; }
+.entry-break { padding-bottom: 14px; }
+.entry-term { padding-bottom: 22px; }
+
+/* Wide enough for the column to be centred in the viewport on its own: the line
+   straightens out to the left of the text, runs the whole height of the page,
+   and needs no gap opened above each entry to show through. */
+@media (min-width: 640px) {
+  .row { --axis: 15.5px; --connector: 0px; padding-left: 46px; }
+  .rail { top: 0; bottom: 0; height: auto; }
+  .mark-back { display: block; }
+  .line > .row:first-child > .rail { display: block; }
+
+  .row-stop { --entry-top: 8px; }
+  .row-walk, .row-break { --entry-top: 14px; }
+  /* 22 above the walk plus its own 14, against the next entry's 8 below. */
+  .entry-walk { padding-bottom: 28px; }
+  .row-terminus { --entry-top: 22px; }
+  .row-floor { --entry-top: 26px; }
+
+  /* The rail runs beside the text here, so a walk's ring rejoins its own line
+     and no label has a marker in the middle of the page to keep clear of. */
+  .row-walk { --mark-y: calc(var(--entry-top) + var(--label-line) / 2); }
+  .stop-head .where { max-width: none; }
+}
+
+/* The marker stands in the middle of the page, so nothing sharing its line may
+   cross the middle. Room codes are the only label that grows that far — on a
+   narrow phone `Stop 12 · Room 2.30.3` reaches the centre — and it wraps rather
+   than colliding. The marker keeps to the first line either way. */
+.stop-head .where { max-width: calc(50% - 10px); }
 
 .stop-head {
   display: flex;

@@ -8,49 +8,22 @@ import { floorPlan, planCaption } from './floorplan.js';
 import { plate } from './plate.js';
 import { focusLabel } from './route.js';
 
-const PLATE_SIZES = '(min-width: 656px) 584px, calc(100vw - 64px)';
+const PLATE_SIZES = '(min-width: 640px) 538px, calc(100vw - 36px)';
 
-const rail = () => el('div', { class: 'rail' });
+/** Kinds whose marker needs an opaque backing to mask the rail behind it. A walk
+ *  is drawn as a small hollow dot that masks the rail with its own fill. */
+const BACKED = new Set(['stop', 'break', 'terminus', 'floor']);
 
-/** Marker geometry per entry kind: [backing, mark] as inline boxes. */
-const MARKERS = {
-  stop: [
-    { left: '4px', top: '6px', width: '23px', height: '23px', borderRadius: '50%' },
-    { left: '8px', top: '10px', width: '15px', height: '15px', borderRadius: '50%',
-      background: 'var(--color-accent)' },
-  ],
-  walk: [
-    null,
-    { left: '11px', top: '19px', width: '9px', height: '9px', borderRadius: '50%',
-      background: 'var(--color-bg)', border: '1px solid var(--color-divider)' },
-  ],
-  break: [
-    { left: '5px', top: '16px', width: '21px', height: '21px' },
-    { left: '9px', top: '20px', width: '13px', height: '13px',
-      border: '1px solid var(--color-accent)', background: 'var(--color-bg)' },
-  ],
-  terminus: [
-    { left: '3px', top: '23px', width: '25px', height: '25px', borderRadius: '50%' },
-    { left: '7px', top: '27px', width: '17px', height: '17px', borderRadius: '50%',
-      border: '1px solid var(--color-accent)', background: 'var(--color-bg)' },
-  ],
-  floor: [
-    { left: '8px', top: '28px', width: '15px', height: '9px' },
-    { left: '8px', top: '32px', width: '15px', height: '1px',
-      background: 'var(--color-divider)' },
-  ],
-};
+/** Marker geometry is CSS, per `.row-<kind>`: it differs between the centred
+ *  connector on a phone and the left rail above the breakpoint, and inline
+ *  styles are out of a media query's reach. */
+const marker = (kind) => [
+  BACKED.has(kind) ? el('div', { class: 'mark-back' }) : null,
+  el('div', { class: 'mark', 'data-lit': 'true' }),
+];
 
-function marker(kind) {
-  const [backing, mark] = MARKERS[kind];
-
-  return [
-    backing ? el('div', { class: 'mark-back', style: { position: 'absolute', ...backing } }) : null,
-    el('div', { class: 'mark', 'data-lit': 'true', style: { position: 'absolute', ...mark } }),
-  ];
-}
-
-const row = (kind, ...content) => el('div', { class: 'row' }, rail(), marker(kind), content);
+const row = (kind, ...content) =>
+  el('div', { class: `row row-${kind}` }, el('div', { class: 'rail' }), marker(kind), content);
 
 function stopEntry(item, state, actions) {
   const { work } = item;
