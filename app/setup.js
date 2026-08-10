@@ -38,7 +38,7 @@ export function renderSetup(state, works, actions) {
     el('div', { class: 'setup-head' },
       el('div', {
         class: 'kicker',
-        style: { color: 'var(--color-accent-700)', letterSpacing: '.16em' },
+        style: { color: 'var(--color-accent-700)' },
         text: 'Rijksmuseum',
       })),
 

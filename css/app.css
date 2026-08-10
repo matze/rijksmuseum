@@ -23,6 +23,9 @@
   --shadow-md: 0 3px 10px rgb(0 0 0 / .55);
 
   --dim: .32;
+  /* Cormorant SC — a family of its own, because Cormorant Garamond ships no
+     `smcp` and `font-variant-caps` would only synthesise shrunken capitals. */
+  --font-smallcaps: "Cormorant SC", var(--font-heading);
 }
 
 * { box-sizing: border-box; }
@@ -48,13 +51,18 @@ body {
 a { color: var(--color-accent-700); text-underline-offset: 2px; }
 a:hover { color: var(--color-accent); }
 
+/* Labels are set in real small capitals, not in transformed capitals: the copy
+   keeps its own capitalisation and the font supplies the shapes. Small caps
+   need less tracking than full capitals, and two steps more size to hold the
+   same weight on the page: their letters stand at 468/1000 against a cap
+   height of 625, so at the label sizes the old transformed capitals used, the
+   capital that opens each label towers over the rest of it. */
 .kicker {
-  font-family: var(--font-heading);
+  font-family: var(--font-smallcaps);
   font-weight: 400;
-  text-transform: uppercase;
   font-feature-settings: 'tnum';
-  letter-spacing: .15em;
-  font-size: 11.5px;
+  letter-spacing: .09em;
+  font-size: 14.5px;
 }
 
 .muted { color: color-mix(in srgb, var(--color-text) 82%, transparent); }
@@ -130,10 +138,9 @@ a:hover { color: var(--color-accent); }
 /* Same treatment as .kicker — one label size everywhere, distinguished by the
    space around it rather than by a size nobody can measure by eye. */
 .section-label {
-  font-family: var(--font-heading);
-  font-size: 11.5px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
+  font-family: var(--font-smallcaps);
+  font-size: 14.5px;
+  letter-spacing: .09em;
   margin: 26px 0 10px;
 }
 
@@ -174,7 +181,7 @@ a:hover { color: var(--color-accent); }
   gap: 12px;
 }
 
-.chrome-here { white-space: nowrap; letter-spacing: .13em; }
+.chrome-here { white-space: nowrap; }
 
 .chrome-nudge {
   flex: 1;
@@ -280,7 +287,7 @@ a:hover { color: var(--color-accent); }
 }
 
 .walk-line { font-size: 14.5px; display: flex; gap: 10px; align-items: baseline; }
-.walk-line .mins { letter-spacing: .1em; white-space: nowrap; }
+.walk-line .mins { white-space: nowrap; }
 .walk-line .what { text-wrap: pretty; }
 
 .floor-title, .term-title, .break-title {
@@ -298,7 +305,6 @@ a:hover { color: var(--color-accent); }
 
 .entry-term .kicker, .entry-floor .kicker, .entry-break .kicker {
   color: var(--color-accent-700);
-  letter-spacing: .16em;
 }
 
 .term-text, .break-text { font-size: 14.5px; margin-top: 6px; text-wrap: pretty; }
@@ -374,8 +380,7 @@ a:hover { color: var(--color-accent); }
   font-size: 14.5px;
 }
 
-.fact .k { color: var(--color-accent-700); padding-top: 3px; white-space: nowrap;
-  letter-spacing: .13em; }
+.fact .k { color: var(--color-accent-700); padding-top: 3px; white-space: nowrap; }
 .fact .v { text-align: right; }
 
 /* Numbers hang in the page margin, so the points read as a list rather than as

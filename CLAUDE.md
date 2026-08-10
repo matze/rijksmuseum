@@ -122,12 +122,19 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
 
 ### Type
 
-Seven sizes across the whole app, and no more: **37 · 29 · 22 · 16.5 · 14.5 · 12.5 · 11.5**.
+Six sizes across the whole app, and no more: **37 · 29 · 22 · 16.5 · 14.5 · 12.5**.
 Titles 37 (page) and 29 (stop, terminus); 22 for structure (floor headers, breaks); 16.5
-running prose; 14.5 secondary text, chips and buttons; 12.5 small text and ghost buttons;
-11.5 every uppercase label (`.kicker`, `.section-label`). Button sizes live in `.btn` /
+running prose; 14.5 secondary text, chips, buttons and every label (`.kicker`,
+`.section-label`); 12.5 small text and ghost buttons. Button sizes live in `.btn` /
 `.btn-ghost`, not in inline styles at the call sites — that is how the ladder drifted to
 seventeen sizes the first time.
+
+Labels are real small capitals, not `text-transform`: Cormorant SC is vendored as its own
+family because Cormorant Garamond carries no `smcp` and `font-variant-caps` would only get
+the browser's synthesised capitals. Its small caps stand at 468/1000 against a cap height
+of 625 — set at the 11.5 the transformed capitals used, the capital opening each label
+towers over the rest of it, which is why labels sit two rungs up the ladder at 14.5 and are
+tracked at .09em rather than .15em.
 
 Numbers are old-style figures (Cormorant Garamond); list markers hang in the page margin.
 

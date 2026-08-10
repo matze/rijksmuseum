@@ -31,9 +31,13 @@ VENDOR = ROOT / "vendor" / "justif"
 # under either quote style, including bare `import './x.js'` side-effect forms.
 RELATIVE_IMPORT = re.compile(r"""(?:from|import)\s*['"](\.{1,2}/[^'"]+)['"]""")
 
+# Cormorant SC is a separate family, not a feature of Cormorant Garamond: the
+# Garamond webfont carries no `smcp` table, so `font-variant-caps` would only
+# get the browser's synthesised shrunken capitals.
 GOOGLE_FONTS = (
     "https://fonts.googleapis.com/css2"
     "?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400"
+    "&family=Cormorant+SC:wght@400;600"
     "&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap"
 )
 # Chrome's UA makes the API answer with woff2 rather than the legacy formats.
