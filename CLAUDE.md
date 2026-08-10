@@ -17,6 +17,7 @@ numbers). Treat it as layout, type and colour reference; take no facts from it.
 
 ## Commands
 
+    just setup          # vendor the typefaces and justif — assets/ is not committed
     just harvest        # search API → candidate ids → Linked Art records (cached)
     just build          # records → data/*.json, then IIIF derivatives for curated works
     just floorplan      # read room coordinates out of the museum's published plan PDF
@@ -39,7 +40,10 @@ treats `app/*.js` as ES modules.
                 hand-written curated/*.md and floorplan-extra.json
     app/        plain ES modules, loaded directly by index.html
     css/        ds-classical.css (vendored design system, unmodified) + app.css
-    vendor/     justif; assets/fonts/ self-hosted woff2
+    vendor/     justif, committed
+    assets/     gitignored and generated: fonts/ self-hosted woff2 from `just setup`,
+                works/ the IIIF derivatives from `just build`. A fresh checkout has
+                neither, so the page renders unstyled and imageless until both have run
     cache/      gitignored, content-addressed HTTP cache; makes harvests resumable
 
 ## Data

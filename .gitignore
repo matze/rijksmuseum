@@ -1,5 +1,13 @@
+# Everything listed here is generated and reproducible. Nothing is ignored by a
+# blanket rule with tracked exceptions underneath it — that is how four vendored
+# typefaces once ended up committed against the rules and the next two did not.
+
+# Typefaces (`just setup`) and work imagery (`just build`).
 assets/
+# Content-addressed HTTP cache; makes harvests resumable.
 cache/
-data/
+# The 1.6M intermediate the build reads. The small files the page fetches at
+# runtime — tour, galleries, floorplan — are committed, as is the curated prose.
+data/catalogue.json
 docs/reference
 __pycache__/
