@@ -17,8 +17,14 @@ harvest *ARGS:
 
 # Regenerate the catalogue, the tour pool and the artwork imagery.
 build:
+    {{run}} tools/detect_crops.py
     {{run}} tools/build_catalogue.py
     {{run}} tools/fetch_images.py
+
+# Measure the border each curated photograph carries, for the guide to clip away.
+#   just crops "--review crops.png"
+crops *ARGS:
+    {{run}} tools/detect_crops.py {{ARGS}}
 
 # Read room positions out of the museum's published floor plan.
 floorplan:
