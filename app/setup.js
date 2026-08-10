@@ -58,7 +58,7 @@ function tile(work, planned, order, actions) {
     'data-order': order,
     onClick: () => actions.openDetail(work.objectNumber),
   },
-  plate(work, TILE_SIZES),
+  el('span', { class: 'plate-band' }, plate(work, TILE_SIZES)),
   el('span', { class: 'tile-title', text: title }),
   el('span', { class: 'tile-by muted', text: byline }),
   el('span', { class: 'tile-state', text: planned ? 'in this plan' : 'not in this plan' }));

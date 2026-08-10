@@ -1,8 +1,16 @@
 /** The matted photograph. One <picture> for the whole guide.
  *
- *  Sizes are declared so the browser picks the narrow file on a phone, and the
- *  aspect ratio is set from the image's real pixel dimensions so the line does
- *  not jump while the plate loads. */
+ *  Sizes are declared so the browser picks the narrow file on a phone. The
+ *  <picture> is the window: it holds the proportions of the work itself, and the
+ *  image is laid inside it at whatever size puts the work in the opening. For
+ *  most works that is the whole photograph; for the ones shot in their frame, or
+ *  painted on a panel that is not painted to its edge, `image.crop` says which
+ *  part of it is the work, and the border falls outside the window.
+ *
+ *  The window is set here rather than in the stylesheet because it is a fact
+ *  about one work, and it is set as custom properties rather than as finished
+ *  lengths because the arithmetic has to run again at every width the plate is
+ *  drawn at. */
 
 import { el } from './dom.js';
 
@@ -19,6 +27,10 @@ export function plate(work, sizes) {
   const { objectNumber, image } = work;
   const widths = image.widths ?? [480, 960, 1600];
   const title = work.displayTitle ?? work.title.en ?? work.title.nl ?? objectNumber;
+  const [x, y, width, height] = image.crop ?? [0, 0, 1, 1];
+  const photograph = image.pixels
+    ? image.pixels[0] / image.pixels[1]
+    : Number(image.aspectRatio) || 1;
 
   const sources = FORMATS.slice(0, -1).map(([suffix, type]) =>
     el('source', { type, sizes, srcset: srcset(objectNumber, widths, suffix) }));
@@ -33,8 +45,16 @@ export function plate(work, sizes) {
     loading: 'lazy',
     decoding: 'async',
     alt: `${title}${work.artist ? `, ${work.artist}` : ''}`,
-    style: image.aspectRatio ? { aspectRatio: image.aspectRatio } : {},
   });
 
-  return el('picture', { class: 'plate-wrap' }, sources, img);
+  return el('picture', {
+    class: 'plate-wrap',
+    style: {
+      '--crop-x': x,
+      '--crop-y': y,
+      '--crop-w': width,
+      '--crop-h': height,
+      '--crop-ratio': (photograph * width / height).toFixed(4),
+    },
+  }, sources, img);
 }

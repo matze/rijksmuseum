@@ -1,6 +1,14 @@
 /** Minimal element construction. The views are small enough that building DOM
  *  directly is shorter than any templating we would have to ship to the phone. */
 
+/** Custom properties are the one thing `style` will not take by assignment. */
+const setStyle = (node, declarations) => {
+  for (const [property, value] of Object.entries(declarations)) {
+    if (property.startsWith('--')) node.style.setProperty(property, String(value));
+    else node.style[property] = value;
+  }
+};
+
 /**
  * @param {string} tag
  * @param {Object<string, *>} [props] attributes; `class`, `style`, `on*` handlers,
@@ -15,7 +23,7 @@ export function el(tag, props = {}, ...children) {
 
     if (key === 'text') node.textContent = value;
     else if (key.startsWith('on')) node.addEventListener(key.slice(2).toLowerCase(), value);
-    else if (key === 'style' && typeof value === 'object') Object.assign(node.style, value);
+    else if (key === 'style' && typeof value === 'object') setStyle(node, value);
     else node.setAttribute(key, value === true ? '' : String(value));
   }
 

@@ -203,15 +203,19 @@ a:hover { color: var(--color-accent); }
 /* Nothing is cropped to tidy the grid: each plate is fitted inside a band of one
    height and hung on its floor, so the works keep their own proportions and a
    row still stands on one line with its captions the same distance below it. */
-.tile .plate-wrap {
-  margin-top: 0;
-  height: var(--plate-h);
+.plate-band {
   display: grid;
+  height: var(--plate-h);
   align-items: end;
   justify-items: center;
 }
 
-.tile .plate { width: auto; height: auto; max-width: 100%; max-height: var(--plate-h); }
+/* Wide enough for the band's full height, or for the column, whichever comes
+   first; the window's own proportions take the height from there. */
+.plate-band .plate-wrap {
+  margin-top: 0;
+  width: min(100%, var(--plate-h) * var(--crop-ratio));
+}
 
 /* Two lines are held open whether the title needs them or not, so a long title
    cannot push its own row of captions out of line with the others. */
@@ -453,14 +457,36 @@ a:hover { color: var(--color-accent); }
 .stop-head .where { color: var(--color-accent-700); }
 .stop-head .stay { opacity: .75; }
 
-.plate-wrap { margin-top: 17px; position: relative; display: block; }
-.plate-wrap img { width: 100%; height: auto; display: block; }
+/* The window the work is seen through. It stands in the proportions of the work
+   rather than of the photograph, and the photograph is laid behind it at the
+   size that brings the work up to the opening — the whole picture where nothing
+   was cropped, since the crop then reads 0 0 1 1 and every figure below comes
+   out at its plain value. `plate.js` sets the four numbers per work. */
+.plate-wrap {
+  margin-top: 17px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--crop-ratio);
+}
 
 /* The design system mats its plates. Here the painting already carries its own
    frame, painted or gilt, and a second one drawn in CSS reads as a mistake. The
    mat was also holding the plate off the text around it, so the space it took
    moves out into the margins rather than disappearing with it. */
-.plate { border: 0; outline: 0; }
+.plate {
+  position: absolute;
+  top: calc(-100% * var(--crop-y) / var(--crop-h));
+  left: calc(-100% * var(--crop-x) / var(--crop-w));
+  width: calc(100% / var(--crop-w));
+  height: calc(100% / var(--crop-h));
+
+  /* The photograph is wider than its window whenever a border is clipped, and
+     the design system's `img { max-width: 100% }` would pull it back to fit. */
+  max-width: none;
+  border: 0;
+  outline: 0;
+}
 
 .entry-stop h2 {
   font-family: var(--font-heading);
