@@ -10,18 +10,22 @@ it that the visitor did not come to look at — the KNIL soldier's panel shows a
 pale strip of hardboard down two sides, the Van der Helst militia piece is shot
 with its whole dark frame.
 
-Each side is read on its own. The outermost line of the photograph states what
-tone the border is, and the border runs until a line has left that tone behind
-along most of its length. A side that never leaves it is a work photographed
-against a room — a ship model, a dolls' house — and keeps all of its picture.
+Each side is read on its own, along the outer twentieth of the photograph. A
+border ends in an edge — a hard change of colour running the length of the side —
+and the picture inside it does not: it shifts a little at every line and nowhere
+much more than that. Finding the hardest change, and asking that it be several
+times harder than the strip's own restlessness, is what separates the two.
 
 The reading is deliberately timid, because a border left in place costs the
-visitor nothing and a picture cut into is gone. Anything deeper than a hairline
-has to be a tone the work itself does not use, and every side has to be
-corroborated by another side of the same tone.
+visitor nothing and a picture cut into is gone. It will not cut deeper than a
+fiftieth of a side, the band it cuts off has to be even in itself, and a side
+where nothing stands out is left whole — which is why a ship model photographed
+against a gallery wall, and the lit floor at the foot of the Night Watch, both
+keep every pixel they came with.
 
-Works it will not read are hand-measured in `data/crops-extra.json`, which is
-merged over this file's output at build time.
+Frames are past what it will read: their own browns and golds are the painting's,
+and they run deeper than the limit. Those are hand-measured in
+`data/crops-extra.json`, which is merged over this file's output at build time.
 
 The pixels are not touched. `data/crops.json` records the box as fractions of
 the photograph and the guide clips to it in CSS.
@@ -46,18 +50,25 @@ from common import (CACHE, DATA, Fetcher, image_services, in_parallel,  # noqa: 
                     object_number, visual_item_uri, write_json)
 
 ANALYSIS_WIDTH = 960  # the derivative `fetch_images.py` caches anyway
-LIMIT = 0.12          # how far in from an edge a border may reach
-APART = 0.12          # brightness away from the border's tone to be the work
-MOSTLY = 0.85         # of a line, before that line counts as the work
-SLIVER = 0.01         # of a side, the depth a border may reach on its own word
-RARE = 0.05           # of the work may carry the border's tone, past that depth
-TOGETHER = 0.15       # brightness within which two sides are the same border
-LUMINANCE = np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+WINDOW = 0.05         # of a side, the strip a border is read within
+DEEPEST = 0.02        # of a side, the deepest cut that will be read automatically
+CLOSE = 3             # lines either side of a boundary, for the change across it
+MARK = 0.03           # the colour change a boundary has to make, of the 0–1 range
+SHARP = 3.0           # and that much more than the strip's own line-to-line change
+QUIET = 0.004         # below which line-to-line change is the camera, not the work
+EVEN = 0.5            # of that change, the most a border may vary within itself
+FADED = 0.5           # of that change, by which the crossing has finished
+BAND = 0.5            # nearer the border than the picture, and it is still border
 
 
 class Border(NamedTuple):
-    depth: int    # lines of border, counting in from the side
-    tone: float   # the brightness the border itself is
+    depth: int           # lines of border, counting in from the side
+    tone: np.ndarray     # the colour the border itself is
+
+
+def spread(colours: np.ndarray) -> np.ndarray:
+    """Root-mean-square distance in RGB, which is the whole colour sense here."""
+    return np.sqrt((colours ** 2).mean(axis=-1))
 
 
 def curated_numbers() -> list[str]:
@@ -65,62 +76,82 @@ def curated_numbers() -> list[str]:
             for path in sorted((DATA / "curated").glob("*.md"))]
 
 
-def border(lines: np.ndarray, work: np.ndarray) -> Border:
-    """The border on the side `lines` starts at, given the middle of the work.
+def border(lines: np.ndarray) -> Border:
+    """The border on the side `lines` starts at.
 
-    Read from the outside in. The outermost line states the border's own tone;
-    every line after it is scored on how much of its length has left that tone
-    behind, and the border ends at the first line that is mostly the work. A
-    ragged panel edge is therefore cut where the paint takes the line over
-    rather than where it first appears, which loses a hair of paint at the
-    corners and takes the whole of the pale strip along the sides — the trade
-    the eye wants.
+    Every line of the outer strip is taken at its median colour, so that a line
+    speaks for whatever covers most of it, and the strip is read for the one
+    place where that colour changes hardest over three lines. A border ends in
+    exactly such an edge — pale hardboard against paint, a lit frame lip against
+    a dark ground — and a picture, however it shades from its own edge, does not:
+    it moves a little at every line and nowhere much more than that. Measuring
+    the change against the strip's own restlessness is what tells the two apart,
+    and it is why the lit floor at the foot of the Night Watch stays where it is.
 
-    Two readings mean there is no border: a side that is the work from its first
-    line was photographed to its edge, and a side that never becomes the work at
-    all is a work photographed against a room, where the wall goes on past the
-    limit and there is no edge to find.
+    An edge on the photograph is a few lines wide, not one: a panel's ragged rim
+    and the softness of the scan spread it out. So the sharpest line only says
+    where the edge is, and the cut falls at the first line past it where the
+    changing has died down and the colour has stopped being the band's — the
+    whole of the crossing, however wide, and no further into the picture.
 
-    What a wrong reading costs grows with how deep it cuts, so past a hairline a
-    border has to be a tone the work itself does not use. Without that, a
-    picture that opens on an even stretch of sky, or on its own dark ground,
-    reads as a margin and loses a tenth of its height.
+    Then it looks again. A frame shows its dark outer face and its lit lip one
+    behind the other, and each is a band in its own right, so bands are taken off
+    one at a time until what is left no longer reads as one. The band also has to
+    be even in itself: a stretch that varies as much as the edge it ends at is a
+    piece of picture that happens to end sharply — the sitter's shoulder, not a
+    margin.
+
+    Nothing deeper than a fiftieth of the side is read here. Past that a wrong
+    reading starts to cost real picture, and what lies out there is usually a
+    whole frame — measured by hand, in `data/crops-extra.json`.
     """
-    limit = max(2, round(LIMIT * len(lines)))
-    brightness = lines @ LUMINANCE
-    tone = np.median(brightness[0])
-    theirs = (abs(brightness - tone) >= APART).mean(axis=1)
-    depth = next((line for line in range(limit) if theirs[line] >= MOSTLY), 0)
-    familiar = (abs(work - tone) < APART).mean()
+    window = max(8, round(WINDOW * len(lines)))
+    limit = max(2, round(DEEPEST * len(lines)))
+    median = np.median(lines[:window], axis=1)
+    change = np.array([spread(median[max(0, line - CLOSE):line].mean(axis=0)
+                              - median[line:line + CLOSE].mean(axis=0))
+                       for line in range(1, window - CLOSE)])
+    threshold = max(MARK, SHARP * max(np.median(change), QUIET))
+    picture = median[limit:window].mean(axis=0)
+    depth = 0
 
-    if depth > max(2, round(SLIVER * len(lines))) and familiar > RARE:
-        return Border(0, tone)
+    while depth < limit:
+        edge = depth + 1 + int(np.argmax(change[depth:limit]))
+        peak = change[edge - 1]
+        band = median[depth:edge].mean(axis=0)
 
-    return Border(depth, tone)
+        if peak < threshold or spread(median[depth:edge] - band).mean() > EVEN * peak:
+            break
+
+        cut = next((line for line in range(edge, limit + 1)
+                    if change[line - 1] <= FADED * peak
+                    and spread(median[line] - band) >= BAND * spread(median[line] - picture)), 0)
+
+        if not cut:
+            break
+
+        depth = cut
+
+    return Border(depth, median[:depth].mean(axis=0) if depth else median[0])
 
 
 def content_box(image: Image.Image) -> list[float] | None:
     """The work's own box within the photograph, as [x, y, width, height] fractions.
 
-    A border runs around a work rather than along one side of it, so a reading
-    no other side agrees with is dropped.
+    Each side is read on its own. A border is often only on one side — a panel
+    photographed square shows its unpainted edge where the plank was cut, and
+    nowhere else — so nothing here asks the four readings to agree.
     """
     rows = np.asarray(image.convert("RGB"), dtype=np.float32) / 255
     columns = rows.transpose(1, 0, 2)
-    inset = [max(2, round(LIMIT * length)) for length in rows.shape[:2]]
-    middle = (rows[inset[0]:-inset[0], inset[1]:-inset[1]] @ LUMINANCE)
-    sides = [border(lines, middle) for lines in (columns, rows, columns[::-1], rows[::-1])]
-    corroborated = [side.depth if any(other.depth and other is not side
-                                      and abs(other.tone - side.tone) <= TOGETHER
-                                      for other in sides) else 0
-                    for side in sides]
+    sides = [border(lines).depth for lines in (columns, rows, columns[::-1], rows[::-1])]
 
-    if not any(corroborated):
+    if not any(sides):
         return None
 
     height, width = rows.shape[:2]
     left, top, right, bottom = (round(depth / side, 4) for depth, side in
-                                zip(corroborated, (width, height, width, height)))
+                                zip(sides, (width, height, width, height)))
 
     return [left, top, round(1 - left - right, 4), round(1 - top - bottom, 4)]
 

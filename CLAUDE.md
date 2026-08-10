@@ -85,16 +85,28 @@ are named constants in `app/route.js` (`WALK`) and are estimates.
 ### Content boxes
 
 `detect_crops.py` runs first in `just build`, before the catalogue, so one build takes a
-new curated work all the way through. It reads each side of the photograph from the
-outside in: the outermost line states the border's tone, and the border ends where a line
-has left that tone behind along 85% of its length. It is built to under-read — a border
-left in place costs nothing, a cut into the picture is gone — so anything deeper than 1%
-of a side has to be a tone the work itself does not use, and every side has to be
-corroborated by another side of the same tone. Frames defeat it: a frame carries the
-painting's own browns and golds. Those are hand-measured into `data/crops-extra.json`,
-which is merged over the detected boxes, and both readings there are checked against the
-museum's stated height and width — a box cut in the right place has the work's own
-proportions. Read the result with `just crops "--review sheet.png"` and look at the PNG.
+new curated work all the way through. Each side is read on its own, along the outer
+twentieth of the photograph, at one median colour per line. A border ends in an edge — a
+hard change of colour running the length of the side — and the picture inside it does not,
+so the reading is the hardest change in the strip, required to be several times harder
+than the strip's own line-to-line restlessness. The cut then falls past the whole
+crossing, which on a ragged panel edge is several lines wide, and bands are peeled one at
+a time: a frame's dark outer face and its lit lip are two bands, not one.
+
+It is built to under-read — a border left in place costs nothing, a cut into the picture
+is gone. It will not cut deeper than 2% of a side, the band it takes has to be even in
+itself, and a side where nothing stands out is left whole. That is what keeps the gallery
+wall behind the ship model and the lit floor at the foot of the Night Watch — both of
+which read as margins under every simpler rule tried here — out of the crops.
+
+Frames are past what it will read: their browns and golds are the painting's own and they
+run deeper than the limit. Those are hand-measured into `data/crops-extra.json`, merged
+over the detected boxes, and both readings there are checked against the museum's stated
+height and width — a box cut in the right place has the work's own proportions.
+
+Read the result with `just crops "--review sheet.png"` and look at the PNG. Judging a cut
+means looking at the edge magnified, not at the thumbnail; a band 12px wide at the 960px
+analysis size is what the whole argument is about.
 
 ## Writing a curated work
 
