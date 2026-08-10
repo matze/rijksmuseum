@@ -6,6 +6,7 @@
 
 import { el } from './dom.js';
 import { plate } from './plate.js';
+import { PHASE } from './state.js';
 
 const SHEET_SIZES = '(min-width: 656px) 584px, calc(100vw - 36px)';
 
@@ -29,6 +30,9 @@ export function renderDetail(work, state, actions) {
   const dimensions = work.dimensions?.height_cm && work.dimensions?.width_cm
     ? `${work.dimensions.height_cm} × ${work.dimensions.width_cm} cm`
     : work.dimensions?.display;
+  // The sheet is reachable from the contact sheet on the setup screen too, where
+  // there is no line to go back to.
+  const back = state.phase === PHASE.setup ? 'Back to the plan' : 'Back to the line';
 
   return el('div', {
     class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title,
@@ -42,7 +46,7 @@ export function renderDetail(work, state, actions) {
       el('button', {
         type: 'button', class: 'btn btn-ghost',
         style: { padding: '0' },
-        onClick: actions.closeDetail, text: 'Back to the line',
+        onClick: actions.closeDetail, text: back,
       }))),
 
   el('div', { class: 'sheet-body' },
@@ -81,6 +85,6 @@ export function renderDetail(work, state, actions) {
 
     el('button', {
       type: 'button', class: 'btn btn-primary btn-block',
-      onClick: actions.closeDetail, text: 'Back to the line',
+      onClick: actions.closeDetail, text: back,
     })));
 }

@@ -85,7 +85,7 @@ function compareRooms(a, b) {
   return 0;
 }
 
-const inRouteOrder = (a, b) =>
+export const inRouteOrder = (a, b) =>
   floorRank(a.gallery.floor) - floorRank(b.gallery.floor)
   || compareRooms(a.gallery.room, b.gallery.room)
   || a.objectNumber.localeCompare(b.objectNumber);

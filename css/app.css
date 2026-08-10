@@ -115,7 +115,7 @@ a:hover { color: var(--color-accent); }
 
 /* — setup — */
 
-.setup { max-width: 560px; margin: 0 auto; padding: 32px 20px 56px; }
+.setup { max-width: 560px; margin: 0 auto; padding: 32px 20px 0; }
 
 .setup-head {
   display: flex;
@@ -163,6 +163,103 @@ a:hover { color: var(--color-accent); }
 
 .preview { margin: 12px 0 0; font-size: 12.5px; text-align: center; }
 .hint { margin: 10px 0 0; font-size: 12.5px; }
+
+/* — the contact sheet: every curated work, dimmed when the plan misses it — */
+
+/* The form is a column; the sheet is a wall, and takes whatever width the window
+   has once the constraints above it have stopped needing any. */
+.collection-block { max-width: 560px; margin: 0 auto; padding: 0 20px 56px; }
+.collection-rule { margin-top: 44px; }
+
+/* `--plate-h` is the height every plate hangs within, and so the height of a row
+   of them; the columns are as many as fit at that scale. */
+.collection {
+  --plate-h: 96px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 24px 14px;
+  margin-top: 18px;
+}
+
+.tile {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity .12s linear;
+}
+
+/* The same dimming the line uses for what is not being read, doing the same job:
+   what the current constraints leave out is still there, just not lit. */
+.tile[data-lit="false"] { opacity: var(--dim); }
+.tile[data-lit="false"]:hover { opacity: .62; }
+.tile:hover .tile-title { color: var(--color-accent-700); }
+
+/* Nothing is cropped to tidy the grid: each plate is fitted inside a band of one
+   height and hung on its floor, so the works keep their own proportions and a
+   row still stands on one line with its captions the same distance below it. */
+.tile .plate-wrap {
+  margin-top: 0;
+  height: var(--plate-h);
+  display: grid;
+  align-items: end;
+  justify-items: center;
+}
+
+.tile .plate { width: auto; height: auto; max-width: 100%; max-height: var(--plate-h); }
+
+/* Two lines are held open whether the title needs them or not, so a long title
+   cannot push its own row of captions out of line with the others. */
+.tile-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  min-height: calc(2 * 1.3 * 12.5px);
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+/* A phone column has no room for a byline under a 96px plate; a wall has. */
+.tile-by {
+  display: none;
+  font-size: 12.5px;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Said for a screen reader, which has no dimming to read. */
+.tile-state {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The constraints stop needing width long before the plates do. */
+@media (min-width: 720px) {
+  .collection-block { max-width: 1120px; padding: 0 28px 76px; }
+
+  .collection {
+    --plate-h: 150px;
+    grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+    gap: 34px 22px;
+  }
+
+  .tile-by { display: block; }
+}
 
 /* — the line — */
 

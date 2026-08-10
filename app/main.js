@@ -6,7 +6,7 @@ import { formatClock, pacing } from './clock.js';
 import { renderDetail } from './detail.js';
 import { trackFocus } from './focus.js';
 import { buildRoute } from './route.js';
-import { renderSetup } from './setup.js';
+import { paintSetup, renderSetup } from './setup.js';
 import { PHASE, load, persist } from './state.js';
 import { paintChrome, renderTour } from './tour.js';
 
@@ -36,10 +36,12 @@ function show(view, { replace = false } = {}) {
 }
 
 const actions = {
+  /** Constraints only ever change on the setup screen, and that screen repaints
+   *  itself rather than being rebuilt — see `paintSetup`. */
   update(mutate) {
     mutate(state);
     persist(state);
-    render();
+    paintSetup(state, works);
   },
 
   start() {
@@ -120,23 +122,20 @@ function render() {
 
   clear(root);
 
+  const open = state.open && works.find((work) => work.objectNumber === state.open);
+
   if (state.phase === PHASE.setup) {
     root.append(renderSetup(state, works, actions));
-    document.body.style.overflow = '';
-    applyJustification();
-    return;
+  } else {
+    route = buildRoute(works, state);
+    root.append(renderTour(state, route, actions));
   }
-
-  route = buildRoute(works, state);
-  root.append(renderTour(state, route, actions));
-
-  const open = state.open && works.find((work) => work.objectNumber === state.open);
 
   if (open) root.append(renderDetail(open, state, actions));
 
   document.body.style.overflow = open ? 'hidden' : '';
 
-  if (!open) {
+  if (state.phase === PHASE.tour && !open) {
     detachFocus = trackFocus(root, (number) => {
       state.active = number;
       tick();
