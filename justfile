@@ -30,6 +30,12 @@ floorplan:
 describe *ARGS:
     {{run}} tools/describe.py {{ARGS}}
 
+# Find and read the English Wikipedia article for a work, for the same purpose.
+#   just articles "--for SK-A-4"
+#   just articles "--search 'Saint Elizabeth flood painting'"
+articles *ARGS:
+    {{run}} tools/articles.py {{ARGS}}
+
 # Assert the invariants the generated data has to satisfy.
 check:
     {{run}} tools/verify.py
