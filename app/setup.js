@@ -38,11 +38,11 @@ export function renderSetup(state, works, actions) {
     el('div', { class: 'setup-head' },
       el('div', {
         class: 'kicker',
-        style: { color: 'var(--color-accent-700)', fontSize: '12px', letterSpacing: '.16em' },
+        style: { color: 'var(--color-accent-700)', letterSpacing: '.16em' },
         text: 'Rijksmuseum',
       }),
       el('button', {
-        type: 'button', class: 'btn btn-ghost', style: { fontSize: '13px' },
+        type: 'button', class: 'btn btn-ghost',
         onClick: actions.toggleTheme, text: actions.themeLabel,
       })),
 
@@ -70,7 +70,7 @@ export function renderSetup(state, works, actions) {
     el('div', { class: 'wrap' },
       THEME_TAGS.map(([tag, label]) =>
         chip(label, state.focus.includes(tag), toggleTag(tag)))),
-    el('p', { class: 'quiet', style: { margin: '10px 0 0', fontSize: '13px' } },
+    el('p', { class: 'hint quiet' },
       'Leave both empty for the greatest hits.'),
 
     el('div', { class: 'section-label' }, 'Walking with'),

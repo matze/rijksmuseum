@@ -41,7 +41,7 @@ export function renderDetail(work, state, actions) {
       }),
       el('button', {
         type: 'button', class: 'btn btn-ghost',
-        style: { fontSize: '12.5px', padding: '0' },
+        style: { padding: '0' },
         onClick: actions.closeDetail, text: 'Back to the line',
       }))),
 

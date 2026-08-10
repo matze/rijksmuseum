@@ -114,11 +114,11 @@ function terminusEntry(item, state, actions) {
         el('div', { class: 'selection muted', text: selection }),
         el('div', { class: 'actions' },
           el('button', {
-            type: 'button', class: 'btn btn-secondary', style: { fontSize: '14px' },
+            type: 'button', class: 'btn btn-secondary',
             onClick: actions.edit, text: 'Change the plan',
           }),
           el('button', {
-            type: 'button', class: 'btn btn-ghost', style: { fontSize: '14px' },
+            type: 'button', class: 'btn btn-ghost',
             onClick: actions.toggleTheme, text: actions.themeLabel,
           })),
       ]

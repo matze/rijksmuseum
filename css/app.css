@@ -45,6 +45,10 @@ body {
   min-height: 100vh;
 }
 
+/* Buttons speak at the secondary size; the quiet ones one step down. */
+.btn { font-size: 14.5px; }
+.btn-ghost { font-size: 12.5px; }
+
 a { color: var(--color-accent-700); text-underline-offset: 2px; }
 a:hover { color: var(--color-accent); }
 
@@ -64,7 +68,7 @@ a:hover { color: var(--color-accent); }
 
 .chip {
   font: inherit;
-  font-size: 14px;
+  font-size: 14.5px;
   padding: 7px 12px;
   min-height: 44px;
   border: 1px solid var(--color-divider);
@@ -98,7 +102,7 @@ a:hover { color: var(--color-accent); }
   width: 100%;
 }
 
-.chip-note { font-size: 12px; opacity: .82; text-align: right; }
+.chip-note { font-size: 12.5px; opacity: .82; text-align: right; }
 
 /* — setup — */
 
@@ -114,7 +118,7 @@ a:hover { color: var(--color-accent); }
 .setup h1 {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 40px;
+  font-size: 37px;
   line-height: 1.08;
   letter-spacing: normal;
   margin: 14px 0 8px;
@@ -122,6 +126,7 @@ a:hover { color: var(--color-accent); }
 
 .setup-intro {
   margin: 0;
+  font-size: 16.5px;
   color: color-mix(in srgb, var(--color-text) 86%, transparent);
   text-wrap: pretty;
 }
@@ -143,12 +148,13 @@ a:hover { color: var(--color-accent); }
 .setup .btn-primary {
   margin-top: 30px;
   min-height: 48px;
-  font-size: 16px;
+  font-size: 16.5px;
   font-family: var(--font-heading);
   font-weight: 400;
 }
 
-.preview { margin: 12px 0 0; font-size: 13px; text-align: center; }
+.preview { margin: 12px 0 0; font-size: 12.5px; text-align: center; }
+.hint { margin: 10px 0 0; font-size: 12.5px; }
 
 /* — the line — */
 
@@ -187,7 +193,7 @@ a:hover { color: var(--color-accent); }
 
 .chrome-clock {
   font-family: var(--font-heading);
-  font-size: 15px;
+  font-size: 14.5px;
   font-feature-settings: 'tnum';
   white-space: nowrap;
 }
@@ -258,7 +264,7 @@ a:hover { color: var(--color-accent); }
   text-align: justify;
   hyphens: auto;
   margin: 12px 0 0;
-  font-size: 15.5px;
+  font-size: 16.5px;
 }
 
 .aside { margin-top: 14px; border-top: 1px solid var(--color-divider); padding-top: 10px; }
@@ -284,7 +290,7 @@ a:hover { color: var(--color-accent); }
   padding-bottom: 2px;
 }
 
-.walk-line { font-size: 13.5px; display: flex; gap: 10px; align-items: baseline; }
+.walk-line { font-size: 14.5px; display: flex; gap: 10px; align-items: baseline; }
 .walk-line .mins { letter-spacing: .1em; white-space: nowrap; }
 .walk-line .what { text-wrap: pretty; }
 
@@ -296,13 +302,13 @@ a:hover { color: var(--color-accent); }
   margin-top: 2px;
 }
 
-.floor-title { font-size: 27px; }
-.term-title { font-size: 30px; }
-.break-title { font-size: 22px; }
+/* Stops and termini are the content; floors and breaks divide it. Two sizes,
+   not four — a 27/29/30 spread reads as imprecision, not as hierarchy. */
+.entry-term .term-title { font-size: 29px; }
+.floor-title, .break-title { font-size: 22px; }
 
 .entry-term .kicker, .entry-floor .kicker, .entry-break .kicker {
   color: var(--color-accent-700);
-  font-size: 12px;
   letter-spacing: .16em;
 }
 
@@ -311,7 +317,7 @@ a:hover { color: var(--color-accent); }
 .plan { margin-top: 12px; }
 .plan svg { display: block; width: 100%; max-width: 300px; margin: 0 auto; height: auto; }
 .plan-caption {
-  font-size: 13px;
+  font-size: 12.5px;
   font-style: italic;
   margin-top: 9px;
   text-wrap: pretty;
@@ -319,7 +325,7 @@ a:hover { color: var(--color-accent); }
 
 .actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 .selection { margin-top: 14px; border-top: 1px solid var(--color-divider);
-  padding-top: 10px; font-size: 14px; }
+  padding-top: 10px; font-size: 14.5px; }
 
 /* — detail sheet — */
 
