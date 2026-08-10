@@ -215,6 +215,20 @@ def parse_curated(path: Path) -> dict:
     }
 
 
+def load_crops() -> dict[str, list[float]]:
+    """The measured content boxes, with the hand-read ones merged over them."""
+    crops: dict[str, list[float]] = {}
+
+    for name in ("crops.json", "crops-extra.json"):
+        path = DATA / name
+
+        if path.exists():
+            crops.update({number: box for number, box in json.loads(path.read_text()).items()
+                          if not number.startswith("_")})
+
+    return crops
+
+
 def with_image_shape(entry: dict, fetcher: Fetcher) -> dict:
     """Replace the plate's aspect ratio with the photograph's own proportions.
 
@@ -271,6 +285,7 @@ def main() -> None:
     write_json(DATA / "catalogue.json", catalogue)
 
     iiif = Fetcher("iiif")
+    crops = load_crops()
     curated = [parse_curated(path) for path in sorted((DATA / "curated").glob("*.md"))]
     by_number = {entry["objectNumber"]: entry for entry in catalogue}
     tour = []
@@ -283,8 +298,12 @@ def main() -> None:
                   f"catalogue — it has moved or come off display", file=sys.stderr)
             continue
 
-        tour.append({**with_image_shape(facts, iiif),
-                     **{k: v for k, v in work.items() if v is not None}})
+        entry = with_image_shape(facts, iiif)
+
+        if crop := crops.get(work["objectNumber"]):
+            entry["image"] = {**entry["image"], "crop": crop}
+
+        tour.append({**entry, **{k: v for k, v in work.items() if v is not None}})
 
     write_json(DATA / "tour.json", tour)
     print(f"{len(catalogue)} on-view works across {len(galleries)} rooms, "

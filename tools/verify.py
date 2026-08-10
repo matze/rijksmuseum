@@ -25,6 +25,7 @@ from common import ASSETS, DATA, ROOT  # noqa: E402
 
 IMAGE_WIDTHS = [480, 960, 1600]
 IMAGE_FORMATS = ["avif", "webp", "jpg"]
+KEPT = 0.7  # of each side of a photograph, at least, once its border is clipped
 MAIN_BUILDING = "HG"
 RECORD_URI = re.compile(r"^https://id\.rijksmuseum\.nl/\d+$")
 ARTICLE_URI = re.compile(r"^https://en\.wikipedia\.org/wiki/[^\s?#]+$")
@@ -144,6 +145,30 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
 
         if not work["image"].get("aspectRatio"):
             report.fail(f"{number}: no aspect ratio, so the plate cannot reserve space")
+
+        check_crop(number, work["image"].get("crop"), report)
+
+
+def check_crop(number: str, crop: list[float] | None, report: Report) -> None:
+    """A content box the guide clips its plate to.
+
+    The box is what the visitor sees of the work, so a box that leaves the
+    photograph, inverts, or takes a third of the picture away is a reading gone
+    wrong rather than a border: it would hide the work and no test but this one
+    would notice.
+    """
+    if crop is None:
+        return
+
+    x, y, width, height = crop
+
+    if not (0 <= x and 0 <= y and width > 0 and height > 0
+            and x + width <= 1.0001 and y + height <= 1.0001):
+        report.fail(f"{number}: crop {crop} is not a box inside the photograph")
+
+    if min(width, height) < KEPT:
+        report.fail(f"{number}: crop keeps {min(width, height):.0%} of a side, which is "
+                    f"more than a border")
 
 
 def check_route_coverage(tour: list[dict], galleries: dict, report: Report) -> None:
