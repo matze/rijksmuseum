@@ -19,7 +19,8 @@ numbers). Treat it as layout, type and colour reference; take no facts from it.
 
     just setup          # vendor the typefaces and justif — assets/ is not committed
     just harvest        # search API → candidate ids → Linked Art records (cached)
-    just build          # records → data/*.json, then IIIF derivatives for curated works
+    just build          # borders → records → data/*.json, then IIIF derivatives
+    just crops "..."    # detect_crops.py alone; "--review sheet.png" draws every box
     just floorplan      # read room coordinates out of the museum's published plan PDF
     just check          # verify.py — the invariants; fails the build
     just test           # node --test tests/ — routing and pacing, no DOM
@@ -36,8 +37,8 @@ treats `app/*.js` as ES modules.
 
     tools/      retrieval and generation (Python). common.py holds one accessor per
                 Linked Art field — the auditable seam between museum data and rendered text
-    data/       generated catalogue.json, galleries.json, tour.json;
-                hand-written curated/*.md and floorplan-extra.json
+    data/       generated catalogue.json, galleries.json, tour.json, crops.json;
+                hand-written curated/*.md, floorplan-extra.json and crops-extra.json
     app/        plain ES modules, loaded directly by index.html
     css/        ds-classical.css (vendored design system, unmodified) + app.css
     vendor/     justif, committed
@@ -61,6 +62,9 @@ treats `app/*.js` as ES modules.
 - English curatorial prose is largely absent from the API; the Dutch `description`
   statement usually exists. The museum's own object page (`web_page`) has English text —
   fetch it when writing prose.
+- Photographs are not all cropped to the work: some are shot in the frame, some show the
+  unpainted edge of a panel. `detect_crops.py` measures the box that is the work and
+  writes `data/crops.json`; the guide clips its plates to it and the files stay whole.
 
 Current state: 1237 on-view works, 244 rooms, 40 curated works, 131 rooms located on the
 plan. A second `just build` must produce byte-identical JSON; that is the reproducibility
@@ -77,6 +81,20 @@ holds eleven Rembrandts, is one of them.
 
 There is no verified scale, so the guide states minutes and never metres. Walking times
 are named constants in `app/route.js` (`WALK`) and are estimates.
+
+### Content boxes
+
+`detect_crops.py` runs first in `just build`, before the catalogue, so one build takes a
+new curated work all the way through. It reads each side of the photograph from the
+outside in: the outermost line states the border's tone, and the border ends where a line
+has left that tone behind along 85% of its length. It is built to under-read — a border
+left in place costs nothing, a cut into the picture is gone — so anything deeper than 1%
+of a side has to be a tone the work itself does not use, and every side has to be
+corroborated by another side of the same tone. Frames defeat it: a frame carries the
+painting's own browns and golds. Those are hand-measured into `data/crops-extra.json`,
+which is merged over the detected boxes, and both readings there are checked against the
+museum's stated height and width — a box cut in the right place has the work's own
+proportions. Read the result with `just crops "--review sheet.png"` and look at the PNG.
 
 ## Writing a curated work
 
@@ -125,6 +143,12 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
   phone that puts the marker in the middle of a label's line: `.stop-head .where` is capped
   at `50% - 10px` so a long room code wraps instead of colliding. A walk is the exception —
   its text runs the full width, so its ring stays up in the gap.
+- The plate is a window, not an image: `.plate-wrap` holds the proportions of the work and
+  the photograph is laid inside it, absolutely positioned and scaled so the content box
+  fills the opening. `plate.js` sets `--crop-x/y/w/h` and `--crop-ratio` per work and the
+  stylesheet does the arithmetic, so it holds at every width the plate is drawn at. Works
+  with no border carry `0 0 1 1` and come out at their plain size. The tile grid hangs the
+  window, not the image, on the band floor — hence `.plate-band` around it in `setup.js`.
 - Nothing may leave the page at runtime — fonts, images and justif are all local. Grep for
   external URLs in shipped files before claiming otherwise.
 
