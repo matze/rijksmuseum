@@ -358,9 +358,12 @@ a:hover { color: var(--color-accent); }
   margin: 25px 0 4px;
 }
 
+.sheet-body .section-label { margin-top: 34px; }
 .sheet-body p { text-align: justify; hyphens: auto; font-size: 16.5px; margin: 14px 0 0; }
 
-.facts { margin-top: 24px; border-top: 1px solid var(--color-divider); }
+/* The table is a change of register from the prose above it, not a continuation
+   of the list, and needs the distance to say so. */
+.facts { margin-top: 40px; border-top: 1px solid var(--color-divider); }
 
 .fact {
   display: flex;

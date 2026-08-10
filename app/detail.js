@@ -52,10 +52,6 @@ export function renderDetail(work, state, actions) {
     el('p', { text: work.timeline }),
     work.detail.map((paragraph) => el('p', { text: paragraph })),
 
-    el('div', { class: 'aside', style: { marginTop: '20px' } },
-      el('span', { class: 'kicker label', text: 'In one glance' }),
-      el('span', { class: 'text', text: work.closer })),
-
     el('div', { class: 'section-label', style: { color: 'var(--color-accent-700)' } },
       'What to look for'),
     el('ol', { class: 'look' },
