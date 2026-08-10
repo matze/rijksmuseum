@@ -7,7 +7,7 @@ import { renderDetail } from './detail.js';
 import { trackFocus } from './focus.js';
 import { buildRoute } from './route.js';
 import { renderSetup } from './setup.js';
-import { PHASE, applyTheme, load, nextTheme, persist, themeLabel } from './state.js';
+import { PHASE, load, persist } from './state.js';
 import { paintChrome, renderTour } from './tour.js';
 
 /** How often the header re-reads the clock. A minute display needs no more. */
@@ -36,18 +36,9 @@ function show(view, { replace = false } = {}) {
 }
 
 const actions = {
-  get themeLabel() { return themeLabel(state); },
-
   update(mutate) {
     mutate(state);
     persist(state);
-    render();
-  },
-
-  toggleTheme() {
-    state.theme = nextTheme(state);
-    persist(state);
-    applyTheme(state);
     render();
   },
 
@@ -127,7 +118,6 @@ function render() {
   detachFocus?.();
   detachFocus = null;
 
-  applyTheme(state);
   clear(root);
 
   if (state.phase === PHASE.setup) {
@@ -168,12 +158,7 @@ window.addEventListener('popstate', (event) => {
   window.scrollTo(0, event.state?.scroll ?? 0);
 });
 
-window.matchMedia?.('(prefers-color-scheme: dark)')
-  .addEventListener('change', () => applyTheme(state));
-
 setInterval(tick, TICK_MS);
-
-applyTheme(state);
 
 // Scroll is restored from the history entry, not by the browser, because the
 // view is rebuilt on every entry and the document is briefly empty.

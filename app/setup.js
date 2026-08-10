@@ -40,10 +40,6 @@ export function renderSetup(state, works, actions) {
         class: 'kicker',
         style: { color: 'var(--color-accent-700)', letterSpacing: '.16em' },
         text: 'Rijksmuseum',
-      }),
-      el('button', {
-        type: 'button', class: 'btn btn-ghost',
-        onClick: actions.toggleTheme, text: actions.themeLabel,
       })),
 
     el('h1', { text: 'A walk through the collection' }),

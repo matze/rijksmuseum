@@ -115,6 +115,8 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
 - Route: floors in order `[0, 1, 3, 2]` so the visit ends on the Night Watch. Selection
   then layout; if the plan overruns the budget, drop the weakest stop and lay out again.
 - Persistence: one localStorage key. A started visit resumes on the timeline.
+- Dark only. There is no theme switch and no `prefers-color-scheme` branch; the tokens in
+  `app.css` sit on bare `:root` and override the design system's light ones.
 - Nothing may leave the page at runtime — fonts, images and justif are all local. Grep for
   external URLs in shipped files before claiming otherwise.
 

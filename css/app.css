@@ -1,15 +1,11 @@
 /* The guide's own layer over the Classical design system.
    Contrast overrides first, then the components the system does not carry:
-   the chip, the timeline row and its markers, the plate, the detail sheet. */
+   the chip, the timeline row and its markers, the plate, the detail sheet.
 
-:root[data-theme="light"] {
-  --color-bg: #f5f4f3;
-  --color-text: #141310;
-  --color-divider: color-mix(in srgb, #141310 28%, transparent);
-  --color-accent-700: #6d480c;
-}
+   The guide is dark only. A gallery is a dark room with lit walls, and the
+   plates carry the light; a paper-white page beside them reads as a leak. */
 
-:root[data-theme="dark"] {
+:root {
   --color-bg: #100f0e;
   --color-surface: #1c1a19;
   --color-text: #f5f2ec;
@@ -25,9 +21,9 @@
   --color-neutral-700: #a8a29a;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / .5);
   --shadow-md: 0 3px 10px rgb(0 0 0 / .55);
-}
 
-:root { --dim: .32; }
+  --dim: .32;
+}
 
 * { box-sizing: border-box; }
 
