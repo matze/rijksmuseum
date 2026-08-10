@@ -1,0 +1,21 @@
+{
+  "_comment": [
+    "Boxes read by hand off the photographs, for works tools/detect_crops.py will",
+    "not cut. Both of these are shot in their frames, and a frame carries the same",
+    "browns and golds as the painting inside it, so the detector cannot tell the",
+    "one from the other and leaves the work alone rather than risk cutting it.",
+    "Each box was read from the brightness of the outer lines of the 960px",
+    "derivative, where the gilt lip of the frame stands out as a bright band and",
+    "the painting begins on the line after it. Both readings were then checked",
+    "against the museum's own measurement of the work: the proportions of the box",
+    "agree with the stated height and width to within 1.5%, which they cannot do",
+    "by accident.",
+    "SK-C-2: 38 lines on every side of 960x446. 884x370 gives 2.389 against the",
+    "record's 547x232 cm, 2.358.",
+    "SK-C-211: 12 left, 16 right, 21 top, 22 bottom of 960x814. 932x771 gives",
+    "1.209 against the record's 101x83 cm, 1.217.",
+    "Re-read them with: just crops '--review crops.png'"
+  ],
+  "SK-C-2": [0.0396, 0.0852, 0.9208, 0.8296],
+  "SK-C-211": [0.0125, 0.0258, 0.9708, 0.9472]
+}
