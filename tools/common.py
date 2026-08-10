@@ -424,6 +424,30 @@ def digital_object_uris(visual_item: dict) -> list[str]:
     return [d["id"] for d in as_list(visual_item.get("digitally_shown_by")) if d.get("id")]
 
 
+def image_services(records: Iterable[dict], fetcher: Fetcher) -> dict[str, dict]:
+    """Visual item URI → IIIF service, for the records whose imagery is in the cache.
+
+    The hop is object → visual item → digital object → IIIF, and each step is a
+    record of its own that a harvest may not have reached.
+    """
+    services: dict[str, dict] = {}
+
+    for record in records:
+        visual_uri = visual_item_uri(record)
+
+        if not visual_uri or not fetcher.path_for(visual_uri).exists():
+            continue
+
+        visual = fetcher.get_json(visual_uri)
+        digitals = [fetcher.get_json(uri) for uri in digital_object_uris(visual)
+                    if fetcher.path_for(uri).exists()]
+
+        if service := image_service(visual, digitals):
+            services[visual_uri] = service
+
+    return services
+
+
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n")

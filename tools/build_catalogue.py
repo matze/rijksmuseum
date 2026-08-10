@@ -25,10 +25,9 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from common import (CACHE, DATA, Fetcher, creator, digital_object_uris,  # noqa: E402
-                    dimensions, gallery, image_service, object_number,
-                    production_date, statements, titles, visual_item_uri,
-                    web_page, write_json)
+from common import (CACHE, DATA, Fetcher, creator, dimensions, gallery,  # noqa: E402
+                    image_services, object_number, production_date, statements,
+                    titles, visual_item_uri, web_page, write_json)
 
 IMAGE_WIDTHS = [480, 960, 1600]
 CURATED_SECTIONS = ("timeline", "closer", "detail", "look", "kids")
@@ -249,21 +248,7 @@ def main() -> None:
         print(f"warning: {len(candidates) - len(records)} candidates not yet harvested",
               file=sys.stderr)
 
-    # Resolve the imagery hop entirely from cache: visual item → digital object → IIIF.
-    images: dict[str, dict] = {}
-
-    for record in records:
-        visual_uri = visual_item_uri(record)
-
-        if not visual_uri or not fetcher.path_for(visual_uri).exists():
-            continue
-
-        visual = fetcher.get_json(visual_uri)
-        digitals = [fetcher.get_json(uri) for uri in digital_object_uris(visual)
-                    if fetcher.path_for(uri).exists()]
-
-        if service := image_service(visual, digitals):
-            images[visual_uri] = service
+    images = image_services(records, fetcher)
 
     catalogue = sorted(
         (entry for record in records
