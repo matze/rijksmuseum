@@ -591,6 +591,13 @@ a:hover { color: var(--color-accent); }
   background: var(--color-bg);
   overflow-y: auto;
   overscroll-behavior: contain;
+
+  /* One reading column, head and body on the same measure, until the window is
+     wide enough for the plate to have a column of its own. */
+  --sheet-width: 620px;
+  /* The height of the sticky head, which is what the plate below it hangs from:
+     one 14.5px label on the body's 1.55 leading, its padding and its rule. */
+  --sheet-head: 36px;
 }
 
 .sheet-head {
@@ -602,7 +609,7 @@ a:hover { color: var(--color-accent); }
 }
 
 .sheet-head > div {
-  max-width: 620px;
+  max-width: var(--sheet-width);
   margin: 0 auto;
   padding: 6px 18px 7px;
   display: flex;
@@ -612,7 +619,7 @@ a:hover { color: var(--color-accent); }
 }
 
 .sheet-head .kicker { color: var(--color-accent-700); white-space: nowrap; }
-.sheet-body { max-width: 620px; margin: 0 auto; padding: 20px 18px 72px; }
+.sheet-body { max-width: var(--sheet-width); margin: 0 auto; padding: 20px 18px 72px; }
 
 .sheet-body h2 {
   font-family: var(--font-heading);
@@ -656,3 +663,58 @@ a:hover { color: var(--color-accent); }
 
 .provenance { margin-top: 26px; font-size: 12.5px; }
 .provenance a { overflow-wrap: anywhere; }
+
+/* The sheet is the one place in the guide where the work is looked at rather
+   than walked past, and on a wide window the reading column is the wrong size
+   for looking. Past this width the plate takes a column of its own and stands
+   as tall as the window under the head allows; the text runs beside it at the
+   same measure it always had. The plate is sticky, so the description scrolls
+   past a work that stays whole and in view — the reason for the split.
+
+   The text column is capped and the plate takes the rest, so widening the
+   window widens the picture. The breakpoint is where what is left over is at
+   least the width of the single column the plate came out of. */
+@media (min-width: 1160px) {
+  .sheet {
+    --sheet-width: 1400px;
+    --gutter: 28px;
+    --column-gap: 40px;
+    /* The air above the plate, and below it at the foot of the window. */
+    --sheet-air: 24px;
+  }
+
+  .sheet-head > div { padding-inline: var(--gutter); }
+
+  /* Both columns are the full height of the taller one — the plate's column has
+     to run the length of the text for the plate to have anywhere to stick. */
+  .sheet-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+    gap: 0 var(--column-gap);
+    padding: var(--sheet-air) var(--gutter) 0;
+  }
+
+  /* The tail of the page belongs to the text, not to the grid: a row that ends
+     where the reading ends is a row the plate stays stuck to all the way down. */
+  .sheet-text { padding-bottom: 72px; }
+
+  /* What is left of the window under the head, less the air above and below. */
+  .sheet-plate {
+    --plate-height: calc(100dvh - var(--sheet-head) - 2 * var(--sheet-air));
+  }
+
+  /* The plate itself is what sticks, inside a column as tall as the text beside
+     it. It sticks where it already stands, so it does not move at all: the work
+     is hung once and the description is read past it. Height-led, like the tiles
+     on the contact sheet — the width is read back off the proportions of the
+     work, so the plate never outgrows the window. */
+  .sheet-plate .plate-wrap {
+    position: sticky;
+    top: calc(var(--sheet-head) + var(--sheet-air));
+    margin: 0 auto;
+    width: min(100%, var(--plate-height) * var(--crop-ratio));
+  }
+
+  /* The title stands level with the top of the plate beside it. */
+  .sheet-text > h2:first-child { margin-top: 0; }
+}

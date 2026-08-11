@@ -8,7 +8,11 @@ import { el } from './dom.js';
 import { plate } from './plate.js';
 import { PHASE } from './state.js';
 
-const SHEET_SIZES = '(min-width: 656px) 584px, calc(100vw - 36px)';
+/** Above the two-column breakpoint the plate has a column of its own and is
+ *  drawn at up to 840px; the stylesheet holds it to the height of the window,
+ *  so a portrait work asks for more file than it shows. That is the trade the
+ *  sheet is for. */
+const SHEET_SIZES = '(min-width: 1160px) 840px, (min-width: 656px) 584px, calc(100vw - 36px)';
 
 /** Cited sources are also offered as links, so the reading behind the text is
  *  one tap away. The article is whichever source is an encyclopaedia entry. */
@@ -50,41 +54,42 @@ export function renderDetail(work, state, actions) {
       }))),
 
   el('div', { class: 'sheet-body' },
-    plate(work, SHEET_SIZES),
-    el('h2', { text: title }),
-    byline ? el('div', { class: 'byline muted', text: byline }) : null,
-    el('p', { text: work.timeline }),
-    work.detail.map((paragraph) => el('p', { text: paragraph })),
+    el('div', { class: 'sheet-plate' }, plate(work, SHEET_SIZES)),
+    el('div', { class: 'sheet-text' },
+      el('h2', { text: title }),
+      byline ? el('div', { class: 'byline muted', text: byline }) : null,
+      el('p', { text: work.timeline }),
+      work.detail.map((paragraph) => el('p', { text: paragraph })),
 
-    el('div', { class: 'section-label', style: { color: 'var(--color-accent-700)' } },
-      'What to look for'),
-    el('ol', { class: 'look' },
-      work.look.map((point) => el('li', { text: point }))),
+      el('div', { class: 'section-label', style: { color: 'var(--color-accent-700)' } },
+        'What to look for'),
+      el('ol', { class: 'look' },
+        work.look.map((point) => el('li', { text: point }))),
 
-    el('div', { class: 'facts' },
-      fact('Attribution', work.attribution !== work.artist ? work.attribution : null),
-      fact('Medium', work.medium?.en ?? work.medium?.nl),
-      fact('Dimensions', dimensions),
-      fact('Where', `${work.gallery.name?.en ?? 'Room ' + work.gallery.room}, `
-        + `Room ${work.gallery.room}`),
-      fact('Planned stay', `${work.stayMinutes} minutes`),
-      fact('Credit', work.credit?.en ?? work.credit?.nl)),
+      el('div', { class: 'facts' },
+        fact('Attribution', work.attribution !== work.artist ? work.attribution : null),
+        fact('Medium', work.medium?.en ?? work.medium?.nl),
+        fact('Dimensions', dimensions),
+        fact('Where', `${work.gallery.name?.en ?? 'Room ' + work.gallery.room}, `
+          + `Room ${work.gallery.room}`),
+        fact('Planned stay', `${work.stayMinutes} minutes`),
+        fact('Credit', work.credit?.en ?? work.credit?.nl)),
 
-    state.kids && work.kids
-      ? el('div', { class: 'ask' },
-        el('span', { class: 'kicker label', text: 'Ask them' }),
-        el('span', { class: 'text', text: work.kids }))
-      : null,
+      state.kids && work.kids
+        ? el('div', { class: 'ask' },
+          el('span', { class: 'kicker label', text: 'Ask them' }),
+          el('span', { class: 'text', text: work.kids }))
+        : null,
 
-    el('div', { class: 'provenance quiet' },
-      el('div', { text: `Object ${work.objectNumber}. Facts retrieved from the `
-        + `Rijksmuseum collection data on ${work.retrieved}. Image public domain.` }),
-      link(work.page, 'The museum’s own entry for this work'),
-      link(work.sources.find((source) => WIKIPEDIA.test(source)),
-        'Further reading on Wikipedia')),
+      el('div', { class: 'provenance quiet' },
+        el('div', { text: `Object ${work.objectNumber}. Facts retrieved from the `
+          + `Rijksmuseum collection data on ${work.retrieved}. Image public domain.` }),
+        link(work.page, 'The museum’s own entry for this work'),
+        link(work.sources.find((source) => WIKIPEDIA.test(source)),
+          'Further reading on Wikipedia')),
 
-    el('button', {
-      type: 'button', class: 'btn btn-primary btn-block',
-      onClick: actions.closeDetail, text: back,
-    })));
+      el('button', {
+        type: 'button', class: 'btn btn-primary btn-block',
+        onClick: actions.closeDetail, text: back,
+      }))));
 }

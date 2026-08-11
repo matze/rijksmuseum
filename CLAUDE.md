@@ -22,7 +22,7 @@ the handoff and never recalled from memory. If a fact cannot be sourced, it does
     just check          # verify.py — the invariants; fails the build
     just test           # node --test tests/ — routing and pacing, no DOM
     just serve          # python3 -m http.server 8137
-    just shot "..."     # phone-viewport screenshot over CDP; needs a server running
+    just shot "..."     # screenshot over CDP, phone viewport unless --width says wider
     just describe SK-C-5              # everything the record says about an object
     just articles "--for SK-A-4"      # find and read the Wikipedia article
 
@@ -54,8 +54,9 @@ treats `app/*.js` as ES modules.
 - Gallery code `HG-2.31` → building HG, floor 2, room 2.31. `AK-1-23` (Asian Pavilion)
   carries no readable storey, so those works get `floor: null` and cannot be routed.
 - Images: object → `shows` → VisualItem → `digitally_shown_by` → IIIF level 2 on
-  `iiif.micr.io`, Public Domain Mark. `fetch_images.py` writes 480/960/1600px AVIF, WebP
-  and JPEG under `assets/works/` for curated works only.
+  `iiif.micr.io`, Public Domain Mark. `fetch_images.py` writes 480/960/1600/2400px AVIF,
+  WebP and JPEG under `assets/works/` for curated works only. 2400 is for the detail sheet
+  on a retina desktop; the smallest source photograph is 3168px wide, so none is enlarged.
 - English curatorial prose is largely absent from the API; the Dutch `description`
   statement usually exists. The museum's own object page (`web_page`) has English text —
   fetch it when writing prose.
@@ -168,6 +169,13 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
   stylesheet does the arithmetic, so it holds at every width the plate is drawn at. Works
   with no border carry `0 0 1 1` and come out at their plain size. The tile grid hangs the
   window, not the image, on the band floor — hence `.plate-band` around it in `setup.js`.
+- The detail sheet is the one place the work is looked at rather than walked past. From
+  1160px up it leaves the reading column: `.sheet-plate` takes a column of its own and is
+  sticky, standing the height of the window under the head, and `.sheet-text` runs beside
+  it at its usual measure, so the description scrolls past a work that stays in view. The
+  plate is height-led there — `width: min(100%, var(--plate-height) * var(--crop-ratio))`,
+  the same reading the contact-sheet tiles use. That plate is drawn at up to 840px, which
+  is what its `sizes` declares and what pulls the widest derivative on a retina desktop.
 - Nothing may leave the page at runtime — fonts, images and justif are all local. Grep for
   external URLs in shipped files before claiming otherwise.
 
