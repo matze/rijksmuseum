@@ -278,6 +278,9 @@ a:hover { color: var(--color-accent); }
 
 .chrome[data-hidden="true"] { transform: translateY(-105%); }
 
+/* Four readings share this row, and they are all labels: the bar carries the
+   label voice once and every one of them inherits it, so none has a size, a
+   family or a colour of its own. */
 .chrome-row {
   max-width: 620px;
   margin: 0 auto;
@@ -287,12 +290,11 @@ a:hover { color: var(--color-accent); }
   gap: 12px;
 }
 
-.chrome-here { white-space: nowrap; }
+.chrome-at { white-space: nowrap; }
 
 .chrome-nudge {
   flex: 1;
   text-align: right;
-  font-size: 12.5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -300,23 +302,40 @@ a:hover { color: var(--color-accent); }
 
 .chrome-nudge[data-behind="true"] { color: var(--color-accent-700); }
 
-.chrome-clock {
-  font-family: var(--font-heading);
-  font-size: 14.5px;
-  font-feature-settings: 'tnum';
-  white-space: nowrap;
+/* One voice is a wider voice, and four readings no longer fit a phone row. The
+   clock is the one the visitor can read anywhere else — the phone shows the time
+   in its own status bar, and the nudge names the finishing time itself — so it
+   waits for a window with room for it. */
+.chrome-clock { display: none; white-space: nowrap; }
+
+/* Standing a little clear of the nudge, which names a time of its own: in one
+   voice the two readings no longer tell themselves apart by their typeface. */
+@media (min-width: 480px) {
+  .chrome-clock { display: inline; margin-left: 6px; }
 }
 
 /* The one way back to the setup screen, so it is reachable from anywhere on the
-   line rather than only from the Atrium the visitor has already walked past. */
-.chrome-edit { padding: 0; white-space: nowrap; }
+   line rather than only from the Atrium the visitor has already walked past. A
+   button brings its own family and size, so it is the one thing in the row that
+   has to be told to inherit. The rule beside it is what separates the readings
+   from the one control: its gold is the text gold, and the nudge turns the same
+   gold when the visit runs late. */
+.chrome-edit {
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  color: var(--color-accent-700);
+  border-left-color: var(--color-divider);
+  padding: 0 0 0 12px;
+  white-space: nowrap;
+}
 
-/* Four things do not fit one narrow row, and the pacing nudge is the one the
-   visitor cannot read anywhere else: the phone shows the time in its own status
-   bar, and the nudge names the finishing time itself. */
+/* Whatever is left over on a narrow phone goes to the nudge, the counter
+   included: the progress rule under the bar and the head of the stop itself both
+   say where the visit has got to, and nothing else says the sentence. */
 @media (max-width: 389px) {
-  .chrome-clock { display: none; }
   .chrome-row { gap: 8px; }
+  .chrome-at { display: none; }
 }
 
 .progress { height: 1px; background: var(--color-divider); position: relative; }

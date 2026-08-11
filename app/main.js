@@ -94,9 +94,9 @@ function tick() {
   const now = Date.now();
 
   paintChrome({
-    here: stop
-      ? `${stop.number}/${route.stopCount} · Room ${stop.work.gallery.room}`
-      : 'Atrium',
+    // The room and the word "Stop" are both on the stop's own head, a line below
+    // the bar; naming them twice spends the width the nudge needs.
+    at: stop ? `${stop.number} of ${route.stopCount}` : 'Atrium',
     nudge: pacing({ started: state.started, now }, stop, route),
     clock: formatClock(new Date(now)),
     progress: Math.round(((stop?.number ?? 0) / Math.max(1, route.stopCount)) * 100),

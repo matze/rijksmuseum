@@ -101,8 +101,8 @@ const ENTRIES = {
 
 export function renderTour(state, route, actions) {
   const chrome = el('div', { class: 'chrome', 'data-hidden': 'false' },
-    el('div', { class: 'chrome-row' },
-      el('span', { class: 'kicker chrome-here' }),
+    el('div', { class: 'chrome-row kicker' },
+      el('span', { class: 'chrome-at' }),
       el('span', { class: 'chrome-nudge' }),
       el('span', { class: 'chrome-clock' }),
       el('button', {
@@ -118,12 +118,12 @@ export function renderTour(state, route, actions) {
 }
 
 /** Update the header in place. Called every tick and on every focus change. */
-export function paintChrome({ here, nudge, clock, progress }) {
+export function paintChrome({ at, nudge, clock, progress }) {
   const chrome = document.querySelector('.chrome');
 
   if (!chrome) return;
 
-  chrome.querySelector('.chrome-here').textContent = here;
+  chrome.querySelector('.chrome-at').textContent = at;
 
   const nudgeNode = chrome.querySelector('.chrome-nudge');
   nudgeNode.textContent = nudge.text;
