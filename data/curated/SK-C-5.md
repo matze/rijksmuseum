@@ -14,6 +14,7 @@ Eighteen militiamen paid to appear in a group portrait and Rembrandt gave them a
 instead. Captain Frans Banninck Cocq, in black, is telling his lieutenant to march the
 company out; everyone else is still catching up with the order. It is not a night scene —
 the dark came from centuries of varnish, since removed.
+region: 0.3950 0.4800 0.2850 0.5100
 
 ## closer
 Follow the captain's outstretched hand. Its shadow falls across the lieutenant's gold
@@ -32,7 +33,10 @@ a musket going off, a dog barking — and let some of them fall into shadow to d
 
 ## look
 1. The captain's hand and the shadow it throws onto the lieutenant's coat.
+region: "The captain's hand" 0.4480 0.5900 0.0650 0.0640
+region: "the shadow it throws onto the lieutenant's coat" 0.5500 0.5950 0.0740 0.1080
 2. The girl in gold behind the captain, with a chicken hanging from her belt — its claws are the militia's emblem.
+region: 0.2450 0.5720 0.1050 0.1950
 3. The light: count the sources. There is no single sun in this picture.
 
 ## kids

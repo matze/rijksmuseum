@@ -12,6 +12,7 @@ sources:
 A warship four metres high and four and a half long, built in 1698, rigged, painted and
 armed with 74 guns on three decks. It is a model at about one to twelve — which means the
 ship it stands for would have been more than twelve times this size.
+region: "armed with 74 guns on three decks" 0.0800 0.5900 0.6200 0.2400
 
 ## closer
 The stern. The arms of Zeeland, the year 1698, an encircled St George's cross, and four
@@ -30,8 +31,11 @@ loosely stand for the 94-gun Koning William.
 
 ## look
 1. The lion with an English crown under the bowsprit.
+region: 0.0500 0.5250 0.0800 0.0750
 2. The rigging, which is a working diagram of how such a ship was sailed.
+region: 0.1200 0.1500 0.5500 0.4000
 3. The gunports, and how few of them are on the top deck.
+region: 0.1300 0.6000 0.5300 0.1400
 
 ## kids
 This ship is a model. How much bigger was the real one? About twelve times.

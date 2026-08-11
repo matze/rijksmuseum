@@ -14,6 +14,8 @@ Five and a half metres of celebration dinner. On 18 June 1648 the Amsterdam cros
 sat down in their own hall to mark the Peace of Münster, which ended eighty years of war
 with Spain, and had themselves painted doing it. Captain Cornelis Jansz Witsen holds the
 guild's silver drinking horn; Lieutenant Johan Oetgens van Waveren is shaking his hand.
+region: "Captain Cornelis Jansz Witsen holds the guild's silver drinking horn" 0.3250 0.4400 0.0800 0.1400
+region: "Lieutenant Johan Oetgens van Waveren is shaking his hand" 0.3900 0.5000 0.0550 0.0650
 
 ## closer
 The handshake at the centre is the subject. Everything else in the picture is arranged
@@ -34,5 +36,9 @@ commission, not the completion.
 
 ## look
 1. The handshake, and the silver drinking horn beside it.
+region: "The handshake" 0.3900 0.5000 0.0550 0.0650
+region: "the silver drinking horn beside it" 0.3250 0.4400 0.0800 0.1400
 2. The poem pinned to the drum.
+region: 0.3450 0.6800 0.1600 0.2050
 3. Out of the window: the brewery on the Singel, a real building in a real street.
+region: 0.5250 0.0900 0.0900 0.1600

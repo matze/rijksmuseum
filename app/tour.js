@@ -43,7 +43,7 @@ function stopEntry(item, state, actions) {
   plate(work, PLATE_SIZES),
   el('h2', { text: title }),
   byline ? el('div', { class: 'byline muted', text: byline }) : null,
-  el('p', { class: 'body-text', text: work.timeline }),
+  el('p', { class: 'body-text', text: work.timeline.text }),
   el('div', { class: 'aside' },
     el('span', { class: 'kicker label', text: 'Look closer' }),
     el('span', { class: 'text', text: work.closer })),

@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 import yaml
@@ -26,6 +27,8 @@ from common import ASSETS, DATA, ROOT  # noqa: E402
 IMAGE_WIDTHS = [480, 960, 1600, 2400]
 IMAGE_FORMATS = ["avif", "webp", "jpg"]
 KEPT = 0.7  # of each side of a photograph, at least, once its border is clipped
+MOST_OF_A_SIDE = 0.8  # of the work, which is as wide as a region may point
+LEAST_OF_A_SIDE = 0.02  # of the work, below which the dimming lights nothing
 MAIN_BUILDING = "HG"
 RECORD_URI = re.compile(r"^https://id\.rijksmuseum\.nl/\d+$")
 ARTICLE_URI = re.compile(r"^https://en\.wikipedia\.org/wiki/[^\s?#]+$")
@@ -148,6 +151,11 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
 
         check_crop(number, work["image"].get("crop"), report)
 
+        check_spans(number, work, report)
+
+        for where, region in anchored(work):
+            check_region(f"{number} {where}", region, report)
+
 
 def check_crop(number: str, crop: list[float] | None, report: Report) -> None:
     """A content box the guide clips its plate to.
@@ -169,6 +177,76 @@ def check_crop(number: str, crop: list[float] | None, report: Report) -> None:
     if min(width, height) < KEPT:
         report.fail(f"{number}: crop keeps {min(width, height):.0%} of a side, which is "
                     f"more than a border")
+
+
+def anchored(work: dict) -> Iterator[tuple[str, dict]]:
+    """Every region a work's prose points at, and the words that point at it.
+
+    A block either points whole or points by phrase; the phrases carry offsets
+    into the block's own text, so a slice that has drifted off the end of it
+    would render as the wrong words under the right box.
+    """
+    numbered = [(f"{name} {index + 1}", block)
+                for name in ("detail", "look")
+                for index, block in enumerate(work[name])]
+
+    for where, block in [("timeline", work["timeline"]), *numbered]:
+        if "region" in block:
+            yield where, block["region"]
+
+        for span in block.get("spans", []):
+            phrase = block["text"][span["start"]:span["end"]]
+
+            yield f"{where} '{phrase[:32]}'", span["region"]
+
+
+def check_spans(number: str, work: dict, report: Report) -> None:
+    """The slices of prose that point at a part of the work.
+
+    They are offsets rather than copies of the words, so nothing in the file
+    itself shows when one has slipped: the guide would quietly light the wrong
+    phrase. A block also points either whole or by phrase, never both, or two
+    regions would answer to the same cursor.
+    """
+    for name, block in [("timeline", work["timeline"]),
+                        *((name, block) for name in ("detail", "look")
+                          for block in work[name])]:
+        spans = block.get("spans", [])
+
+        if spans and "region" in block:
+            report.fail(f"{number} {name}: points both whole and by phrase")
+
+        for span, following in zip(spans, spans[1:] + [None]):
+            if not 0 <= span["start"] < span["end"] <= len(block["text"]):
+                report.fail(f"{number} {name}: phrase {span['start']}–{span['end']} is not "
+                            f"inside its own text of {len(block['text'])} characters")
+
+            if following and span["end"] > following["start"]:
+                report.fail(f"{number} {name}: phrases {span['start']}–{span['end']} and "
+                            f"{following['start']}–{following['end']} overlap")
+
+
+def check_region(where: str, region: list[float], report: Report) -> None:
+    """A box on the plate that a block of prose points at.
+
+    Unlike a crop this is meant to be small — it names a hand, or a chicken on a
+    belt — so `KEPT` does not apply and the bounds run the other way. What it
+    must be is a part: a region the size of the work says nothing that the plate
+    beside it was not already saying, and one a few pixels across is a typo.
+    """
+    x, y, width, height = region
+
+    if not (0 <= x and 0 <= y and width > 0 and height > 0
+            and x + width <= 1.0001 and y + height <= 1.0001):
+        report.fail(f"{where}: region {region} is not a box inside the work")
+
+    if min(width, height) > MOST_OF_A_SIDE:
+        report.fail(f"{where}: region covers {min(width, height):.0%} of a side, which "
+                    f"points at the whole work rather than at a part of it")
+
+    if min(width, height) < LEAST_OF_A_SIDE:
+        report.fail(f"{where}: region is {min(width, height):.1%} of a side, too small to "
+                    f"find on the plate")
 
 
 def check_route_coverage(tour: list[dict], galleries: dict, report: Report) -> None:

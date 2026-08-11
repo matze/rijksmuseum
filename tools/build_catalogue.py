@@ -19,6 +19,7 @@ import json
 import re
 import sys
 from datetime import date
+from enum import StrEnum
 from pathlib import Path
 
 import yaml
@@ -32,6 +33,32 @@ from common import (CACHE, DATA, Fetcher, creator, dimensions, gallery,  # noqa:
 IMAGE_WIDTHS = [480, 960, 1600, 2400]
 CURATED_SECTIONS = ("timeline", "closer", "detail", "look", "kids")
 REQUIRED_SECTIONS = ("timeline", "closer", "detail", "look")
+
+#: A `region:` line closes the block above it and says which part of the work
+#: that block is about. Four fractions of the photograph — the space the crops
+#: are measured in, and the space you are in when you look at the file. The
+#: build restates them in the plate's own space; see `in_work`.
+#:
+#: A quoted phrase narrows it from the whole block to those words, wherever they
+#: fall in it. The phrase is matched against the block's finished text, so it is
+#: written as it reads rather than as it is wrapped.
+REGION = re.compile(r'^region:\s+(?:"([^"]+)"\s+)?([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)$')
+
+#: `look` is authored as a numbered list and rendered as one, so the figures the
+#: author typed would otherwise be shown twice.
+NUMBERING = re.compile(r"^\d+\.\s*")
+
+
+class Grouping(StrEnum):
+    """How a section's lines fall into blocks.
+
+    `paragraph` reads markdown's own rule, where a blank line starts a block and
+    a line ending does not. `line` gives every line a block of its own, which is
+    what a numbered list is.
+    """
+
+    paragraph = "paragraph"
+    line = "line"
 
 
 def aspect_ratio(measured: dict) -> str | None:
@@ -153,18 +180,116 @@ def billed_as(attribution: str | None) -> str | None:
     return EVIDENCE_NOTE.sub("", attribution) if attribution else attribution
 
 
-def paragraphs(lines: list[str]) -> list[str]:
-    """Group hard-wrapped lines into paragraphs the way markdown reads them:
-    a blank line starts a new paragraph, a line ending does not."""
-    grouped: list[list[str]] = [[]]
+def anchor(block: dict, phrase: str | None, box: list[float]) -> None:
+    """Point a block, or some words inside it, at a part of the work.
 
-    for line in lines:
-        if line.strip():
-            grouped[-1].append(line.strip())
-        elif grouped[-1]:
-            grouped.append([])
+    A phrase is recorded as where it falls in the block's own text rather than as
+    a copy of it, so the prose stays one string and the guide has nothing to
+    reassemble. Requiring the phrase to occur exactly once is what keeps the
+    offsets honest as the prose is edited: a phrase that has moved is still
+    found, and one that has been reworded stops the build.
+    """
+    if phrase is None:
+        if block.get("spans"):
+            raise ValueError(f"'{block['text'][:48]}…' is already pointed at by phrase")
 
-    return [" ".join(group) for group in grouped if group]
+        if "region" in block:
+            raise ValueError(f"two regions on '{block['text'][:48]}…'")
+
+        block["region"] = box
+
+        return
+
+    if "region" in block:
+        raise ValueError(f"'{block['text'][:48]}…' is already pointed at whole")
+
+    found = block["text"].count(phrase)
+
+    if found != 1:
+        raise ValueError(f"'{phrase}' occurs {found} times in '{block['text'][:48]}…'")
+
+    start = block["text"].index(phrase)
+    spans = block.setdefault("spans", [])
+
+    if any(start < span["end"] and span["start"] < start + len(phrase) for span in spans):
+        raise ValueError(f"'{phrase}' overlaps another phrase already pointed at")
+
+    spans.append({"start": start, "end": start + len(phrase), "region": box})
+    spans.sort(key=lambda span: span["start"])
+
+
+def blocks(lines: list[str], grouping: Grouping) -> list[dict]:
+    """Group a section's lines into blocks, each with the region it points at.
+
+    A block that carries no `region:` line is prose that points nowhere in
+    particular, and carries neither key at all — which is most of them.
+    """
+    grouped: list[dict] = []
+    run: list[str] = []
+
+    def close() -> None:
+        if run:
+            grouped.append({"text": " ".join(run)})
+            run.clear()
+
+    for raw in lines:
+        line = raw.strip()
+
+        if found := REGION.match(line):
+            close()
+
+            if not grouped:
+                raise ValueError("a region: line has nothing above it to point from")
+
+            phrase, *box = found.groups()
+            anchor(grouped[-1], phrase, [float(number) for number in box])
+        elif not line:
+            close()
+        elif grouping is Grouping.line:
+            grouped.append({"text": NUMBERING.sub("", line)})
+        else:
+            run.append(line)
+
+    close()
+
+    return grouped
+
+
+def in_work(box: list[float], crop: list[float] | None) -> list[float]:
+    """A region measured on the photograph, restated in the space the plate draws in.
+
+    The plate is a window onto the work: it holds the work's own proportions and
+    the photograph is laid behind it, so 0–1 across that window is 0–1 across the
+    work and not across the photograph. Regions are authored in the photograph's
+    space, which is the one they are measured in, so re-reading a border moves
+    the regions with it rather than leaving them behind.
+    """
+    if not crop:
+        return box
+
+    x, y, width, height = box
+    left, top, kept_width, kept_height = crop
+
+    return [round(value, 4) for value in ((x - left) / kept_width, (y - top) / kept_height,
+                                          width / kept_width, height / kept_height)]
+
+
+def placed(work: dict, crop: list[float] | None) -> dict:
+    """The curated prose with every region restated in the plate's own space."""
+    def convert(block: dict) -> dict:
+        if "region" in block:
+            return {**block, "region": in_work(block["region"], crop)}
+
+        if "spans" in block:
+            return {**block, "spans": [{**span, "region": in_work(span["region"], crop)}
+                                       for span in block["spans"]]}
+
+        return block
+
+    return {**work,
+            "timeline": convert(work["timeline"]),
+            "detail": [convert(block) for block in work["detail"]],
+            "look": [convert(block) for block in work["look"]]}
 
 
 def parse_curated(path: Path) -> dict:
@@ -190,7 +315,12 @@ def parse_curated(path: Path) -> dict:
         elif current:
             sections[current].append(line)
 
-    prose = {name: paragraphs(lines) for name, lines in sections.items()}
+    try:
+        prose = {name: blocks(lines, Grouping.line if name == "look" else Grouping.paragraph)
+                 for name, lines in sections.items()}
+    except ValueError as problem:
+        raise SystemExit(f"{path}: {problem}") from problem
+
     missing = [s for s in REQUIRED_SECTIONS if not prose.get(s)]
 
     if missing:
@@ -199,6 +329,17 @@ def parse_curated(path: Path) -> dict:
     if not front.get("sources"):
         raise SystemExit(f"{path}: every curated work needs at least one source")
 
+    # One paragraph, so that the region it carries is the region of all of it.
+    if len(prose["timeline"]) > 1:
+        raise SystemExit(f"{path}: the timeline is one paragraph, not {len(prose['timeline'])}")
+
+    # The sheet is the only place a region has a plate to light, and these two
+    # are not on it: the closer belongs to the line, the question to a child.
+    for name in ("closer", "kids"):
+        if any("region" in block for block in prose.get(name, [])):
+            raise SystemExit(f"{path}: the {name} is not shown beside the plate, so a "
+                             f"region there would have nothing to point at")
+
     return {
         "objectNumber": front["objectNumber"],
         "priority": front["priority"],
@@ -206,12 +347,11 @@ def parse_curated(path: Path) -> dict:
         "tags": front.get("tags", []),
         "sources": front["sources"],
         "displayTitle": front.get("displayTitle"),
-        "timeline": " ".join(prose["timeline"]),
-        "closer": " ".join(prose["closer"]),
+        "timeline": prose["timeline"][0],
+        "closer": " ".join(block["text"] for block in prose["closer"]),
         "detail": prose["detail"],
-        "look": [re.sub(r"^\d+\.\s*", "", line.strip())
-                 for line in sections["look"] if line.strip()],
-        "kids": " ".join(prose["kids"]) if prose.get("kids") else None,
+        "look": prose["look"],
+        "kids": " ".join(block["text"] for block in prose["kids"]) if prose.get("kids") else None,
     }
 
 
@@ -300,10 +440,14 @@ def main() -> None:
 
         entry = with_image_shape(facts, iiif)
 
-        if crop := crops.get(work["objectNumber"]):
+        crop = crops.get(work["objectNumber"])
+
+        if crop:
             entry["image"] = {**entry["image"], "crop": crop}
 
-        tour.append({**entry, **{k: v for k, v in work.items() if v is not None}})
+        prose = placed(work, crop)
+
+        tour.append({**entry, **{k: v for k, v in prose.items() if v is not None}})
 
     write_json(DATA / "tour.json", tour)
     print(f"{len(catalogue)} on-view works across {len(galleries)} rooms, "

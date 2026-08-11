@@ -3,11 +3,12 @@
 
 import { clear, el } from './dom.js';
 import { formatClock, pacing } from './clock.js';
-import { renderDetail } from './detail.js';
+import { paintRegions, renderDetail } from './detail.js';
 import { trackFocus } from './focus.js';
+import { linkRegions } from './regions.js';
 import { buildRoute } from './route.js';
 import { paintSetup, renderSetup } from './setup.js';
-import { PHASE, load, persist } from './state.js';
+import { PHASE, REGIONS, load, persist } from './state.js';
 import { paintChrome, renderTour } from './tour.js';
 
 /** How often the header re-reads the clock. A minute display needs no more. */
@@ -70,6 +71,14 @@ const actions = {
     if (history.state?.open) history.back();
     else show({ phase: state.phase, open: null }, { replace: true });
   },
+
+  /** Not a view change and not a history entry: the sheet stays exactly where it
+   *  is and the stylesheet reads the new value off it. */
+  toggleRegions() {
+    state.regions = state.regions === REGIONS.on ? REGIONS.off : REGIONS.on;
+    persist(state);
+    paintRegions(state.regions);
+  },
 };
 
 function focusedStop() {
@@ -131,7 +140,14 @@ function render() {
     root.append(renderTour(state, route, actions));
   }
 
-  if (open) root.append(renderDetail(open, state, actions));
+  // The sheet's own listeners go with it when the next render clears the root,
+  // so unlike the focus tracker below there is nothing to detach.
+  if (open) {
+    const sheet = renderDetail(open, state, actions);
+
+    root.append(sheet);
+    linkRegions(sheet);
+  }
 
   document.body.style.overflow = open ? 'hidden' : '';
 
