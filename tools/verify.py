@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import ASSETS, DATA, ROOT  # noqa: E402
 
-IMAGE_WIDTHS = [480, 960, 1600]
+IMAGE_WIDTHS = [480, 960, 1600, 2400]
 IMAGE_FORMATS = ["avif", "webp", "jpg"]
 KEPT = 0.7  # of each side of a photograph, at least, once its border is clipped
 MAIN_BUILDING = "HG"

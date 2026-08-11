@@ -5,9 +5,13 @@
 """Download and transcode the artwork imagery for the curated works.
 
 The museum serves public-domain images through a IIIF endpoint. The guide has to
-work with no network, so each work is pulled once at three widths and written
+work with no network, so each work is pulled once at four widths and written
 into `assets/works/` as AVIF, WebP and JPEG. Only curated works are fetched —
 the catalogue's other twelve hundred entries never appear on the timeline.
+
+The widest file is for the detail sheet on a desktop, where the plate leaves the
+reading column and stands the height of the window; the smallest source
+photograph is 3168px wide, so none of them is enlarged to reach 2400.
 """
 
 from __future__ import annotations
@@ -25,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import ASSETS, DATA, Fetcher, in_parallel  # noqa: E402
 
-WIDTHS = [480, 960, 1600]
+WIDTHS = [480, 960, 1600, 2400]
 FORMATS = {"avif": {"quality": 55}, "webp": {"quality": 78, "method": 5},
            "jpg": {"quality": 82, "progressive": True, "optimize": True}}
 WORKS = ASSETS / "works"

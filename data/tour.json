@@ -42,7 +42,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Which room would you sleep in?",
@@ -57,7 +58,7 @@
     "objectNumber": "BK-NM-1010",
     "page": "https://www.rijksmuseum.nl/en/collection/object/BK-NM-1010--62700ab4ff22218345de76f77d58ad39",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/BK-NM-1010--62700ab4ff22218345de76f77d58ad39",
       "https://id.rijksmuseum.nl/2002678",
@@ -115,7 +116,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "This ship is a model. How much bigger was the real one? About twelve times.",
@@ -131,7 +133,7 @@
     "objectNumber": "NG-MC-651",
     "page": "https://www.rijksmuseum.nl/en/collection/object/NG-MC-651--c8440c600263839cf45524b9477620ad",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/NG-MC-651--c8440c600263839cf45524b9477620ad",
       "https://id.rijksmuseum.nl/200315848"
@@ -198,7 +200,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "There are more than a hundred people here. How long does it take you to find the man on the stretcher?",
@@ -214,7 +217,7 @@
     "objectNumber": "SK-A-1115",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1115--9fc8b4d132695d9b276b9c92522386f3",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-1115--9fc8b4d132695d9b276b9c92522386f3",
       "https://id.rijksmuseum.nl/200107874",
@@ -281,7 +284,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -296,7 +300,7 @@
     "objectNumber": "SK-A-133",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-133--29d98c79eda4e9d954f80ce0bb0c8b17",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-133--29d98c79eda4e9d954f80ce0bb0c8b17",
       "https://id.rijksmuseum.nl/200109346",
@@ -362,7 +366,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "He is about to say something. What?",
@@ -378,7 +383,7 @@
     "objectNumber": "SK-A-135",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-135--884b50ad9157e0b12a90e4a5e8acf336",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-135--884b50ad9157e0b12a90e4a5e8acf336",
       "https://id.rijksmuseum.nl/200109347",
@@ -450,7 +455,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "She has just been given a letter. What do you think it says?",
@@ -466,7 +472,7 @@
     "objectNumber": "SK-A-1595",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1595--508513eb7ee162ec2f68ea3d3138d912",
     "priority": 1,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-1595--508513eb7ee162ec2f68ea3d3138d912",
       "https://id.rijksmuseum.nl/200108370",
@@ -537,7 +543,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Find someone who has fallen over. Now find three more.",
@@ -553,7 +560,7 @@
     "objectNumber": "SK-A-1718",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1718--918895dc18da94e357c6763adda8882f",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-1718--918895dc18da94e357c6763adda8882f",
       "https://id.rijksmuseum.nl/200108163",
@@ -621,7 +628,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "She is two years old. Do you think she wanted to stand still for this?",
@@ -637,7 +645,7 @@
     "objectNumber": "SK-A-1786",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1786--afe781ab16974c11bcb26b5bdbdbb5cd",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-1786--afe781ab16974c11bcb26b5bdbdbb5cd",
       "https://id.rijksmuseum.nl/200108271",
@@ -699,7 +707,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -714,7 +723,7 @@
     "objectNumber": "SK-A-1935",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1935--d27d7ce1f58c87131f14425799c2d0a4",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-1935--d27d7ce1f58c87131f14425799c2d0a4",
       "https://id.rijksmuseum.nl/200106038"
@@ -775,7 +784,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -790,7 +800,7 @@
     "objectNumber": "SK-A-199",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-199--4e711e3145b1a3937a6b88a2586e1a92",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-199--4e711e3145b1a3937a6b88a2586e1a92",
       "https://id.rijksmuseum.nl/200109415",
@@ -853,7 +863,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Three kings came from three different places. Can you find all three roads?",
@@ -869,7 +880,7 @@
     "objectNumber": "SK-A-2150",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2150--8fa4df643e7cf7542a4e1603df185efa",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-2150--8fa4df643e7cf7542a4e1603df185efa",
       "https://id.rijksmuseum.nl/200109296",
@@ -934,7 +945,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -949,7 +961,7 @@
     "objectNumber": "SK-A-2338",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2338--570d1419506e38cb3916f640fe5a2328",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-2338--570d1419506e38cb3916f640fe5a2328",
       "https://id.rijksmuseum.nl/20027537",
@@ -1020,7 +1032,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Seven different ways of helping someone. How many can you name before you read the labels?",
@@ -1036,7 +1049,7 @@
     "objectNumber": "SK-A-2815",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2815--14aaec41ef8d5849daa5f6a4d08978bf",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-2815--14aaec41ef8d5849daa5f6a4d08978bf",
       "https://id.rijksmuseum.nl/200109466",
@@ -1106,7 +1119,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "How many people are hiding in this painting? There are four.",
@@ -1122,7 +1136,7 @@
     "objectNumber": "SK-A-2860",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2860--a7dbf937cbd6f7c30f66f8aca4a0207c",
     "priority": 1,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-2860--a7dbf937cbd6f7c30f66f8aca4a0207c",
       "https://id.rijksmuseum.nl/200108371",
@@ -1188,7 +1202,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1203,7 +1218,7 @@
     "objectNumber": "SK-A-2963",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2963--f8b3d988b1b2392222edf10e954aa003",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-2963--f8b3d988b1b2392222edf10e954aa003",
       "https://id.rijksmuseum.nl/200109334",
@@ -1265,7 +1280,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1280,7 +1296,7 @@
     "objectNumber": "SK-A-3066",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3066--c40e58abcb8b5d2d29343e130836d538",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3066--c40e58abcb8b5d2d29343e130836d538",
       "https://id.rijksmuseum.nl/200107947"
@@ -1350,7 +1366,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Count the church towers standing in the water. Each one was a village.",
@@ -1366,7 +1383,7 @@
     "objectNumber": "SK-A-3147-A",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3147-A--7f19663091ec7283decd600aaf9bbbf1",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3147-A--7f19663091ec7283decd600aaf9bbbf1",
       "https://id.rijksmuseum.nl/200109490"
@@ -1436,7 +1453,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "He painted this looking in a mirror. Which hand really held the brush?",
@@ -1451,7 +1469,7 @@
     "objectNumber": "SK-A-3262",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3262--72f97ac66c33f86b161cd51d62f7d365",
     "priority": 1,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3262--72f97ac66c33f86b161cd51d62f7d365",
       "https://id.rijksmuseum.nl/200109794",
@@ -1513,7 +1531,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1528,7 +1547,7 @@
     "objectNumber": "SK-A-3276",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3276--8e1adedeb8e339890121dc4228dce95d",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3276--8e1adedeb8e339890121dc4228dce95d",
       "https://id.rijksmuseum.nl/200107946",
@@ -1589,7 +1608,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1604,7 +1624,7 @@
     "objectNumber": "SK-A-3340",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3340--7aaadc1f26ec652044aa6e1150576fd6",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3340--7aaadc1f26ec652044aa6e1150576fd6",
       "https://id.rijksmuseum.nl/200107930"
@@ -1674,7 +1694,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1689,7 +1710,7 @@
     "objectNumber": "SK-A-3580",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3580--596ea47fa3632feadb1469236bc9838f",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3580--596ea47fa3632feadb1469236bc9838f",
       "https://id.rijksmuseum.nl/200108317"
@@ -1758,7 +1779,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1773,7 +1795,7 @@
     "objectNumber": "SK-A-3584",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3584--40fc3390d77e969fabd1189b1770fd5a",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-3584--40fc3390d77e969fabd1189b1770fd5a",
       "https://id.rijksmuseum.nl/200108304",
@@ -1840,7 +1862,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -1855,7 +1878,7 @@
     "objectNumber": "SK-A-372",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-372--9f57e2dc4c3c546e1ddef2246281e0dd",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-372--9f57e2dc4c3c546e1ddef2246281e0dd",
       "https://id.rijksmuseum.nl/200107985",
@@ -1922,7 +1945,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "The swan is much bigger than the dog. Who do you think wins?",
@@ -1938,7 +1962,7 @@
     "objectNumber": "SK-A-4",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4--22040f90565e730131983a44a85b989f",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4--22040f90565e730131983a44a85b989f",
       "https://id.rijksmuseum.nl/200108146",
@@ -2005,7 +2029,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2020,7 +2045,7 @@
     "objectNumber": "SK-A-4057",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4057--74e5d98ac8bb3d68d3a00d6eeb2b22ff",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4057--74e5d98ac8bb3d68d3a00d6eeb2b22ff",
       "https://id.rijksmuseum.nl/200107944"
@@ -2087,7 +2112,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "He thinks she stole the goat. She did not. How can you tell she is upset?",
@@ -2103,7 +2129,7 @@
     "objectNumber": "SK-A-4717",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4717--04e00112e65cde2ed5705578f4a21f15",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4717--04e00112e65cde2ed5705578f4a21f15",
       "https://id.rijksmuseum.nl/200107945",
@@ -2164,7 +2190,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2179,7 +2206,7 @@
     "objectNumber": "SK-A-4833",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4833--98719e83615f7d4f74a2a866ecc3749f",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4833--98719e83615f7d4f74a2a866ecc3749f",
       "https://id.rijksmuseum.nl/200107936"
@@ -2246,7 +2273,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2261,7 +2289,7 @@
     "objectNumber": "SK-A-4885",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4885--648ec94734a4e68faf568ace93add229",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4885--648ec94734a4e68faf568ace93add229",
       "https://id.rijksmuseum.nl/200138946",
@@ -2328,7 +2356,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2342,7 +2371,7 @@
     "objectNumber": "SK-A-4954",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4954--691fdf5662eb62defab3542a3c4d3648",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4954--691fdf5662eb62defab3542a3c4d3648",
       "https://id.rijksmuseum.nl/200412933"
@@ -2412,7 +2441,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2427,7 +2457,7 @@
     "objectNumber": "SK-A-4981",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4981--9d0b6b75646aaaa22fc25e7eacdb65b5",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4981--9d0b6b75646aaaa22fc25e7eacdb65b5",
       "https://id.rijksmuseum.nl/20020408",
@@ -2487,7 +2517,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2502,7 +2533,7 @@
     "objectNumber": "SK-A-4987",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4987--d8ebf6668c0af4286d5bdb3dcf1cd043",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-4987--d8ebf6668c0af4286d5bdb3dcf1cd043",
       "https://id.rijksmuseum.nl/200471926"
@@ -2572,7 +2603,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2586,7 +2618,7 @@
     "objectNumber": "SK-A-5021",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5021--e5905da5447c6881b0b5b1551cbcd10c",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-5021--e5905da5447c6881b0b5b1551cbcd10c",
       "https://id.rijksmuseum.nl/200552425",
@@ -2652,7 +2684,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2666,7 +2699,7 @@
     "objectNumber": "SK-A-5087",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5087--39204ee420fc9a9fadc909ecb52a618d",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-A-5087--39204ee420fc9a9fadc909ecb52a618d",
       "https://id.rijksmuseum.nl/200815187"
@@ -2736,7 +2769,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "The girl is playing a game called kolf. Can you find her stick?",
@@ -2752,7 +2786,7 @@
     "objectNumber": "SK-C-1191",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1191--50874e6f82c7190c896320bf39c7f4c9",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-1191--50874e6f82c7190c896320bf39c7f4c9",
       "https://id.rijksmuseum.nl/2003051"
@@ -2811,7 +2845,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2825,7 +2860,7 @@
     "objectNumber": "SK-C-1841",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1841--555942764a41765175fb9abcc50cb646",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-1841--555942764a41765175fb9abcc50cb646",
       "https://id.rijksmuseum.nl/200320381"
@@ -2885,7 +2920,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2899,7 +2935,7 @@
     "objectNumber": "SK-C-1842",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1842--f6c471acab8551d09159561f1170df64",
     "priority": 3,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-1842--f6c471acab8551d09159561f1170df64",
       "https://id.rijksmuseum.nl/20012763"
@@ -2966,7 +3002,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -2981,7 +3018,7 @@
     "objectNumber": "SK-C-2",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-2--83051231f37623a4692404315a9887fd",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-2--83051231f37623a4692404315a9887fd",
       "https://id.rijksmuseum.nl/200109366",
@@ -3052,7 +3089,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -3067,7 +3105,7 @@
     "objectNumber": "SK-C-211",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-211--fb2b57919550092bf709472f81426eab",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-211--fb2b57919550092bf709472f81426eab",
       "https://id.rijksmuseum.nl/200107959",
@@ -3138,7 +3176,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "kids": "Find the dog, the drum, and the girl with a chicken hanging from her belt.",
@@ -3154,7 +3193,7 @@
     "objectNumber": "SK-C-5",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-5--3137deb45cd7765f9a76084a16c99544",
     "priority": 1,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-5--3137deb45cd7765f9a76084a16c99544",
       "https://id.rijksmuseum.nl/200107928",
@@ -3218,7 +3257,8 @@
       "widths": [
         480,
         960,
-        1600
+        1600,
+        2400
       ]
     },
     "look": [
@@ -3233,7 +3273,7 @@
     "objectNumber": "SK-C-597",
     "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-597--6f7272f48fb3fbb02ceecf7aa897f1a7",
     "priority": 2,
-    "retrieved": "2026-08-09",
+    "retrieved": "2026-08-11",
     "sources": [
       "https://www.rijksmuseum.nl/en/collection/object/SK-C-597--6f7272f48fb3fbb02ceecf7aa897f1a7",
       "https://id.rijksmuseum.nl/200107942",

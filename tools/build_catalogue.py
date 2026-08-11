@@ -29,7 +29,7 @@ from common import (CACHE, DATA, Fetcher, creator, dimensions, gallery,  # noqa:
                     image_services, object_number, production_date, statements,
                     titles, visual_item_uri, web_page, write_json)
 
-IMAGE_WIDTHS = [480, 960, 1600]
+IMAGE_WIDTHS = [480, 960, 1600, 2400]
 CURATED_SECTIONS = ("timeline", "closer", "detail", "look", "kids")
 REQUIRED_SECTIONS = ("timeline", "closer", "detail", "look")
 
