@@ -486,6 +486,21 @@ a:hover { color: var(--color-accent); }
   aspect-ratio: var(--crop-ratio);
 }
 
+/* What the plate and the parts of the work its description names share: one box,
+   so a region given as a fraction of the work lands where the work is. Below the
+   two-column breakpoint it is an empty wrapper and the hotspots are not drawn.
+   The four numbers are the veil's, and stand at the whole work until a block of
+   prose is hovered and `regions.js` narrows them. */
+.plate-frame {
+  position: relative;
+  --region-x: 0;
+  --region-y: 0;
+  --region-w: 1;
+  --region-h: 1;
+}
+
+.plate-regions { display: none; }
+
 /* The design system mats its plates. Here the painting already carries its own
    frame, painted or gilt, and a second one drawn in CSS reads as a mistake. The
    mat was also holding the plate off the text around it, so the space it took
@@ -619,6 +634,40 @@ a:hover { color: var(--color-accent); }
 }
 
 .sheet-head .kicker { color: var(--color-accent-700); white-space: nowrap; }
+
+/* The switch stands at the end of the head, on the way back's own side of it and
+   parted from it the way the room is parted from the floor. It is drawn only
+   where there is something for it to switch — the links run on the two-column
+   sheet and on pointers that hover, and nowhere else. */
+.sheet-head-end { display: flex; align-items: center; gap: 9px; }
+.sheet-head-dot { display: none; color: var(--color-divider); }
+.sheet-regions { display: none; padding: 0; gap: 7px; white-space: nowrap; }
+.sheet-regions[aria-pressed="false"] { color: color-mix(in srgb, var(--color-text) 62%, transparent); }
+
+/* Track and knob, both drawn in the button's own colour, so the switch says the
+   same thing the label does and there is one state to keep in step. */
+.sheet-regions .switch {
+  position: relative;
+  width: 22px;
+  height: 12px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+}
+
+.sheet-regions .switch::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  transition: transform 160ms ease;
+}
+
+.sheet-regions[aria-pressed="true"] .switch::after { transform: translateX(10px); }
+
 .sheet-body { max-width: var(--sheet-width); margin: 0 auto; padding: 20px 18px 72px; }
 
 .sheet-body h2 {
@@ -703,18 +752,107 @@ a:hover { color: var(--color-accent); }
     --plate-height: calc(100dvh - var(--sheet-head) - 2 * var(--sheet-air));
   }
 
-  /* The plate itself is what sticks, inside a column as tall as the text beside
-     it. It sticks where it already stands, so it does not move at all: the work
-     is hung once and the description is read past it. Height-led, like the tiles
-     on the contact sheet — the width is read back off the proportions of the
-     work, so the plate never outgrows the window. */
-  .sheet-plate .plate-wrap {
+  /* The frame is what sticks, inside a column as tall as the text beside it. It
+     sticks where it already stands, so it does not move at all: the work is hung
+     once and the description is read past it. Height-led, like the tiles on the
+     contact sheet — the width is read back off the proportions of the work, so
+     the plate never outgrows the window. The plate fills the frame; what else is
+     in there travels with it. */
+  .sheet-plate .plate-frame {
     position: sticky;
     top: calc(var(--sheet-head) + var(--sheet-air));
     margin: 0 auto;
     width: min(100%, var(--plate-height) * var(--crop-ratio));
   }
 
+  .sheet-plate .plate-wrap { margin-top: 0; }
+
   /* The title stands level with the top of the plate beside it. */
   .sheet-text > h2:first-child { margin-top: 0; }
+}
+
+/* — the description and the place it names —
+
+   A block of prose that names a part of the work is joined to that part: hover
+   the sentence and the rest of the painting falls away behind a veil, hover the
+   part and the sentence takes the text gold. `regions.js` moves the light; this
+   is only what the light looks like.
+
+   Gated to the two-column sheet, where the work stands beside the description
+   and stays in view while it scrolls, and to pointers that can hover. On a phone
+   the plate is above the text rather than beside it, so dimming it would work on
+   something already off the screen.
+
+   Gated again on the sheet's own switch, and that gate is this whole block: with
+   the links off there is no rule under the prose, no veil, and no hotspot to hit
+   — the sheet is the sheet it was before any of this. */
+@media (min-width: 1160px) and (hover: hover) {
+  .sheet-regions { display: inline-flex; }
+  .sheet-head-dot { display: inline; }
+
+  .sheet[data-regions="on"] .plate-regions {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Nothing is drawn: the hotspot is a hit area over the part of the work its
+     sentence is about, in the fractions of the work `plate.js` hangs the whole
+     photograph by. */
+  .plate-region {
+    position: absolute;
+    left: calc(var(--region-x) * 100%);
+    top: calc(var(--region-y) * 100%);
+    width: calc(var(--region-w) * 100%);
+    height: calc(var(--region-h) * 100%);
+  }
+
+  /* The veil, with a hole cut in its mask where the region is: the work keeps
+     its full strength there and everything else falls away behind it. The
+     softness is the gradient's own, so there is no edge to read as a box drawn
+     on a painting, and the percentages resolve against the frame, so it holds at
+     every width the plate is drawn at. A pseudo-element because it must never be
+     a hit target — the hotspots lie underneath it. */
+  .plate-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--color-bg) 58%, transparent);
+    opacity: 0;
+    transition: opacity 220ms ease;
+    mask-image: radial-gradient(ellipse calc(var(--region-w) * 70%)
+                                        calc(var(--region-h) * 70%)
+                                at calc((var(--region-x) + var(--region-w) / 2) * 100%)
+                                   calc((var(--region-y) + var(--region-h) / 2) * 100%),
+                                transparent 0 58%, #000 100%);
+  }
+
+  .sheet[data-regions="on"] .plate-frame[data-lit="true"]::after { opacity: 1; }
+
+  /* Everything anchored is ruled underneath, so what points at the work can be
+     found without hovering the page to look for it: a dotted rule in a gold too
+     faint to read as a link, which comes up to the text's own gold when it
+     lights. Justification clones a marked phrase that runs over a line break,
+     and each piece carries the rule, so it breaks the way the words do.
+
+     The colours are settled here and the switch only draws the line, because
+     `text-decoration-line` is not animatable and the colour is: gating the
+     colour instead would run the transition on the way in, and the rule would
+     arrive in the text's own white and fade back to gold. */
+  .sheet-text [data-region] {
+    text-decoration: underline dotted;
+    text-decoration-line: none;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-underline-offset: 3px;
+    transition: color 220ms ease, text-decoration-color 220ms ease;
+  }
+
+  .sheet[data-regions="on"] .sheet-text [data-region] { text-decoration-line: underline; }
+
+  /* Where both directions end: the words take the text gold. */
+  .sheet[data-regions="on"] .sheet-text [data-region][data-lit="true"] {
+    color: var(--color-accent-700);
+    text-decoration-color: var(--color-accent-700);
+  }
 }

@@ -7,6 +7,10 @@ const KEY = 'rijks-guide-v1';
 
 export const PHASE = Object.freeze({ setup: 'setup', tour: 'tour' });
 
+/** Whether the detail sheet joins its prose to the parts of the work it names.
+ *  The stylesheet reads this off the sheet, so it is a word rather than a flag. */
+export const REGIONS = Object.freeze({ on: 'on', off: 'off' });
+
 /** The four budgets offered on the setup screen, in minutes. */
 export const BUDGETS = [60, 90, 120, 180];
 
@@ -19,9 +23,10 @@ const defaults = () => ({
   started: 0,
   open: null,
   active: 1,
+  regions: REGIONS.on,
 });
 
-const PERSISTED = ['minutes', 'focus', 'kids', 'stepFree', 'started'];
+const PERSISTED = ['minutes', 'focus', 'kids', 'stepFree', 'started', 'regions'];
 
 export function load() {
   const state = defaults();

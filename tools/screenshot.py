@@ -12,6 +12,7 @@ failure a mobile-first layout is most likely to have.
     uv run tools/screenshot.py /            --out setup.png
     uv run tools/screenshot.py / --click '.btn-primary' --scroll 900
     uv run tools/screenshot.py / --width 1440 --height 900 --click '.card'
+    uv run tools/screenshot.py / --click '.tile' --hover '.look li:nth-child(1)'
 """
 
 from __future__ import annotations
@@ -19,23 +20,43 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import subprocess
 import sys
 import tempfile
 import time
+from enum import StrEnum
 from pathlib import Path
 
 import requests
 import websocket
 
-CHROME = "google-chrome-stable"
+#: Any Chromium speaking the DevTools protocol will do — a checkout without one
+#: on the path can point $CHROME at the browser it already has.
+CHROME = os.environ.get("CHROME", "google-chrome-stable")
 DEBUG_PORT = 9222
 DEFAULT_VIEWPORT = (390, 844)  # a common phone in CSS pixels
 PHONE_LIMIT = 700  # widths under this are captured as a phone, wider ones as a desktop
 
 
+class Pointer(StrEnum):
+    """What the captured window is driven with.
+
+    Headless has no pointing device at all, so `hover` and `pointer` both read
+    as none and anything gated on them is invisible to a capture — including,
+    on a desktop window, everything that only happens under the cursor. Blink is
+    told which it is rather than left to guess: the numbers are its own, hover
+    none/hover and pointer none/coarse/fine.
+    """
+
+    mouse = "primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4," \
+            "availablePointerTypes=4"
+    touch = "primaryHoverType=1,availableHoverTypes=1,primaryPointerType=2," \
+            "availablePointerTypes=2"
+
+
 class Chrome:
-    def __init__(self, port: int = DEBUG_PORT):
+    def __init__(self, pointer: Pointer, port: int = DEBUG_PORT):
         self.port = port
         # A throwaway profile per run, so a visit started by one screenshot does
         # not resume in the next one and quietly change what is being captured.
@@ -43,7 +64,7 @@ class Chrome:
         self.process = subprocess.Popen(
             [CHROME, "--headless=new", f"--remote-debugging-port={port}",
              "--disable-gpu", "--no-sandbox", "--hide-scrollbars",
-             "--remote-allow-origins=*",
+             "--remote-allow-origins=*", f"--blink-settings={pointer.value}",
              # The dev server is on this machine; a system proxy would refuse it.
              "--no-proxy-server",
              "--no-first-run", f"--user-data-dir={self.profile.name}", "about:blank"],
@@ -104,6 +125,31 @@ DIAGNOSTICS = """
 """
 
 
+def hover(chrome: Chrome, selector: str, height: int) -> None:
+    """Put the pointer over an element, as a pointer rather than as a script.
+
+    A dispatched event would reach a listener but leave `:hover` unset, and half
+    of what a hover state looks like is CSS. This moves the mouse itself.
+    """
+    centre = chrome.evaluate(
+        f"(() => {{ const node = document.querySelector({selector!r});"
+        f" if (!node) return null;"
+        f" const box = node.getBoundingClientRect();"
+        f" return {{ x: box.left + box.width / 2, y: box.top + box.height / 2 }}; }})()")
+
+    if not centre:
+        print(f"warning: nothing matched {selector}", file=sys.stderr)
+        return
+
+    # A rect off the top or bottom of the window still has coordinates, and the
+    # pointer would land on whatever is drawn there instead.
+    if not 0 <= centre["y"] <= height:
+        print(f"warning: {selector} is off the screen at y={centre['y']:.0f}", file=sys.stderr)
+
+    chrome.send("Input.dispatchMouseEvent", type="mouseMoved",
+                x=centre["x"], y=centre["y"], buttons=0)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -115,22 +161,24 @@ def main() -> None:
     parser.add_argument("--full", action="store_true", help="capture the whole page")
     parser.add_argument("--dark", action="store_true", help="emulate a dark colour scheme")
     parser.add_argument("--click", action="append", default=[], help="CSS selector to click")
+    parser.add_argument("--hover", help="CSS selector to leave the pointer over")
     parser.add_argument("--scroll", type=int, default=0, help="pixels to scroll before capture")
     parser.add_argument("--revisit", action="store_true",
                         help="reload after the clicks, to check the visit resumes")
     parser.add_argument("--eval", dest="script", help="expression to run and print")
     args = parser.parse_args()
 
-    chrome = Chrome()
+    # A window this wide is a desktop, and emulating one as a phone would both
+    # scale the capture past reading size and hand the page a mobile device pixel
+    # ratio, which is what picks the file out of a srcset. It also decides what
+    # the page is told it is being pointed at with.
+    phone = args.width < PHONE_LIMIT
+    chrome = Chrome(Pointer.touch if phone else Pointer.mouse)
 
     try:
         chrome.send("Page.enable")
         chrome.send("Runtime.enable")
         chrome.send("Log.enable")
-        # A window this wide is a desktop, and emulating one as a phone would
-        # both scale the capture past reading size and hand the page a mobile
-        # device pixel ratio, which is what picks the file out of a srcset.
-        phone = args.width < PHONE_LIMIT
         chrome.send("Emulation.setDeviceMetricsOverride", width=args.width, height=args.height,
                     deviceScaleFactor=2 if phone else 1, mobile=phone)
 
@@ -158,6 +206,11 @@ def main() -> None:
         if args.scroll:
             chrome.evaluate(f"window.scrollTo(0, {args.scroll})")
             time.sleep(0.8)
+
+        # After the scrolling, so the element is where it will be in the capture.
+        if args.hover:
+            hover(chrome, args.hover, args.height)
+            time.sleep(0.6)
 
         # Lazily loaded plates decode after they scroll into view; without this a
         # capture can catch an empty frame and look like a broken image.

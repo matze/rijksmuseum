@@ -19,6 +19,30 @@ const FORMATS = [['avif', 'image/avif'], ['webp', 'image/webp'], ['jpg', 'image/
 const srcset = (number, widths, suffix) =>
   widths.map((width) => `assets/works/${number}-${width}.${suffix} ${width}w`).join(', ');
 
+/** The window, as custom properties: where the work sits in the photograph and
+ *  what proportions it stands in.
+ *
+ *  Exported because the detail sheet wraps the plate in a frame it has to size
+ *  the same way, and custom properties inherit down rather than up.
+ *
+ * @param {object} work a tour entry
+ */
+export function plateVars(work) {
+  const { image } = work;
+  const [x, y, width, height] = image.crop ?? [0, 0, 1, 1];
+  const photograph = image.pixels
+    ? image.pixels[0] / image.pixels[1]
+    : Number(image.aspectRatio) || 1;
+
+  return {
+    '--crop-x': x,
+    '--crop-y': y,
+    '--crop-w': width,
+    '--crop-h': height,
+    '--crop-ratio': (photograph * width / height).toFixed(4),
+  };
+}
+
 /**
  * @param {object} work a tour entry
  * @param {string} sizes the CSS `sizes` attribute for this context
@@ -27,10 +51,6 @@ export function plate(work, sizes) {
   const { objectNumber, image } = work;
   const widths = image.widths ?? [480, 960, 1600];
   const title = work.displayTitle ?? work.title.en ?? work.title.nl ?? objectNumber;
-  const [x, y, width, height] = image.crop ?? [0, 0, 1, 1];
-  const photograph = image.pixels
-    ? image.pixels[0] / image.pixels[1]
-    : Number(image.aspectRatio) || 1;
 
   const sources = FORMATS.slice(0, -1).map(([suffix, type]) =>
     el('source', { type, sizes, srcset: srcset(objectNumber, widths, suffix) }));
@@ -47,14 +67,5 @@ export function plate(work, sizes) {
     alt: `${title}${work.artist ? `, ${work.artist}` : ''}`,
   });
 
-  return el('picture', {
-    class: 'plate-wrap',
-    style: {
-      '--crop-x': x,
-      '--crop-y': y,
-      '--crop-w': width,
-      '--crop-h': height,
-      '--crop-ratio': (photograph * width / height).toFixed(4),
-    },
-  }, sources, img);
+  return el('picture', { class: 'plate-wrap', style: plateVars(work) }, sources, img);
 }

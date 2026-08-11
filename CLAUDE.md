@@ -112,6 +112,33 @@ analysis size is what the whole argument is about.
 1–3, stayMinutes, tags, sources) then `## timeline / closer / detail / look / kids`.
 Hard-wrapped lines join into paragraphs; blank lines separate them.
 
+A `region:` line closes the block above it and says which part of the work that block is
+about — the timeline, any `detail` paragraph, any `look` item. It carries four fractions
+**of the photograph**, the same space the crops are measured in and the space you are in
+when you look at the file; the build restates them in the plate's own space, so re-reading
+a border moves the regions with it. Blocks without one are the normal case.
+
+    ## look
+    1. The pearl hanging from the gold chain on the turban.
+    region: 0.6550 0.1780 0.0750 0.1150
+    2. The hard division between the lit and shadowed halves of the face.
+
+A quoted phrase narrows the anchor from the whole block to those words, so a sentence
+naming two places can point at both. The phrase is matched against the block's finished
+text — written as it reads, not as it is wrapped — and must occur exactly once, which is
+what stops a reworded sentence from silently lighting the wrong words. What ships is the
+offsets, not a second copy of the prose. A block points either whole or by phrase.
+
+    1. The captain's hand and the shadow it throws onto the lieutenant's coat.
+    region: "The captain's hand" 0.4480 0.5900 0.0650 0.0640
+    region: "the shadow it throws onto the lieutenant's coat" 0.5500 0.5950 0.0740 0.1080
+
+Measure by eye against the photograph and check the result on the plate, magnified:
+`just shot "/ --width 1440 --click '.tile[data-object=\"<n>\"]' --hover '.look li:nth-child(1)'"`.
+A box that cannot be placed confidently is left out — the monogram on SK-A-3066 is not
+legible in the photograph, so that look point ships without one. The `closer` and `kids`
+are not on the sheet, and a region there is an error rather than a silent drop.
+
 Workflow: `just describe <n>` for the record → `just articles "--for <n>"` for the
 encyclopaedia article → WebFetch the museum object page for English curatorial text →
 check visual claims against the actual image (fetch `<iiif service>/full/700,/0/default.jpg`
@@ -125,6 +152,10 @@ Rules `verify.py` enforces, each written after nearly shipping the mistake:
 - Wikipedia sources must be `https://en.wikipedia.org/wiki/...` article URLs
 - tags must exist in the setup screen's vocabulary, read out of `app/route.js`
 - curated works must be in building HG with a floor, and have all three image widths
+- a region must be a box inside the work, and a *part* of it: `KEPT` does not apply, but a
+  box over 80% of a side points at the whole picture and one under 2% cannot be found
+- a phrase's offsets must lie inside its own block's text and not overlap another's — they
+  are offsets rather than copies, so nothing in the file shows when one has slipped
 
 Wikipedia coverage of individual works is patchy; when only an artist or sitter article
 exists, cite it — the detail sheet labels the link "Further reading on Wikipedia".
@@ -176,6 +207,23 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
   plate is height-led there — `width: min(100%, var(--plate-height) * var(--crop-ratio))`,
   the same reading the contact-sheet tiles use. That plate is drawn at up to 840px, which
   is what its `sizes` declares and what pulls the widest derivative on a retina desktop.
+  `.plate-frame` wraps the picture there and is what sticks, so the hotspots travel with it.
+- On that sheet a block of prose — or a marked phrase inside one — and the part of the work
+  it names carry the same `data-region`, and `regions.js` lights either from the other with
+  one delegated listener. It re-reads the marked nodes on every hover, because justif
+  rebuilds a paragraph line by line and clones the phrases it holds: one that runs over a
+  line break is several elements by the time it is hovered. Everything anchored carries a
+  dotted gold rule, so it can be found without hovering the page to look for it.
+  Hovering the text veils the rest of the work behind a soft-edged hole cut in
+  `.plate-frame::after`; hovering the work only golds the text, because you are already
+  looking at the painting. Gated to 1160px and `hover: hover` — below that the plate is
+  above the description rather than beside it. `screenshot.py` tells Blink which pointer it
+  is being driven with, or a capture would report `hover: none` and see none of this.
+- The whole of that is switched by `.sheet-regions` in the sheet head — rules, hotspots and
+  veil, off one `data-regions` attribute on `.sheet` that gates every rule in the block.
+  `paintRegions` flips it in place rather than re-rendering, which would cost the reader
+  their place. The switch is drawn only on a work that has regions, and only where the
+  feature runs. Its value persists with the rest of the state.
 - Nothing may leave the page at runtime — fonts, images and justif are all local. Grep for
   external URLs in shipped files before claiming otherwise.
 
