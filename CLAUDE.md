@@ -3,7 +3,7 @@
 A single-page, mobile-first browser guide. The visitor picks constraints (time, artists
 and periods, children, step-free); the app composes one unbroken walkable line from the
 Atrium to the exit, with no backtracking, and a live clock says whether they are ahead or
-behind. Spec: `DESIGN.md`. Design reference only: `docs/design_handoff_rijksmuseum_guide/`.
+behind.
 
 ## The rule that governs everything
 
@@ -11,9 +11,6 @@ behind. Spec: `DESIGN.md`. Design reference only: `docs/design_handoff_rijksmuse
 cited in the work's front matter. Prose is written from those sources, never copied from
 the handoff and never recalled from memory. If a fact cannot be sourced, it does not ship
 — say so instead, in the text or to the user.
-
-The handoff prototype is placeholder content (its own README admits invented room
-numbers). Treat it as layout, type and colour reference; take no facts from it.
 
 ## Commands
 
@@ -173,12 +170,11 @@ running prose; 14.5 secondary text, chips, buttons and every label (`.kicker`,
 `.btn-ghost`, not in inline styles at the call sites — that is how the ladder drifted to
 seventeen sizes the first time.
 
-Labels are real small capitals, not `text-transform`: Cormorant SC is vendored as its own
-family because Cormorant Garamond carries no `smcp` and `font-variant-caps` would only get
-the browser's synthesised capitals. Its small caps stand at 468/1000 against a cap height
-of 625 — set at the 11.5 the transformed capitals used, the capital opening each label
-towers over the rest of it, which is why labels sit two rungs up the ladder at 14.5 and are
-tracked at .09em rather than .15em.
+Labels are real small capitals from Cormorant SC, not `text-transform`. Its
+small caps stand at 468/1000 against a cap height of 625 — set at the 11.5 the
+transformed capitals used, the capital opening each label towers over the rest
+of it, which is why labels sit two rungs up the ladder at 14.5 and are tracked
+at .09em rather than .15em.
 
 Every entry on the line opens on a label or on the walk line, so `--label-line` (14.5 on
 the body's 1.55 leading) is what the timeline markers align to. Changing the label size
