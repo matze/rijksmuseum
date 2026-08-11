@@ -2,7 +2,7 @@
 # requires-python = ">=3.11"
 # dependencies = ["websocket-client>=1.7", "requests>=2.31"]
 # ///
-"""Screenshot the guide at a phone-sized viewport.
+"""Screenshot the guide at a phone-sized viewport, or at a desktop one.
 
 Headless Chrome clamps its window to a few hundred pixels wide, so the viewport
 is set over the DevTools protocol instead — the same emulation the device
@@ -11,6 +11,7 @@ failure a mobile-first layout is most likely to have.
 
     uv run tools/screenshot.py /            --out setup.png
     uv run tools/screenshot.py / --click '.btn-primary' --scroll 900
+    uv run tools/screenshot.py / --width 1440 --height 900 --click '.card'
 """
 
 from __future__ import annotations
@@ -30,6 +31,7 @@ import websocket
 CHROME = "google-chrome-stable"
 DEBUG_PORT = 9222
 DEFAULT_VIEWPORT = (390, 844)  # a common phone in CSS pixels
+PHONE_LIMIT = 700  # widths under this are captured as a phone, wider ones as a desktop
 
 
 class Chrome:
@@ -125,8 +127,12 @@ def main() -> None:
         chrome.send("Page.enable")
         chrome.send("Runtime.enable")
         chrome.send("Log.enable")
+        # A window this wide is a desktop, and emulating one as a phone would
+        # both scale the capture past reading size and hand the page a mobile
+        # device pixel ratio, which is what picks the file out of a srcset.
+        phone = args.width < PHONE_LIMIT
         chrome.send("Emulation.setDeviceMetricsOverride", width=args.width, height=args.height,
-                    deviceScaleFactor=2, mobile=True)
+                    deviceScaleFactor=2 if phone else 1, mobile=phone)
 
         if args.dark:
             chrome.send("Emulation.setEmulatedMedia",
