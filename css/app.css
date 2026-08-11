@@ -23,7 +23,7 @@
   --shadow-md: 0 3px 10px rgb(0 0 0 / .55);
 
   --dim: .32;
-  /* The gap the centred connector opens above every entry on a phone. */
+  /* The gap the connector opens above every entry on a phone. */
   --connector: 34px;
   /* Every entry opens on a label or on the walk line, both 14.5px on the body's
      1.55 leading. Half of this is how far the marker sits into its entry. */
@@ -324,16 +324,21 @@ a:hover { color: var(--color-accent); }
 
 .line { max-width: 620px; margin: 0 auto; padding: 0 18px 40px; }
 
-/* The line, on a phone, runs down the middle and survives only in the gaps
-   between entries: an indented rail pushes every card to one side and leaves
-   the page hanging off its own left margin. Each row opens a connector above
-   its content, the segment descends through it, and the marker ends it level
-   with the entry's first line. From the tablet breakpoint up the column is
-   centred in the viewport anyway, so the rail becomes continuous again and
-   moves to the left of the text. `--axis` is the horizontal line the markers
-   sit on; `--mark-y` is where the marker's centre falls inside its own row. */
+/* The line, on a phone, runs inside the column and survives in the gaps between
+   entries. Each row opens a connector above its content, the segment descends
+   through it, and the marker ends it level with the entry's first line. From
+   the tablet breakpoint up the column is centred in the viewport on its own, so
+   the rail runs continuously to the left of the text. `--axis` is the horizontal
+   line the markers sit on; `--mark-y` is where the marker's centre falls inside
+   its own row.
+
+   The axis stands 26px off the right edge of the column, the mirror of the rail
+   above the breakpoint: everything sharing a line with a marker — a stop's label
+   and its minutes, a walk's sentence — is one run of text to the left of it. */
 .row {
-  --axis: 50%;
+  --axis: calc(100% - 26px);
+  /* How far text on a marker's own line may run before it reaches the axis. */
+  --text-limit: calc(var(--axis) - 16px);
   --mark-y: calc(var(--connector) + var(--entry-top, 0px) + var(--label-line) / 2);
   position: relative;
   padding-top: var(--connector);
@@ -357,11 +362,27 @@ a:hover { color: var(--color-accent); }
 /* Nothing precedes the Atrium, so the first connector would dangle. */
 .line > .row:first-child > .rail { display: none; }
 
-/* Every other entry opens on a short label that leaves the middle of the page
-   clear; a walk opens on a sentence that runs the full width. Its ring stays in
-   the gap, which is where a walk belongs anyway — between two stops, not level
-   with itself. */
-.row-walk { --mark-y: calc(var(--connector) / 2); }
+/* The entries that stand between two artworks — a walk, a break, a floor header
+   — carry the line through: they are held clear of the axis, the rail runs the
+   row's whole height, and the marker sits on the line at the entry's own first
+   line, the way it does above the breakpoint. The floor plan is drawn to its own
+   `max-width` and centred, so holding its card back leaves it its size.
+
+   The line therefore breaks where a painting hangs: a stop's plate runs to the
+   column's edge, and its rail ends on the marker above it. It ends at the Atrium
+   and at the exit, where the visit does. */
+.row-walk > .rail, .row-break > .rail, .row-floor > .rail {
+  top: 0;
+  bottom: 0;
+  height: auto;
+}
+
+.entry-walk, .entry-break, .entry-floor { max-width: var(--text-limit); }
+
+/* A break and a floor header dim with the card they head, and the rail runs
+   past them, so both take the opaque backing behind the mark. A walk carries no
+   card and is never dimmed: its ring masks the rail with its own fill. */
+.row-break > .mark-back, .row-floor > .mark-back { display: block; }
 
 /* `--mark` is the marker's width and `--mark-h` its height, which differ only
    for the floor rule. Above the breakpoint the rail runs the whole height of the
@@ -423,7 +444,8 @@ a:hover { color: var(--color-accent); }
    straightens out to the left of the text, runs the whole height of the page,
    and needs no gap opened above each entry to show through. */
 @media (min-width: 640px) {
-  .row { --axis: 15.5px; --connector: 0px; padding-left: 46px; }
+  /* The rail runs beside the text here, so nothing is held short of the axis. */
+  .row { --axis: 15.5px; --text-limit: none; --connector: 0px; padding-left: 46px; }
   .rail { top: 0; bottom: 0; height: auto; }
   .mark-back { display: block; }
   .line > .row:first-child > .rail { display: block; }
@@ -434,28 +456,22 @@ a:hover { color: var(--color-accent); }
   .entry-walk { padding-bottom: 28px; }
   .row-terminus { --entry-top: 22px; }
   .row-floor { --entry-top: 26px; }
-
-  /* The rail runs beside the text here, so a walk's ring rejoins its own line
-     and no label has a marker in the middle of the page to keep clear of. */
-  .row-walk { --mark-y: calc(var(--entry-top) + var(--label-line) / 2); }
-  .stop-head .where { max-width: none; }
 }
 
-/* The marker stands in the middle of the page, so nothing sharing its line may
-   cross the middle. Room codes are the only label that grows that far — on a
-   narrow phone `Stop 12 · Room 2.30.3` reaches the centre — and it wraps rather
-   than colliding. The marker keeps to the first line either way. */
-.stop-head .where { max-width: calc(50% - 10px); }
-
+/* The head runs from the left margin to the axis, with the stay at its right
+   end, so both halves of it stand on the same side of the marker and the room
+   code is spaced against the stay alone: at 320px `Stop 12 · Room 2.30.3` still
+   holds one line. */
 .stop-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 10px;
+  max-width: var(--text-limit);
 }
 
 .stop-head .where { color: var(--color-accent-700); }
-.stop-head .stay { opacity: .75; }
+.stop-head .stay { opacity: .75; white-space: nowrap; }
 
 /* The window the work is seen through. It stands in the proportions of the work
    rather than of the photograph, and the photograph is laid behind it at the

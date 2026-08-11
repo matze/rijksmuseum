@@ -14,9 +14,9 @@ const PLATE_SIZES = '(min-width: 640px) 538px, calc(100vw - 36px)';
  *  is drawn as a small hollow dot that masks the rail with its own fill. */
 const BACKED = new Set(['stop', 'break', 'terminus', 'floor']);
 
-/** Marker geometry is CSS, per `.row-<kind>`: it differs between the centred
- *  connector on a phone and the left rail above the breakpoint, and inline
- *  styles are out of a media query's reach. */
+/** Marker geometry is CSS, per `.row-<kind>`: it differs between the connector
+ *  inside the column on a phone and the left rail above the breakpoint, and
+ *  inline styles are out of a media query's reach. */
 const marker = (kind) => [
   BACKED.has(kind) ? el('div', { class: 'mark-back' }) : null,
   el('div', { class: 'mark', 'data-lit': 'true' }),
