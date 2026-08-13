@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import ASSETS, ROOT, Fetcher  # noqa: E402
 
-JUSTIF_VERSION = "0.7.2"
+JUSTIF_VERSION = "0.8.0"
 JUSTIF_CDN = f"https://cdn.jsdelivr.net/npm/justif@{JUSTIF_VERSION}/dist"
 JUSTIF_ENTRIES = ["index.js", "hyphenate/en-us.js"]
 VENDOR = ROOT / "vendor" / "justif"
@@ -69,6 +69,10 @@ def vendor_justif(fetcher: Fetcher) -> None:
         base = posixpath.dirname(relative)
         pending += [posixpath.normpath(posixpath.join(base, specifier))
                     for specifier in RELATIVE_IMPORT.findall(source)]
+
+    for orphan in VENDOR.rglob("*"):
+        if orphan.is_file() and orphan.relative_to(VENDOR).as_posix() not in seen:
+            orphan.unlink()
 
     print(f"vendored {len(seen)} justif modules at {JUSTIF_VERSION}", file=sys.stderr)
 

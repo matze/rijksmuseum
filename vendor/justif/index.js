@@ -1,5 +1,5 @@
-import { normalizeHangingPunctuation, composeProtrusion, latinProtrusion, defaultBuildOptions, breakParagraph, layoutLines, graphemes, defaultBreakOptions, ItemType, CJK_CHAR, fontProtrusion, buildItems, textMakesBox } from './chunk-YDWWCPIR.js';
-export { composeProtrusion, fontProtrusion, hangingPunctuation, kinsokuNotAtLineEnd, kinsokuNotAtLineStart, latinProtrusion } from './chunk-YDWWCPIR.js';
+import { normalizeHangingPunctuation, hangingCharacters, composeProtrusion, latinProtrusion, defaultBuildOptions, breakParagraph, layoutLines, graphemes, defaultBreakOptions, breakEndBox, ItemType, CJK_CHAR, fontProtrusion, buildItems, caseTransformedText, textMakesBox } from './chunk-YVBFJY3S.js';
+export { composeProtrusion, fontProtrusion, hangingCharacters, hangingPunctuation, kinsokuNotAtLineEnd, kinsokuNotAtLineStart, latinProtrusion } from './chunk-YVBFJY3S.js';
 
 // src/dom/measure.ts
 function fontSpecOf(style) {
@@ -32,12 +32,13 @@ function fontSpecOf(style) {
     featureSettings: computed("font-feature-settings"),
     numeric: computed("font-variant-numeric"),
     variantPosition: computed("font-variant-position"),
+    textTransform: computed("text-transform", "none"),
     direction: style.direction === "rtl" ? "rtl" : "ltr",
     key: "",
     needsDomMeasurement: false
   };
-  spec.key = [spec.style, spec.weight, spec.sizePx, spec.family, spec.letterSpacingPx, spec.wordSpacingPx, spec.stretch, spec.variationSettings, spec.variantAlternates, spec.variantCaps, spec.variantEastAsian, spec.variantEmoji, spec.ligatures, spec.featureSettings, spec.numeric, spec.variantPosition].join("|");
-  spec.needsDomMeasurement = spec.variantCaps !== "normal" || spec.variantAlternates !== "normal" || spec.variantEastAsian !== "normal" || spec.variantEmoji !== "normal" || spec.ligatures !== "normal" || spec.featureSettings !== "normal" || spec.numeric !== "normal" || spec.variantPosition !== "normal";
+  spec.key = [spec.style, spec.weight, spec.sizePx, spec.family, spec.letterSpacingPx, spec.wordSpacingPx, spec.stretch, spec.variationSettings, spec.variantAlternates, spec.variantCaps, spec.variantEastAsian, spec.variantEmoji, spec.ligatures, spec.featureSettings, spec.numeric, spec.variantPosition, spec.textTransform].join("|");
+  spec.needsDomMeasurement = spec.textTransform !== "none" || spec.variantCaps !== "normal" || spec.variantAlternates !== "normal" || spec.variantEastAsian !== "normal" || spec.variantEmoji !== "normal" || spec.ligatures !== "normal" || spec.featureSettings !== "normal" || spec.numeric !== "normal" || spec.variantPosition !== "normal";
   return spec;
 }
 function ctxFontOf(spec) {
@@ -96,6 +97,7 @@ function applyFontSpec(el, spec) {
   el.style.direction = spec.direction;
   el.style.fontStretch = spec.stretch;
   el.style.fontVariationSettings = spec.variationSettings;
+  el.style.setProperty("text-transform", spec.textTransform);
   el.style.setProperty("font-variant-alternates", spec.variantAlternates);
   el.style.setProperty("font-variant-caps", spec.variantCaps);
   el.style.setProperty("font-variant-east-asian", spec.variantEastAsian);
@@ -261,6 +263,9 @@ function measureWidth(text, spec) {
   return cachedDomWidth(text, spec) ?? measureCanvasWidth(text, spec);
 }
 var bearingCache = /* @__PURE__ */new Map();
+function transformedText(text, spec) {
+  return caseTransformedText(text, spec.textTransform);
+}
 function measureInkBearings(ch, spec) {
   let perFont = bearingCache.get(spec.key);
   if (perFont === void 0) {
@@ -271,7 +276,7 @@ function measureInkBearings(ch, spec) {
   if (hit !== void 0) return hit;
   const ctx = getCtx();
   setFont(ctx, spec);
-  const m = ctx.measureText(ch);
+  const m = ctx.measureText(transformedText(ch, spec));
   const bearings = {
     l: Math.max(0, -m.actualBoundingBoxLeft),
     r: Math.max(0, m.width - m.actualBoundingBoxRight)
@@ -683,34 +688,42 @@ function measure(spec) {
 
 // src/dom/observe.ts
 function createWidthObserver(onWidths) {
-  const pending = /* @__PURE__ */new Map();
+  const suspended = /* @__PURE__ */new Set();
   let frame = 0;
-  const flush = () => {
+  const resume = () => {
     frame = 0;
-    if (pending.size === 0) return;
-    const batch = new Map(pending);
-    pending.clear();
-    onWidths(batch);
+    for (const el of suspended) observer.observe(el, {
+      box: "content-box"
+    });
+    suspended.clear();
   };
   const observer = new ResizeObserver(entries => {
+    const batch = /* @__PURE__ */new Map();
     for (const entry of entries) {
       const size = entry.contentBoxSize?.[0];
-      const width = size !== void 0 ? size.inlineSize : entry.contentRect.width;
-      pending.set(entry.target, width);
+      batch.set(entry.target, size !== void 0 ? size.inlineSize : entry.contentRect.width);
     }
-    if (frame === 0) frame = requestAnimationFrame(flush);
+    onWidths(batch);
   });
   return {
-    observe: el => observer.observe(el, {
-      box: "content-box"
-    }),
+    observe: el => {
+      suspended.delete(el);
+      observer.observe(el, {
+        box: "content-box"
+      });
+    },
     unobserve: el => {
       observer.unobserve(el);
-      pending.delete(el);
+      suspended.delete(el);
+    },
+    suspend: el => {
+      observer.unobserve(el);
+      suspended.add(el);
+      if (frame === 0) frame = requestAnimationFrame(resume);
     },
     disconnect: () => {
       observer.disconnect();
-      pending.clear();
+      suspended.clear();
       if (frame !== 0) cancelAnimationFrame(frame);
     }
   };
@@ -765,8 +778,12 @@ var BIDI_CONTROLS = /[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/;
 var STRONG_RTL = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF\u{10800}-\u{10FFF}\u{1E800}-\u{1EFFF}]/u;
 var NON_RTL_LETTER = /(?![\p{Script=Hebrew}\p{Script=Arabic}])\p{L}/u;
 var RTL_LETTER = /[\p{Script=Hebrew}\p{Script=Arabic}]/u;
+var FORCED_LINE_SEPARATORS = /[\u2028\u2029]/;
+var DIVERGENT_CONTROLS = /[\u000B\u000C]/;
 function textSupported(text, direction) {
   if (BIDI_CONTROLS.test(text)) return false;
+  if (FORCED_LINE_SEPARATORS.test(text)) return false;
+  if (DIVERGENT_CONTROLS.test(text)) return false;
   if (UNSUPPORTED_SCRIPTS.test(text)) return false;
   if (direction === "rtl") {
     if (NON_RTL_LETTER.test(text)) return false;
@@ -852,9 +869,13 @@ function inlineInsets(elStyle, direction) {
     end: (parseFloat(rtl ? elStyle.paddingLeft : elStyle.paddingRight) || 0) + (parseFloat(rtl ? elStyle.borderLeftWidth : elStyle.borderRightWidth) || 0)
   };
 }
+function supportedTextTransform(value) {
+  return value === "none" || value === "uppercase" || value === "lowercase";
+}
 function inlineBailReason(el, elStyle, paragraphStyle, padded) {
   const name = el.tagName.toLowerCase();
-  if (elStyle.display !== "inline" || elStyle.float !== "none" || elStyle.position !== "static" && elStyle.position !== "relative") {
+  if (elStyle.float !== "none") return "floated element is not a leading direct child";
+  if (elStyle.display !== "inline" || elStyle.position !== "static" && elStyle.position !== "relative") {
     return `non-inline-flow <${name}> (display/float/position)`;
   }
   if (MARGIN_PROPS.some(prop => (parseFloat(elStyle[prop]) || 0) !== 0)) {
@@ -864,7 +885,7 @@ function inlineBailReason(el, elStyle, paragraphStyle, padded) {
   if (padded && decorationBreak === "clone") {
     return `box-decoration-break: clone on padded <${name}>`;
   }
-  if (elStyle.textTransform !== "none") {
+  if (!supportedTextTransform(elStyle.textTransform)) {
     return `text-transform: ${elStyle.textTransform} on <${name}>`;
   }
   if (elStyle.direction !== paragraphStyle.direction || elStyle.unicodeBidi !== "normal" && elStyle.unicodeBidi !== "isolate") {
@@ -977,6 +998,39 @@ function visualLines(rects, lineHeight) {
   lines.sort((a, b) => a.top - b.top);
   return lines;
 }
+function paragraphContentBox(p, paragraphStyle) {
+  const rect = p.getBoundingClientRect();
+  return {
+    left: rect.left + pxValue(paragraphStyle.borderLeftWidth) + pxValue(paragraphStyle.paddingLeft),
+    right: rect.right - pxValue(paragraphStyle.borderRightWidth) - pxValue(paragraphStyle.paddingRight),
+    top: rect.top + pxValue(paragraphStyle.borderTopWidth) + pxValue(paragraphStyle.paddingTop),
+    lineHeight: parseFloat(paragraphStyle.lineHeight) || pxValue(paragraphStyle.fontSize) * 1.2
+  };
+}
+function lastLineRaggedAt(paragraphStyle, floatSide) {
+  if (paragraphStyle.textAlign === "justify-all") return false;
+  const last = paragraphStyle.getPropertyValue("text-align-last") || "auto";
+  if (last === "justify") return false;
+  if (last === "center") return true;
+  const direction = paragraphStyle.direction === "rtl" ? "rtl" : "ltr";
+  let flushEdge;
+  if (last === "left" || last === "right") flushEdge = last;else if (last === "end") flushEdge = direction === "rtl" ? "left" : "right";else flushEdge = direction === "rtl" ? "right" : "left";
+  return floatSide !== flushEdge;
+}
+function intrudedLineCount(lines, content, paragraphStyle, floatSide, inlineSize, floatBottom) {
+  const skipLastLine = lastLineRaggedAt(paragraphStyle, floatSide);
+  let affected = 0;
+  for (let i = 0; i < lines.length; i++) {
+    if (skipLastLine && i === lines.length - 1) break;
+    const line = lines[i];
+    const observed = floatSide === "left" ? line.left - content.left : content.right - line.right;
+    if (observed > inlineSize * 0.5) affected++;else break;
+  }
+  const firstLine = lines[0];
+  const textTop = firstLine !== void 0 && firstLine.top < floatBottom ? firstLine.top : content.top;
+  const geometricLines = Math.max(1, Math.ceil((floatBottom - textTop) / content.lineHeight - 1e-6));
+  return Math.max(affected, geometricLines);
+}
 function floatedFirstLetter(p, paragraphStyle, style, floatSide, text, span) {
   const nodes = [];
   const walker = p.ownerDocument.createTreeWalker(p, NodeFilter.SHOW_TEXT);
@@ -999,34 +1053,105 @@ function floatedFirstLetter(p, paragraphStyle, style, floatSide, text, span) {
   const borderBoxWidth = style.boxSizing === "border-box" && Number.isFinite(specifiedWidth) ? contentWidth : contentWidth + inlineExtras;
   const inlineSize = Math.max(0, borderBoxWidth + pxValue(style.marginLeft) + pxValue(style.marginRight));
   if (inlineSize <= 0) return null;
-  const paragraphRect = p.getBoundingClientRect();
-  const contentLeft = paragraphRect.left + pxValue(paragraphStyle.borderLeftWidth) + pxValue(paragraphStyle.paddingLeft);
-  const contentRight = paragraphRect.right - pxValue(paragraphStyle.borderRightWidth) - pxValue(paragraphStyle.paddingRight);
-  const contentTop = paragraphRect.top + pxValue(paragraphStyle.borderTopWidth) + pxValue(paragraphStyle.paddingTop);
-  const paragraphLineHeight = parseFloat(paragraphStyle.lineHeight) || pxValue(paragraphStyle.fontSize) * 1.2;
+  const content = paragraphContentBox(p, paragraphStyle);
   const tail = p.ownerDocument.createRange();
   tail.setStart(end.node, end.offset);
   const last = nodes[nodes.length - 1];
   tail.setEnd(last, last.data.length);
-  const lines = visualLines([...tail.getClientRects()], paragraphLineHeight);
-  let affected = 0;
-  for (const line of lines) {
-    const observed = floatSide === "left" ? line.left - contentLeft : contentRight - line.right;
-    if (observed > inlineSize * 0.5) affected++;else break;
-  }
+  const lines = visualLines([...tail.getClientRects()], content.lineHeight);
   const specifiedHeight = parseFloat(style.height);
   const compactAutoBox = !Number.isFinite(specifiedHeight) && glyphRect.height > 0 && glyphRect.height <= pseudoLineHeight * 1.2;
   const contentHeight = Number.isFinite(specifiedHeight) ? specifiedHeight : compactAutoBox ? glyphRect.height : pseudoLineHeight;
   const blockExtras = pxValue(style.paddingTop) + pxValue(style.paddingBottom) + pxValue(style.borderTopWidth) + pxValue(style.borderBottomWidth);
   const borderBoxHeight = style.boxSizing === "border-box" && Number.isFinite(specifiedHeight) ? contentHeight : contentHeight + blockExtras;
-  const floatBottom = compactAutoBox ? glyphRect.bottom + pxValue(style.paddingBottom) + pxValue(style.borderBottomWidth) + pxValue(style.marginBottom) : contentTop + pxValue(style.marginTop) + borderBoxHeight + pxValue(style.marginBottom);
-  const firstTextTop = lines[0]?.top ?? contentTop;
-  const geometricLines = Math.max(1, Math.ceil((floatBottom - firstTextTop) / paragraphLineHeight - 1e-6));
-  affected = Math.max(affected, geometricLines);
+  const floatBottom = compactAutoBox ? glyphRect.bottom + pxValue(style.paddingBottom) + pxValue(style.borderBottomWidth) + pxValue(style.marginBottom) : content.top + pxValue(style.marginTop) + borderBoxHeight + pxValue(style.marginBottom);
+  const affected = intrudedLineCount(lines, content, paragraphStyle, floatSide, inlineSize, floatBottom);
   return {
+    kind: "first-letter",
     inlineSize,
     lines: affected,
     style: firstLetterStyle(style)
+  };
+}
+var LEADING_TRIVIA = /^[\t\n\f\r ]*$/;
+var UNSAFE_FLOAT_CONTENT = ["iframe", "object", "embed", "audio", "video", "canvas", "input", "button", "select", "textarea", "script", "style"].join(",");
+function borderBoxSize(style, axis) {
+  const size = parseFloat(axis === "inline" ? style.width : style.height);
+  if (!Number.isFinite(size)) return null;
+  if (style.boxSizing === "border-box") return Math.max(0, size);
+  const extras = axis === "inline" ? pxValue(style.paddingLeft) + pxValue(style.paddingRight) + pxValue(style.borderLeftWidth) + pxValue(style.borderRightWidth) : pxValue(style.paddingTop) + pxValue(style.paddingBottom) + pxValue(style.borderTopWidth) + pxValue(style.borderBottomWidth);
+  return Math.max(0, size + extras);
+}
+function unsafeFloatSubtree(source) {
+  const unsafe = source.matches(UNSAFE_FLOAT_CONTENT) ? source : source.querySelector(UNSAFE_FLOAT_CONTENT);
+  if (unsafe !== null) return `<${unsafe.tagName.toLowerCase()}> in floated element`;
+  for (const el of [source, ...source.querySelectorAll("*")]) {
+    if (el.shadowRoot !== null) return "shadow root in floated element";
+  }
+  return null;
+}
+function elementFloatGeometry(p, source, paragraphStyle, style, floatSide) {
+  const borderInline = borderBoxSize(style, "inline");
+  const borderBlock = borderBoxSize(style, "block");
+  if (borderInline === null || borderBlock === null) return null;
+  const inlineSize = borderInline + pxValue(style.marginLeft) + pxValue(style.marginRight);
+  const blockSize = borderBlock + pxValue(style.marginTop) + pxValue(style.marginBottom);
+  if (inlineSize <= 0 || blockSize <= 0) return null;
+  const content = paragraphContentBox(p, paragraphStyle);
+  const tail = p.ownerDocument.createRange();
+  tail.selectNodeContents(p);
+  tail.setStartAfter(source);
+  const lines = visualLines([...tail.getClientRects()], content.lineHeight);
+  const floatBottom = content.top + blockSize;
+  return {
+    inlineSize,
+    lines: intrudedLineCount(lines, content, paragraphStyle, floatSide, inlineSize, floatBottom)
+  };
+}
+function leadingElementFloatOf(p, paragraphStyle, fragmentCount) {
+  const view = p.ownerDocument.defaultView;
+  if (view === null) return null;
+  const leadingTrivia = [];
+  let source = null;
+  for (let child = p.firstChild; child !== null; child = child.nextSibling) {
+    if (child.nodeType === Node.COMMENT_NODE) {
+      leadingTrivia.push(child);
+      continue;
+    }
+    if (child.nodeType === Node.TEXT_NODE && LEADING_TRIVIA.test(child.nodeValue ?? "")) {
+      leadingTrivia.push(child);
+      continue;
+    }
+    if (child.nodeType === Node.ELEMENT_NODE) {
+      const el = child;
+      if (view.getComputedStyle(el).float !== "none") source = el;
+    }
+    break;
+  }
+  if (source === null) return null;
+  const outsideFloats = [];
+  for (const el of p.querySelectorAll("*")) {
+    if (el === source || source.contains(el)) continue;
+    if (view.getComputedStyle(el).float !== "none") outsideFloats.push(el);
+  }
+  if (outsideFloats.length > 0) return "multiple floated elements";
+  if (fragmentCount > 1) return "fragmented paragraph with leading floated element";
+  const unsafe = unsafeFloatSubtree(source);
+  if (unsafe !== null) return `unsafe ${unsafe}`;
+  const style = view.getComputedStyle(source);
+  if (style.clear !== "none") return `clear: ${style.clear} on leading floated element`;
+  const shapeOutside = style.getPropertyValue("shape-outside") || "none";
+  if (shapeOutside !== "none") return "shape-outside on leading floated element";
+  const direction = paragraphStyle.direction === "rtl" ? "rtl" : "ltr";
+  const side = physicalFloatSide(style.float, direction);
+  if (side === null) return `unsupported element float: ${style.float}`;
+  const geometry = elementFloatGeometry(p, source, paragraphStyle, style, side);
+  if (geometry === null) return "could not measure leading floated element";
+  return {
+    kind: "element",
+    source,
+    leadingTrivia,
+    ...geometry
   };
 }
 var RULES_PER_PARAGRAPH = 24;
@@ -1156,12 +1281,34 @@ function floatDetailsOf(p, text, paragraphStyle, fragmentCount, batch) {
     span
   };
 }
-function floatIntrusionOf(p, text) {
+function floatIntrusionOf(p, text, previous) {
   if (text === void 0) {
     text = p.textContent ?? "";
   }
+  if (previous?.kind === "element") {
+    const view = p.ownerDocument.defaultView;
+    if (view === null) return null;
+    const fragments = fragmentBoxesOf(p);
+    if (!fragments.ok) return null;
+    const next = leadingElementFloatOf(p, view.getComputedStyle(p), fragments.rects.length);
+    return typeof next === "object" ? next : null;
+  }
   const details = floatDetailsOf(p, text);
   return typeof details === "object" && details !== null ? details.intrusion : null;
+}
+function renderedElementFloatIntrusionOf(p, source, previous) {
+  const view = p.ownerDocument.defaultView;
+  if (view === null) return null;
+  const paragraphStyle = view.getComputedStyle(p);
+  const style = view.getComputedStyle(source);
+  const direction = paragraphStyle.direction === "rtl" ? "rtl" : "ltr";
+  const side = physicalFloatSide(style.float, direction);
+  if (side === null) return null;
+  const geometry = elementFloatGeometry(p, source, paragraphStyle, style, side);
+  return geometry === null ? null : {
+    ...previous,
+    ...geometry
+  };
 }
 function floatInlineSizeOf(p) {
   const rendered = p.querySelector(":scope .justif-float-source");
@@ -1180,11 +1327,17 @@ function readParagraph(p, batch) {
   const cs = view.getComputedStyle(p);
   if (cs.display === "none") return "display: none";
   if (cs.whiteSpace !== "normal") return `white-space: ${cs.whiteSpace} on the paragraph`;
-  if (cs.textTransform !== "none") return `text-transform: ${cs.textTransform}`;
+  if (!supportedTextTransform(cs.textTransform)) return `text-transform: ${cs.textTransform}`;
   if (cs.writingMode !== "horizontal-tb") return `writing-mode: ${cs.writingMode}`;
   const direction = cs.direction === "rtl" ? "rtl" : "ltr";
   if (p.isContentEditable) return "content-editable";
   if (p.shadowRoot !== null) return "element hosts a shadow root";
+  const fragments = fragmentBoxesOf(p, cs);
+  if (!fragments.ok) return fragments.reason;
+  const elementFloat = leadingElementFloatOf(p, cs, fragments.rects.length);
+  if (typeof elementFloat === "string") return elementFloat;
+  const omittedNodes = new Set(elementFloat?.leadingTrivia ?? []);
+  if (elementFloat !== null) omittedNodes.add(elementFloat.source);
   const specs = [];
   const keyToIndex = /* @__PURE__ */new Map();
   const indexSpec = style => {
@@ -1244,6 +1397,7 @@ function readParagraph(p, batch) {
     let adjacentTextRun = null;
     for (let child = node.firstChild; child !== null; child = child.nextSibling) {
       if (skip !== null) return;
+      if (node === p && omittedNodes.has(child)) continue;
       if (child.nodeType === 3) {
         const text2 = child.nodeValue ?? "";
         if (text2.length > 0) {
@@ -1300,14 +1454,15 @@ function readParagraph(p, batch) {
   if (runs.length === 0 && hardBreaks.length === 0) return "no text content";
   const text = runs.map(r => r.text).join("");
   if (text.length > 0 && !textSupported(text, direction)) {
-    return "unsupported text (bidi controls, mixed direction, or a script without break support)";
+    return "unsupported text (forced separators, bidi controls, mixed direction, or a script without break support)";
   }
-  const fragments = fragmentBoxesOf(p, cs);
-  if (!fragments.ok) return fragments.reason;
-  const floatDetails = floatDetailsOf(p, text, cs, fragments.rects.length, batch);
+  const floatDetails = floatDetailsOf(p, elementFloat === null ? text : p.textContent ?? "", cs, fragments.rects.length, batch);
   if (typeof floatDetails === "string") return floatDetails;
-  const floatIntrusion = floatDetails?.intrusion ?? null;
-  if (floatDetails !== null) {
+  if (elementFloat !== null && floatDetails !== null) {
+    return "leading floated element conflicts with ::first-letter";
+  }
+  const floatIntrusion = elementFloat ?? floatDetails?.intrusion ?? null;
+  if (floatDetails !== null && elementFloat === null) {
     const firstSpan = floatDetails.span;
     let offset = 0;
     for (const run of runs) {
@@ -1343,7 +1498,8 @@ function readParagraph(p, batch) {
     pinIntrinsicSize,
     justifyAll: cs.textAlign === "justify-all" || cs.textAlignLast === "justify",
     direction,
-    floatIntrusion
+    floatIntrusion,
+    authorHasNbsp: /[\u00A0\u202F]/.test(p.textContent ?? "")
   };
 }
 function contentWidthOf(p) {
@@ -1382,7 +1538,7 @@ var SHEET_TEXT =
 // one closer in — `!important`, or a nested inline the segments are cloned
 // into (`a{overflow-wrap:break-word}`). This rule is what covers Firefox
 // in those cases; Chromium consults the block container and ignores it.
-'.justif-seg,.justif-hyphen,.justif-break{overflow-wrap:normal;word-break:normal;line-break:auto}.justif-seg{white-space:nowrap}[data-justif-dropcap]::first-letter{all:unset!important}.justif-hyphen{white-space:nowrap}.justif-hyphen::after{content:"-"}.justif-no-transition{transition-property:none!important}.justif-break::after{content:"\u200B"}@supports (content:"-" / ""){.justif-hyphen::after{content:"-" / ""}.justif-break::after{content:"\u200B" / ""}}';
+'.justif-seg,.justif-hyphen,.justif-break{overflow-wrap:normal;word-break:normal;line-break:auto}.justif-seg{white-space:nowrap}[data-justif-dropcap]::first-letter{all:unset!important}.justif-hyphen{white-space:nowrap}.justif-hyphen::after{content:"-"}.justif-no-transition{transition-property:none!important}.justif-break::after{content:"\u200B"}.justif-weld-end::after{content:"\u2060"}@supports (content:"-" / ""){.justif-hyphen::after{content:"-" / ""}.justif-break::after{content:"\u200B" / ""}.justif-weld-end::after{content:"\u2060" / ""}}';
 var TEXT_AUTOSIZING_DECLARATIONS = [["-webkit-text-size-adjust", "100%"], ["text-size-adjust", "100%"]];
 function disableTextAutosizing(el) {
   for (const _ref5 of TEXT_AUTOSIZING_DECLARATIONS) {
@@ -1416,7 +1572,7 @@ function ensureStylesheet(root) {
   (isDoc ? doc.head : root).append(style);
   styledRoots.add(root);
 }
-function writeParagraph(p, contents, lineWidths, physicalFitLines) {
+function writeParagraph(p, contents, lineWidths, physicalFitLines, leadingFloat, previousFloat) {
   if (physicalFitLines === void 0) {
     physicalFitLines = 0;
   }
@@ -1425,6 +1581,18 @@ function writeParagraph(p, contents, lineWidths, physicalFitLines) {
   ensureStylesheet(root.nodeType === 9 || root.nodeType === 11 && "host" in root ? root : doc);
   const lineElements = [[]];
   const fragment = doc.createDocumentFragment();
+  let renderedFloat = null;
+  let keptFloat = null;
+  if (leadingFloat !== void 0) {
+    if (previousFloat != null && previousFloat.parentNode === p) {
+      keptFloat = previousFloat;
+      renderedFloat = previousFloat;
+    } else {
+      for (const node of leadingFloat.leadingTrivia) fragment.append(node.cloneNode(true));
+      renderedFloat = leadingFloat.source.cloneNode(true);
+      fragment.append(renderedFloat);
+    }
+  }
   const stack = [];
   const containerAt = depth => depth === 0 ? fragment : stack[depth - 1].clone;
   const commonDepth = chain => {
@@ -1534,7 +1702,7 @@ function writeParagraph(p, contents, lineWidths, physicalFitLines) {
       continue;
     }
     const el = doc.createElement("span");
-    el.className = "justif-seg";
+    el.className = segment.weldEnd === true ? "justif-seg justif-weld-end" : "justif-seg";
     disableTextAutosizing(el);
     el.style.wordSpacing = px(segment.wordSpacingPx);
     if (segment.letterSpacingPx !== null) {
@@ -1558,10 +1726,11 @@ function writeParagraph(p, contents, lineWidths, physicalFitLines) {
       el.style.fontKerning = "none";
       el.style.setProperty("text-spacing-trim", "space-all");
     }
-    if (segment.physicalEndHangPx !== void 0 && segment.physicalEndHangPx > 0) {
+    const shedPx = (segment.physicalEndHangPx ?? 0) + (segment.hyphenLetterSpacingPx === void 0 ? segment.physicalPadPx ?? 0 : 0);
+    if (shedPx > 0) {
       const clusters = graphemes(segment.text);
       let end = clusters.length - 1;
-      while (end >= 0 && /^\s+$/u.test(clusters[end])) end--;
+      while (end > 0 && clusters[end] === " ") end--;
       const hanging = clusters[end];
       if (hanging === void 0) el.textContent = segment.text;else {
         const before = clusters.slice(0, end).join("");
@@ -1569,7 +1738,7 @@ function writeParagraph(p, contents, lineWidths, physicalFitLines) {
         el.append(before);
         const span = doc.createElement("span");
         span.className = "justif-hanging-end";
-        span.style.letterSpacing = px(segment.resolvedLetterSpacingPx - segment.physicalEndHangPx);
+        span.style.letterSpacing = px(segment.resolvedLetterSpacingPx - shedPx);
         span.textContent = hanging;
         el.append(span, after);
       }
@@ -1584,13 +1753,17 @@ function writeParagraph(p, contents, lineWidths, physicalFitLines) {
     });
   }
   if (lastWasHardBreak) lineElements.pop();
-  p.replaceChildren(fragment);
+  if (keptFloat === null) p.replaceChildren(fragment);else {
+    while (keptFloat.nextSibling !== null) keptFloat.nextSibling.remove();
+    p.append(fragment);
+  }
   return {
     doc,
     paragraph: p,
     lineElements,
     lineWidths,
-    physicalFitLines
+    physicalFitLines,
+    renderedFloat
   };
 }
 function fragmentForLine(rects, lineRect, rtl) {
@@ -1623,11 +1796,30 @@ function foreignMutated(entries) {
     return !(singleText || hangShape);
   });
 }
+function segmentTextPoint(el, index) {
+  const walker = el.ownerDocument.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let remaining = index;
+  let last = null;
+  for (let n = walker.nextNode(); n !== null; n = walker.nextNode()) {
+    const text = n;
+    if (remaining <= text.length) return {
+      node: text,
+      offset: remaining
+    };
+    remaining -= text.length;
+    last = text;
+  }
+  return last === null ? null : {
+    node: last,
+    offset: last.length
+  };
+}
 function measureLineExtent(entries, range) {
   let rectPx = 0;
   let modelPx = 0;
   let ownMargins = 0;
   let lineRect = null;
+  let unmeasurable = false;
   for (const _ref9 of entries) {
     const el = _ref9.el;
     const seg = _ref9.seg;
@@ -1640,11 +1832,17 @@ function measureLineExtent(entries, range) {
     if (seg === null || seg.edgeTrim.lead === 0 && seg.edgeTrim.trail === 0) {
       rectPx += (elRect ?? el.getBoundingClientRect()).width;
     } else {
-      const node = el.firstChild;
-      range.setStart(node, seg.edgeTrim.lead);
-      range.setEnd(node, seg.text.length - seg.edgeTrim.trail);
-      rectPx += range.getBoundingClientRect().width;
-      modelPx += seg.edgeTrim.modelPx;
+      if (seg.transformChangesLength === true) unmeasurable = true;
+      const start = segmentTextPoint(el, seg.edgeTrim.lead);
+      const end = segmentTextPoint(el, seg.text.length - seg.edgeTrim.trail);
+      if (start === null || end === null) {
+        unmeasurable = true;
+      } else {
+        range.setStart(start.node, start.offset);
+        range.setEnd(end.node, end.offset);
+        rectPx += range.getBoundingClientRect().width;
+        modelPx += seg.edgeTrim.modelPx;
+      }
     }
     if (seg !== null && seg.decorPx !== void 0) modelPx += seg.decorPx;
     modelPx += seg?.marginStartPx ?? 0;
@@ -1656,7 +1854,8 @@ function measureLineExtent(entries, range) {
     rectPx,
     modelPx,
     ownMargins,
-    lineRect
+    lineRect,
+    unmeasurable
   };
 }
 function contentEndOf(fragment, paragraphStyle, rtl) {
@@ -1675,9 +1874,16 @@ function paintedEndOf(entries, endText, range, rtl) {
     const node = endText?.el.firstChild;
     const end = endText === void 0 ? 0 : endWithoutCollapsibleSpaces(endText.seg.text);
     if (node?.nodeType === 3 && end > 0) {
-      range.setStart(node, 0);
-      range.setEnd(node, end);
-      paintRect = range.getBoundingClientRect();
+      if (end === node.length && node === endText.el.lastChild) {
+        paintRect = endText.el.getBoundingClientRect();
+      } else {
+        if (endText.seg.transformChangesLength === true) return null;
+        const endPoint = segmentTextPoint(endText.el, end);
+        if (endPoint === null) return null;
+        range.setStart(node, 0);
+        range.setEnd(endPoint.node, endPoint.offset);
+        paintRect = range.getBoundingClientRect();
+      }
     } else paintRect = paintEndEntry.el.getBoundingClientRect();
   }
   let value = rtl ? -paintRect.left : paintRect.right;
@@ -1767,26 +1973,30 @@ function measureCorrections(pending) {
         rectPx = _measureLineExtent.rectPx,
         modelPx = _measureLineExtent.modelPx,
         ownMargins = _measureLineExtent.ownMargins,
-        lineRect = _measureLineExtent.lineRect;
+        lineRect = _measureLineExtent.lineRect,
+        unmeasurable = _measureLineExtent.unmeasurable;
       if (rectPx !== 0) sawInk = true;
+      if (unmeasurable) continue;
       const layout = rectPx + modelPx;
       const overflow = layout - availableWidth;
       if (overflow > CORRECTION_WINDOW_PX) {
         const textEntries = entries.filter(entry => entry.seg !== null);
         const endText = textEntries[textEntries.length - 1];
         const rightHang = endText?.seg.rightHangPx ?? 0;
-        const physicalEndHang = (endText?.seg.physicalEndHangPx ?? 0) + (endText?.seg.hyphenEndHangPx ?? 0);
+        const physicalEndHang = textEntries.reduce((sum, entry) => sum + (entry.seg.physicalEndHangPx ?? 0), 0) + (endText?.seg.hyphenEndHangPx ?? 0);
+        const physicalPad = textEntries.reduce((sum, entry) => sum + (entry.seg.physicalPadPx ?? 0), 0);
         const deliberateOverflow = endText?.seg.overflowPx ?? 0;
         const besideFloat = li < physicalFitLines;
         const physicalLayout = layout - ownMargins;
         let adjustmentPx;
         if (besideFloat) {
-          adjustmentPx = physicalLayout - (availableWidth - FLOAT_WRAP_SPARE_PX + rightHang - physicalEndHang + deliberateOverflow);
+          adjustmentPx = physicalLayout - (availableWidth - FLOAT_WRAP_SPARE_PX + rightHang - physicalEndHang - physicalPad + deliberateOverflow);
         } else {
           const fragment = fragmentForLine(fragments.rects, lineRect, rtl === true);
           const contentEnd = contentEndOf(fragment, paragraphStyle, rtl === true);
           const paintEndEntry = entries[entries.length - 1];
           const painted = paintedEndOf(entries, endText, range, rtl === true);
+          if (painted === null) continue;
           const paintRect = painted.rect;
           if (paintEndEntry.seg === null && endText !== void 0) {
             const textRect = endText.el.getBoundingClientRect();
@@ -1868,6 +2078,32 @@ function separatorWidthIn(spec, context2, separator) {
   }
   return measureWidth(separator, spec);
 }
+function shedCapacity(advance) {
+  return Math.max(0, advance - Math.max(0.5, advance * 0.1));
+}
+function terminalClusterAdvance(segment, endBox, scan) {
+  if (endBox === void 0) return 0;
+  const clusters = graphemes(segment.text);
+  let end = clusters.length - 1;
+  while (end > 0 && clusters[end] === " ") end--;
+  const terminal = clusters[end];
+  if (terminal === void 0 || terminal === " ") return 0;
+  const spec = scan.specs[scan.runs[endBox.run].spec];
+  return Math.max(0, measureWidth(terminal, spec) *
+  // A condensed line renders narrower than the spec measures.
+  Math.min(1, segment.fontStretchPct / 100) + segment.resolvedLetterSpacingPx);
+}
+function tightenLine(segments, first, px2) {
+  if (px2 <= 1e-3) return;
+  const countAt = index => Math.max(0, segments[index].adjustableSpaceCount - (index === first ? segments[index].edgeTrim.lead : 0));
+  let spaces = 0;
+  for (let i = first; i < segments.length; i++) spaces += countAt(i);
+  if (spaces === 0) return;
+  const delta = px2 / spaces;
+  for (let i = first; i < segments.length; i++) {
+    if (countAt(i) > 0) segments[i].wordSpacingPx -= delta;
+  }
+}
 function measureFor(specByKey) {
   return {
     width: (text, run) => measureWidth(text, specByKey.get(run.fontKey)),
@@ -1923,10 +2159,11 @@ function composedForFamily(spec, settings) {
       ...fontProtrusion(family)
     };
   }
-  const composed = composeProtrusion(base, settings.user, settings.hang);
+  const composed = composeProtrusion(base, settings.user, settings.hang, settings.characters);
   const tables = {
     rest: composed.rest,
-    first: composed.first !== composed.rest ? composed.first : void 0
+    first: composed.first !== composed.rest ? composed.first : void 0,
+    credit: composed.credit
   };
   composedCache.set(key, tables);
   return tables;
@@ -1950,6 +2187,7 @@ function buildRunMetrics(scan, expansion, spacing, protrusion) {
     const perFontTables = composedForFamily(spec, protrusion);
     const perFont = perFontTables?.rest;
     const perFontFirst = perFontTables?.first;
+    const perFontCredit = perFontTables?.credit;
     const naturalSpace = spaceWidthIn(spec, () => run.text);
     const spaceWidth = naturalSpace > baseSpaceWidth ? naturalSpace + (baseSpaceWidth - naturalSpace) * pull : naturalSpace;
     const flexWidth = naturalSpace + (Math.min(naturalSpace, baseSpaceWidth) - naturalSpace) * pull;
@@ -1985,8 +2223,12 @@ function buildRunMetrics(scan, expansion, spacing, protrusion) {
       // other font (full cells hang under a hanging-punctuation mode — the
       // typewriter-tradition grid behavior).
       protrudeInkOnly: isMonospace(spec) && spec.key !== baseSpec.key,
+      // Glyph identity for protrusion lookups only; every width this run
+      // carries was already measured with the property applied.
+      textTransform: spec.textTransform === "uppercase" || spec.textTransform === "lowercase" ? spec.textTransform : void 0,
       protrusion: perFont,
-      protrusionFirst: perFontFirst
+      protrusionFirst: perFontFirst,
+      protrusionCredit: perFontCredit
     };
   });
 }
@@ -2011,6 +2253,7 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
   };
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
     const line = lines[lineIndex];
+    const lineFirstSegment = segments.length;
     const desired = (runIndex, flexOf) => {
       const metrics = runsMetrics[runIndex];
       const spec = scan.specs[scan.runs[runIndex].spec];
@@ -2030,7 +2273,8 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
     let hasCJK = false;
     let boxChars = 0;
     let adjustableSpaceCount = 0;
-    let fixedNoBreakBox = false;
+    let fixedSpaceBox = false;
+    let weldFixedSeparator = false;
     let leadingSyntheticNbsp = false;
     let fixedBoundary;
     let flowExclusion;
@@ -2049,7 +2293,7 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
       const table = runsMetrics[run].expansionRatios;
       const key = Math.round(line.fontStretch * 1e3) / 1e3;
       const ratio = table?.get(key) ?? 1;
-      const wordSpacing = fixedNoBreakBox ? spec.wordSpacingPx : desired(run, rigidFlex ?? void 0);
+      const wordSpacing = fixedSpaceBox ? spec.wordSpacingPx : desired(run, rigidFlex ?? void 0);
       const spacePx = spaceWidthIn(spec, () => scan.runs[run].text) * ratio + wordSpacing;
       const nbspExcessPx = leadingSyntheticNbsp && flowText.charCodeAt(0) === 160 ? nbspExcessIn(spec, run) * ratio : 0;
       const srcRun = scan.runs[run];
@@ -2061,12 +2305,13 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
       segments.push({
         text: flowText,
         floatedPrefix,
-        floatedStyle: floatedPrefix !== void 0 && !floatStyleEmitted ? scan.floatIntrusion?.style : void 0,
+        floatedStyle: floatedPrefix !== void 0 && !floatStyleEmitted ? scan.floatIntrusion?.kind === "first-letter" ? scan.floatIntrusion.style : void 0 : void 0,
         floatedInnerStyle: floatedPrefix !== void 0 ? srcRun.floatInnerStyle : void 0,
         ancestors: srcRun.ancestors,
-        wordSpacingPx: fixedNoBreakBox ? wordSpacing : wordSpacing - ls,
+        wordSpacingPx: fixedSpaceBox ? wordSpacing : wordSpacing - ls,
         adjustableSpaceCount,
-        allowLetterCorrection: !fixedNoBreakBox,
+        allowLetterCorrection: !fixedSpaceBox,
+        weldEnd: weldFixedSeparator,
         letterSpacingPx: ls !== 0 ? spec.letterSpacingPx + ls : null,
         resolvedLetterSpacingPx: spec.letterSpacingPx + ls,
         fontFeatureSettings: trackingFeatureSettings(spec, ls !== 0),
@@ -2080,6 +2325,7 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
           trail,
           modelPx: (lead + trail) * spacePx
         },
+        transformChangesLength: transformedText(flowText, spec).length !== flowText.length,
         decorPx,
         cjk: hasCJK,
         joint,
@@ -2104,14 +2350,29 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
       hasCJK = false;
       boxChars = 0;
       adjustableSpaceCount = 0;
-      fixedNoBreakBox = false;
+      fixedSpaceBox = false;
+      weldFixedSeparator = false;
       leadingSyntheticNbsp = false;
       flowExclusion = void 0;
     };
+    const fixedSegmentWidth = /* @__PURE__ */new Map();
+    let trailingHangGlue = -1;
+    const lineEndBox = breakEndBox(para, line.end);
+    if (lineEndBox !== void 0 && (lineEndBox.hangStretch > 0 || lineEndBox.hangShrink > 0)) {
+      let i = line.end - 1;
+      let candidate = para.items[i];
+      while (i >= line.start && candidate?.type === ItemType.Box && candidate.otherSpace === true) {
+        i--;
+        candidate = para.items[i];
+      }
+      if (i >= line.start && candidate?.type === ItemType.Glue && candidate.fixedSpaceInitial === true) {
+        trailingHangGlue = i;
+      }
+    }
     for (let i = line.start; i < line.end; i++) {
       const it = para.items[i];
       if (it.type === ItemType.Box) {
-        const ownFixedSegment = AUTHOR_NO_BREAK_SPACE.test(it.text);
+        const ownFixedSegment = it.otherSpace === true || AUTHOR_NO_BREAK_SPACE.test(it.text);
         const firstChar = it.text[0] ?? "";
         if (fixedBoundary !== void 0) {
           const junction = fixedBoundary.lastChar + firstChar;
@@ -2151,12 +2412,23 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
             lastChar: it.text.slice(-1),
             run: it.run
           };
-          fixedNoBreakBox = true;
+          fixedSpaceBox = true;
+          weldFixedSeparator = it.otherSpace === true;
           flush();
+          if (it.otherSpace === true) fixedSegmentWidth.set(segments.length - 1, it.width);
           fixedBoundary = boundary;
         }
       } else if (it.type === ItemType.Glue) {
         fixedBoundary = void 0;
+        if (i === trailingHangGlue) {
+          flush();
+          run = it.run;
+          text = " ";
+          fixedSpaceBox = true;
+          flush();
+          fixedSegmentWidth.set(segments.length - 1, it.width);
+          continue;
+        }
         if (it.cjk === true) {
           cjkY += it.stretch;
           cjkZ += it.shrink;
@@ -2201,6 +2473,7 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
     flush();
     const last = segments[segments.length - 1];
     if (last !== void 0) {
+      last.weldEnd = false;
       let endBox;
       for (let i = line.end - 1; i >= line.start; i--) {
         const candidate = para.items[i];
@@ -2210,16 +2483,58 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
         }
       }
       const besideFloat = lineOffset + lineIndex < (scan.floatIntrusion?.lines ?? 0);
-      const physicalEndHang = besideFloat && !line.hyphenated && endBox?.paintedEnd !== true && line.rightHang > 0 && endWithoutCollapsibleSpaces(last.text) > 0 ? line.rightHang : 0;
-      if (physicalEndHang > 0) last.physicalEndHangPx = physicalEndHang;
+      const requestedHang = besideFloat && !line.hyphenated && endBox?.paintedEnd !== true && line.rightHang > 0 && endWithoutCollapsibleSpaces(last.text) > 0 ? line.rightHang : 0;
+      let padCapacity = 0;
+      let unshed = 0;
+      if (requestedHang > 0) {
+        if (fixedSegmentWidth.has(segments.length - 1)) {
+          let remaining = requestedHang;
+          for (let index = segments.length - 1; remaining > 1e-3 && fixedSegmentWidth.has(index); index--) {
+            const hung = segments[index];
+            const width = fixedSegmentWidth.get(index);
+            const share = Math.min(remaining, width);
+            hung.physicalEndHangPx = share;
+            remaining -= share;
+            if (index === segments.length - 1) padCapacity = width - share;
+            if (leadingCollapsibleSpaces(hung.text) === hung.text.length) {
+              hung.edgeTrim = {
+                ...hung.edgeTrim,
+                modelPx: Math.max(0, hung.edgeTrim.modelPx - share)
+              };
+            }
+          }
+          unshed = remaining;
+        } else {
+          const capacity = shedCapacity(terminalClusterAdvance(last, endBox, scan));
+          const share = Math.min(requestedHang, capacity);
+          if (share > 0) last.physicalEndHangPx = share;
+          unshed = requestedHang - share;
+          padCapacity = capacity - share;
+        }
+      } else if (besideFloat && !line.hyphenated && endBox?.paintedEnd !== true) {
+        padCapacity = shedCapacity(terminalClusterAdvance(last, endBox, scan));
+      }
+      const physicalEndHang = requestedHang - unshed;
       const hyphenEndHang = besideFloat && line.hyphenated && line.rightHang > 0 && endBox !== void 0 ? line.rightHang : 0;
       if (hyphenEndHang > 0) {
         last.hyphenEndHangPx = hyphenEndHang;
         const endSpec = scan.specs[scan.runs[endBox.run].spec];
         last.hyphenLetterSpacingPx = endSpec.letterSpacingPx - hyphenEndHang;
       }
-      last.marginEndPx = -(line.rightHang - physicalEndHang - hyphenEndHang + line.overflowPx + WRAP_SAFETY_PAD_PX);
-      last.rightHangPx = line.rightHang;
+      if (besideFloat) {
+        const endSpec = endBox === void 0 ? void 0 : scan.specs[scan.runs[endBox.run].spec];
+        const capacity = line.hyphenated && endBox !== void 0 && endSpec !== void 0 ? shedCapacity(runsMetrics[endBox.run].hyphenWidth + endSpec.letterSpacingPx) - hyphenEndHang : padCapacity;
+        const pad = Math.max(0, Math.min(WRAP_SAFETY_PAD_PX, capacity));
+        if (pad > 1e-3) {
+          last.physicalPadPx = pad;
+          if (line.hyphenated && endSpec !== void 0) {
+            last.hyphenLetterSpacingPx = (last.hyphenLetterSpacingPx ?? endSpec.letterSpacingPx) - pad;
+          }
+        }
+        tightenLine(segments, lineFirstSegment, unshed + (WRAP_SAFETY_PAD_PX - pad));
+      }
+      last.marginEndPx = -(line.rightHang - unshed - physicalEndHang - hyphenEndHang + line.overflowPx + WRAP_SAFETY_PAD_PX);
+      last.rightHangPx = line.rightHang - unshed;
       last.overflowPx = line.overflowPx;
       if (endBox?.type === ItemType.Box && endBox.paintedEnd === true) {
         last.marginEndOwner = scan.runs[endBox.run]?.boxEndProtrusionOwner;
@@ -2227,7 +2542,7 @@ function buildRenderSegments(scan, runsMetrics, para, lines, lineOffset) {
     }
     const brk = para.items[line.end];
     if (line.hyphenated) pendingJoint = "hyphen";else if (brk !== void 0 && brk.type === ItemType.Glue) pendingJoint = "space";else if (brk !== void 0 && brk.type === ItemType.Penalty && brk.width === 0 && !brk.flagged) {
-      pendingJoint = brk.cjk === true ? "wbr" : "space";
+      pendingJoint = brk.cjk === true || brk.fixedSpace === true ? "wbr" : "space";
     } else pendingJoint = "wbr";
   }
   for (const _ref10 of lastSegForRun) {
@@ -2354,6 +2669,7 @@ function restoreManagedOutput(p, state, styleAttribute) {
   p.removeAttribute("data-justif-dropcap");
   state.lastPatch = "";
   state.enhanced = false;
+  state.renderedFloat = null;
   return true;
 }
 var DEFAULT_EXPANSION = {
@@ -2423,13 +2739,21 @@ function resolveOptions(options) {
     }];
   })) : null;
   const requestedHang = options.hangingPunctuation;
-  const hangMode = requestedHang === void 0 || requestedHang === true ? DEFAULT_HANGING_PUNCTUATION : normalizeHangingPunctuation(requestedHang);
+  const isHangObject = typeof requestedHang === "object" && requestedHang !== null;
+  const hangObject = isHangObject ? requestedHang : null;
+  const requestedEdges = isHangObject ? requestedHang.edges : requestedHang;
+  const hangMode = requestedEdges === void 0 || requestedEdges === true ? DEFAULT_HANGING_PUNCTUATION : normalizeHangingPunctuation(requestedEdges);
+  const hangChars = hangObject?.characters === void 0 ? hangingCharacters : {
+    start: hangObject.characters.start ?? hangingCharacters.start,
+    end: hangObject.characters.end ?? hangingCharacters.end
+  };
   const protrusionModel = options.protrusion !== false;
   const hanging = hangMode !== "none";
   const measuredProtrusion = options.protrusion === void 0 || options.protrusion === true;
-  const composed = !protrusionModel && !hanging ? null : composeProtrusion(protrusionModel ? latinProtrusion : {}, protrusionUser, hangMode);
+  const composed = !protrusionModel && !hanging ? null : composeProtrusion(protrusionModel ? latinProtrusion : {}, protrusionUser, hangMode, hangChars);
   const protrusion = composed === null ? false : composed.rest;
   const protrusionFirst = composed !== null && composed.first !== composed.rest ? composed.first : void 0;
+  const protrusionCredit = composed === null ? void 0 : composed.credit;
   const expansion = options.expansion === false ? false : withOverrides(DEFAULT_EXPANSION, options.expansion ?? {});
   const spacing = withOverrides(DEFAULT_SPACING, options.spacing ?? {});
   const tracking = options.tracking === false ? false : options.tracking === true || options.tracking === void 0 ? DEFAULT_TRACKING : withOverrides(DEFAULT_TRACKING, options.tracking);
@@ -2460,6 +2784,7 @@ function resolveOptions(options) {
       exHyphenPenalty: options.exHyphenPenalty ?? defaultBuildOptions.exHyphenPenalty,
       protrusion,
       protrusionFirst,
+      protrusionCredit,
       expansion,
       tracking,
       boundaryShrink: spacing.boundaryShrink
@@ -2472,7 +2797,8 @@ function resolveOptions(options) {
       model: protrusionModel,
       measured: measuredProtrusion,
       user: protrusionUser,
-      hang: hangMode
+      hang: hangMode,
+      characters: hangChars
     },
     hyphenate
   };
@@ -2481,7 +2807,9 @@ function beginEnhancement(p, state) {
   state.original.append(...p.childNodes);
   state.enhanced = true;
   p.setAttribute("data-justif", "");
-  if (state.scan.floatIntrusion !== null) p.setAttribute("data-justif-dropcap", "");
+  if (state.scan.floatIntrusion?.kind === "first-letter") {
+    p.setAttribute("data-justif-dropcap", "");
+  }
   maskAuthorStyles(p, state, TEXT_AUTOSIZING_DECLARATIONS, "important");
   maskAuthorStyle(p, state, "text-align", state.scan.direction === "rtl" ? "right" : "left");
   if (state.scan.justifyAll) {
@@ -2646,7 +2974,7 @@ var onDocumentCopy = e => {
       const scan = _ref16[1];
       if (!sel.containsNode(p, true)) continue;
       touches = true;
-      if (scan.runs.some(r => /[\u00A0\u202F]/.test(r.text))) authorNbsp = true;
+      if (scan.authorHasNbsp) authorNbsp = true;
     }
   }
   if (!touches) return;
@@ -2696,10 +3024,12 @@ function justify(targets, options) {
   }
   const owner = /* @__PURE__ */Symbol("justif-controller");
   const bailed = /* @__PURE__ */new WeakSet();
+  const floatDecisions = /* @__PURE__ */new WeakSet();
   const decidedStyleKey = /* @__PURE__ */new WeakMap();
   const owned = new Set(paragraphs);
   const carriedStyleAttr = /* @__PURE__ */new WeakMap();
   let destroyed = false;
+  let rebindFloatObservation = () => {};
   const initialResolution = resolveOptions(options);
   const hyphenate = initialResolution.hyphenate;
   let breakOpts = initialResolution.breakOpts,
@@ -2722,6 +3052,7 @@ function justify(targets, options) {
     try {
       scan = readParagraph(p, batch);
       if (typeof scan !== "string") {
+        if (scan.floatIntrusion?.kind === "element") floatDecisions.add(p);
         const bad = scan.specs.find(sp => !supportsSpec(sp));
         if (bad !== void 0) {
           scan = bad.stretch !== "100%" && bad.stretch !== "normal" ? `author font-stretch: ${bad.stretch} on a run` : "font-variation-settings on a run";
@@ -2732,6 +3063,7 @@ function justify(targets, options) {
     }
     decidedStyleKey.set(p, styleKeyNow(p));
     if (typeof scan === "string") {
+      if (/float|shape-outside/i.test(scan)) floatDecisions.add(p);
       bailed.add(p);
       pendingSkips.push({
         p,
@@ -2842,6 +3174,7 @@ function justify(targets, options) {
         width: scan.contentWidth,
         lastPatch: "",
         enhanced: false,
+        renderedFloat: null,
         nativeIndent: null,
         masked: []
       });
@@ -2854,12 +3187,16 @@ function justify(targets, options) {
   };
   const safePatch = p => {
     try {
-      return patchOne(p);
+      const outcome = patchOne(p);
+      rebindFloatObservation(p, ownedState(p));
+      return outcome;
     } catch (error) {
-      return {
+      const outcome = {
         changed: bailToNative(p, `threw while rendering: ${describeError(error)}`),
         pending: null
       };
+      rebindFloatObservation(p, ownedState(p));
+      return outcome;
     }
   };
   const emitSkip = (p, reason) => {
@@ -2882,6 +3219,7 @@ function justify(targets, options) {
   };
   const dropQueued = p => {
     pendingWidths.delete(p);
+    pendingFloatRelayout.delete(p);
     pendingCorrections.delete(p);
     hiddenCorrections.delete(p);
   };
@@ -3033,9 +3371,12 @@ function justify(targets, options) {
     }
     pendingCorrections.delete(p);
     hiddenCorrections.delete(p);
+    const elementFloat = state.scan.floatIntrusion?.kind === "element" ? state.scan.floatIntrusion : void 0;
+    const pending = writeParagraph(p, layout.rendered, layout.lineWidths, state.scan.floatIntrusion?.lines ?? 0, elementFloat, state.renderedFloat);
+    state.renderedFloat = pending.renderedFloat;
     return {
       changed: true,
-      pending: writeParagraph(p, layout.rendered, layout.lineWidths, state.scan.floatIntrusion?.lines ?? 0)
+      pending
     };
   };
   const flushPatches = batch => {
@@ -3046,24 +3387,61 @@ function justify(targets, options) {
       if (viewObserver === null || nearViewport.has(e.p)) measure2.push(e);else if (e.p.isConnected) hiddenCorrections.set(e.p, e.pending);
     }
     if (measure2.length > 0) {
-      const _measureCorrections = measureCorrections(measure2.map(e => e.pending)),
-        corrections = _measureCorrections.corrections,
-        hidden = _measureCorrections.hidden,
-        invalid = _measureCorrections.invalid;
-      applyCorrections(corrections);
-      for (const i of hidden) {
-        const e = measure2[i];
-        hiddenCorrections.set(e.p, e.pending);
-      }
-      for (const _ref19 of invalid) {
-        const index = _ref19.index;
-        const reason = _ref19.reason;
-        const e = measure2[index];
-        if (ownedState(e.p) === void 0) continue;
-        dropQueued(e.p);
-        if (bailToNative(e.p, reason)) emitRelayout(e.p);
+      try {
+        const _measureCorrections = measureCorrections(measure2.map(e => e.pending)),
+          corrections = _measureCorrections.corrections,
+          hidden = _measureCorrections.hidden,
+          invalid = _measureCorrections.invalid;
+        applyCorrections(corrections);
+        for (const i of hidden) {
+          const e = measure2[i];
+          hiddenCorrections.set(e.p, e.pending);
+        }
+        for (const _ref19 of invalid) {
+          const index = _ref19.index;
+          const reason = _ref19.reason;
+          const e = measure2[index];
+          if (ownedState(e.p) === void 0) continue;
+          dropQueued(e.p);
+          if (bailToNative(e.p, reason)) emitRelayout(e.p);
+        }
+      } catch (error) {
+        console.error("justif: correction measurement threw", error);
       }
     }
+    verifyElementFloats(measure2);
+  };
+  const verifyElementFloats = batch => {
+    let queued = false;
+    for (const _ref20 of batch) {
+      const p = _ref20.p;
+      const state = ownedState(p);
+      const intrusion = state?.scan.floatIntrusion;
+      if (state === void 0 || intrusion?.kind !== "element") continue;
+      if (refreshElementFloat(p, state, intrusion) !== "changed") continue;
+      pendingFloatRelayout.add(p);
+      queued = true;
+    }
+    if (queued) restartPendingOrder();
+  };
+  const floatGeometryEquals = (a, b) => Math.abs(a.inlineSize - b.inlineSize) <= 0.05 && a.lines === b.lines;
+  const refreshElementFloat = (p, state, intrusion, source) => {
+    if (pendingWidths.has(p)) return "stale";
+    const widthNow = contentWidthOf(p);
+    if (typeof widthNow !== "number" || Math.abs(widthNow - state.width) > 0.05) {
+      return "stale";
+    }
+    const next = renderedElementFloatIntrusionOf(p, source ?? state.renderedFloat ?? intrusion.source, intrusion);
+    if (next === null) return "unmeasurable";
+    if (floatGeometryEquals(next, intrusion)) return "unchanged";
+    state.scan.floatIntrusion = next;
+    state.lastPatch = "";
+    return "changed";
+  };
+  const restartPendingOrder = () => {
+    pendingOrder = visibleFirst([... /* @__PURE__ */new Set([...pendingWidths.keys(), ...pendingFloatRelayout])]);
+    pendingCursor = 0;
+    scheduleSlice();
   };
   const commit = scannable => {
     warmDomWidths(scannable.flatMap(p => {
@@ -3101,10 +3479,17 @@ function justify(targets, options) {
     for (const p of paragraphs) {
       const state = ownedState(p);
       if (state === void 0 || state.scan.floatIntrusion === null) continue;
+      if (state.scan.floatIntrusion.kind === "element") {
+        if (refreshElementFloat(p, state, state.scan.floatIntrusion) === "changed") {
+          changed = true;
+        }
+        continue;
+      }
       const nextInlineSize = floatInlineSizeOf(p);
       if (nextInlineSize === null) continue;
       if (Math.abs(nextInlineSize - state.scan.floatIntrusion.inlineSize) > 0.05) {
         state.scan.floatIntrusion = {
+          kind: "first-letter",
           inlineSize: nextInlineSize,
           lines: state.scan.floatIntrusion.lines,
           style: state.scan.floatIntrusion.style
@@ -3124,26 +3509,25 @@ function justify(targets, options) {
       }] : [];
     });
     let changed = false;
-    for (const _ref20 of candidates) {
-      const p = _ref20.p;
-      const state = _ref20.state;
-      dropQueued(p);
-      if (restoreManagedOutput(p, state)) changed = true;
-    }
     for (const _ref21 of candidates) {
       const p = _ref21.p;
       const state = _ref21.state;
-      const next = floatIntrusionOf(p, state.scan.runs.map(run => run.text).join(""));
+      dropQueued(p);
+      if (restoreManagedOutput(p, state)) changed = true;
+    }
+    for (const _ref22 of candidates) {
+      const p = _ref22.p;
+      const state = _ref22.state;
+      const next = floatIntrusionOf(p, state.scan.runs.map(run => run.text).join(""), state.scan.floatIntrusion ?? void 0);
       if (next === null) {
         states.delete(p);
+        rebindFloatObservation(p);
         bailed.add(p);
-        emitSkip(p, "could not remeasure floated ::first-letter after font change");
+        emitSkip(p, "could not remeasure paragraph float after font change");
         emitRelayout(p);
         continue;
       }
-      if (Math.abs(next.inlineSize - state.scan.floatIntrusion.inlineSize) > 0.05 || next.lines !== state.scan.floatIntrusion.lines) {
-        changed = true;
-      }
+      if (!floatGeometryEquals(next, state.scan.floatIntrusion)) changed = true;
       state.scan.floatIntrusion = next;
     }
     return changed;
@@ -3192,6 +3576,7 @@ function justify(targets, options) {
     for (const p of changed) emitRelayout(p);
   };
   const pendingWidths = /* @__PURE__ */new Map();
+  const pendingFloatRelayout = /* @__PURE__ */new Set();
   const pendingCorrections = /* @__PURE__ */new Map();
   const hiddenCorrections = /* @__PURE__ */new Map();
   let pendingOrder = [];
@@ -3206,8 +3591,8 @@ function justify(targets, options) {
     const width = root.clientWidth || window.innerWidth;
     const height = root.clientHeight || window.innerHeight;
     const margin = width / 2;
-    for (const _ref22 of batch) {
-      const p = _ref22.p;
+    for (const _ref23 of batch) {
+      const p = _ref23.p;
       const r = p.getBoundingClientRect();
       if (r.bottom >= -margin && r.top <= height + margin && r.right >= -margin && r.left <= width + margin) {
         nearViewport.add(p);
@@ -3257,8 +3642,9 @@ function justify(targets, options) {
     requestAnimationFrame(drainPending);
   };
   const visibleFirst = els => {
-    if (els.length > 1 && viewObserver !== null) {
-      els.sort((a, b) => Number(!nearViewport.has(a)) - Number(!nearViewport.has(b)));
+    if (els.length > 1) {
+      const rank = p => (viewObserver !== null && !nearViewport.has(p) ? 2 : 0) + ((ownedState(p)?.scan.floatIntrusion ?? null) !== null ? 0 : 1);
+      els.sort((a, b) => rank(a) - rank(b));
     }
     return els;
   };
@@ -3297,12 +3683,16 @@ function justify(targets, options) {
       if (wrote && performance.now() - start > SLICE_BUDGET_MS) break;
       const el = pendingOrder[pendingCursor++];
       const width = pendingWidths.get(el);
-      if (width === void 0) continue;
-      pendingWidths.delete(el);
+      const floatRelayout = pendingFloatRelayout.delete(el);
+      if (width === void 0 && !floatRelayout) continue;
+      if (width !== void 0) pendingWidths.delete(el);
       const state = ownedState(el);
       if (state === void 0) continue;
-      if (Math.abs(width - state.width) < 0.05) continue;
-      state.width = width;
+      if (width !== void 0) {
+        if (Math.abs(width - state.width) < 0.05 && !floatRelayout) continue;
+        state.width = width;
+      }
+      if (floatRelayout) state.lastPatch = "";
       const outcome = safePatch(el);
       if (outcome.changed) {
         if (outcome.pending !== null) pendingCorrections.set(el, outcome.pending);
@@ -3314,6 +3704,21 @@ function justify(targets, options) {
     if (wrote && anchor !== null) {
       const delta = anchor.getBoundingClientRect().top - anchorTop;
       if (Math.abs(delta) > 0.5) window.scrollBy(0, delta);
+    }
+    if (wrote) {
+      const floats = [...pendingCorrections.keys()].filter(el => (ownedState(el)?.scan.floatIntrusion ?? null) !== null);
+      if (floats.length > 0) {
+        const batch = floats.map(el => {
+          const pending = pendingCorrections.get(el);
+          pendingCorrections.delete(el);
+          return {
+            p: el,
+            pending
+          };
+        });
+        flushPatches(batch);
+        if (destroyed) return;
+      }
     }
     if (pendingCursor < pendingOrder.length) {
       scheduleSlice();
@@ -3331,7 +3736,9 @@ function justify(targets, options) {
       }
       flushPatches(batch);
     }
-    if (pendingCorrections.size > 0 || pendingWidths.size > 0) scheduleSlice();
+    if (pendingCorrections.size > 0 || pendingWidths.size > 0 || pendingFloatRelayout.size > 0) {
+      scheduleSlice();
+    }
   };
   const leaveClipboardCleanup = options.cleanClipboard === false ? null : joinClipboardCleanup({
     *enhanced() {
@@ -3342,6 +3749,9 @@ function justify(targets, options) {
     }
   });
   let observer = null;
+  let floatObserver = null;
+  const observedFloat = /* @__PURE__ */new Map();
+  const floatParagraph = /* @__PURE__ */new WeakMap();
   const onFontsLoading = () => {
     document.fonts.ready.then(() => {
       if (!destroyed) onFontsLoaded();
@@ -3360,10 +3770,59 @@ function justify(targets, options) {
       }
     }
     if (options.observeResize !== false) {
+      if (typeof ResizeObserver !== "undefined") {
+        floatObserver = new ResizeObserver(entries => {
+          let queued = false;
+          for (const entry of entries) {
+            const p = floatParagraph.get(entry.target);
+            if (p === void 0 || observedFloat.get(p) !== entry.target) continue;
+            const state = ownedState(p);
+            const intrusion = state?.scan.floatIntrusion;
+            if (state === void 0 || intrusion?.kind !== "element") {
+              floatObserver?.unobserve(entry.target);
+              observedFloat.delete(p);
+              continue;
+            }
+            const verdict = refreshElementFloat(p, state, intrusion, entry.target);
+            if (verdict === "unmeasurable") {
+              const box = entry.contentBoxSize?.[0];
+              const painted = box !== void 0 ? box.inlineSize > 0 || box.blockSize > 0 : entry.contentRect.width > 0 || entry.contentRect.height > 0;
+              if (!painted) continue;
+              dropQueued(p);
+              const changed = bailToNative(p, "could not remeasure leading floated element after resize");
+              rebindFloatObservation(p);
+              if (changed) emitRelayout(p);
+              continue;
+            }
+            if (verdict !== "changed") continue;
+            pendingFloatRelayout.add(p);
+            queued = true;
+          }
+          if (queued) restartPendingOrder();
+        });
+        rebindFloatObservation = function (p, state) {
+          if (state === void 0) {
+            state = ownedState(p);
+          }
+          const prior = observedFloat.get(p);
+          const intrusion = state?.scan.floatIntrusion;
+          const next = intrusion?.kind === "element" ? state?.renderedFloat ?? intrusion.source : void 0;
+          if (prior === next) return;
+          if (prior !== void 0) {
+            floatObserver?.unobserve(prior);
+            observedFloat.delete(p);
+          }
+          if (next !== void 0) {
+            observedFloat.set(p, next);
+            floatParagraph.set(next, p);
+            floatObserver?.observe(next);
+          }
+        };
+      }
       observer = createWidthObserver(widths => {
-        for (const _ref23 of widths) {
-          const el = _ref23[0];
-          const width = _ref23[1];
+        for (const _ref24 of widths) {
+          const el = _ref24[0];
+          const width = _ref24[1];
           const state = ownedState(el);
           if (state === void 0) continue;
           if (Math.abs(width - state.width) < 0.05) {
@@ -3371,15 +3830,21 @@ function justify(targets, options) {
             continue;
           }
           pendingWidths.set(el, width);
+          observer?.suspend(el);
         }
         if (pendingWidths.size > 0) {
-          pendingOrder = visibleFirst([...pendingWidths.keys()]);
+          for (const p of pendingFloatRelayout) observer?.suspend(p);
+          pendingOrder = visibleFirst([... /* @__PURE__ */new Set([...pendingWidths.keys(), ...pendingFloatRelayout])]);
           pendingCursor = 0;
           if (!sliceQueued) drainPending();
         }
       });
       for (const p of paragraphs) {
-        if (ownedState(p) !== void 0) observer.observe(p);
+        const state = ownedState(p);
+        if (state !== void 0) {
+          observer.observe(p);
+          rebindFloatObservation(p, state);
+        }
       }
     }
     document.fonts.addEventListener("loadingdone", onFontsLoaded);
@@ -3395,9 +3860,9 @@ function justify(targets, options) {
       endScanBatch(scanBatch);
       restoreScanStyles();
     }
-    for (const _ref24 of pendingSkips.splice(0)) {
-      const p = _ref24.p;
-      const reason = _ref24.reason;
+    for (const _ref25 of pendingSkips.splice(0)) {
+      const p = _ref25.p;
+      const reason = _ref25.reason;
       emitSkip(p, reason);
     }
     commit(scannable);
@@ -3430,7 +3895,7 @@ function justify(targets, options) {
     } finally {
       restoreLifted();
     }
-    const stale = considered.filter(p => decidedStyleKey.get(p) !== current.get(p));
+    const stale = considered.filter(p => floatDecisions.has(p) || decidedStyleKey.get(p) !== current.get(p));
     if (stale.length === 0) return [];
     const restoreStale = suppressTransitions(stale);
     try {
@@ -3458,17 +3923,20 @@ function justify(targets, options) {
         dropQueued(p);
       }
       bailed.delete(p);
+      floatDecisions.delete(p);
       scanned.delete(p);
     }
     adopt(stale);
     for (const p of stale) {
       carriedStyleAttr.delete(p);
       if (ownedState(p) === void 0) {
+        rebindFloatObservation(p);
         observer?.unobserve(p);
         viewObserver?.unobserve(p);
         revealObserver?.unobserve(p);
         if (wasEnhanced.has(p)) emitRelayout(p);
       } else {
+        rebindFloatObservation(p, ownedState(p));
         observer?.observe(p);
         viewObserver?.observe(p);
         revealObserver?.observe(p);
@@ -3522,6 +3990,7 @@ function justify(targets, options) {
         clearComposedProtrusionCache();
       }
       pendingWidths.clear();
+      pendingFloatRelayout.clear();
       pendingCorrections.clear();
       hiddenCorrections.clear();
       pendingOrder = [];
@@ -3532,6 +4001,9 @@ function justify(targets, options) {
       revealObserver?.disconnect();
       observer?.disconnect();
       observer = null;
+      floatObserver?.disconnect();
+      floatObserver = null;
+      observedFloat.clear();
       for (const p of paragraphs) {
         if (ownedState(p) !== void 0) restore(p);
       }

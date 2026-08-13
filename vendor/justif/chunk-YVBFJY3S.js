@@ -66,7 +66,6 @@ function graphemes(text) {
 }
 
 // src/core/protrusion.ts
-var inherit = (codes, chars) => Object.fromEntries(Array.from(chars, c => [c, codes]));
 var SHAPE_BASE = {
   // Latin, not decomposable.
   Ł: "L",
@@ -432,51 +431,28 @@ var latinProtrusion = {
     r: 70
   }
 };
-var hangingPunctuation = {
-  // Stops (CSS force-end).
-  ".": {
-    r: 1e3
-  },
-  ",": {
-    r: 1e3
-  },
-  // Quotes, either role at either edge.
-  "'": {
-    l: 1e3,
-    r: 1e3
-  },
-  '"': {
-    l: 1e3,
-    r: 1e3
-  },
-  ...inherit({
-    l: 1e3,
-    r: 1e3
-  }, "\u2018\u2019\u201C\u201D\u201A\u201E\u2039\u203A\xAB\xBB"),
-  // Brackets are deliberately NOT here, on either side. CSS `first` hangs
-  // the whole Ps category, but no print system hangs a bracket more than
-  // slightly: measured in Junicode, a line-start "(" hangs 100‰ of its
-  // advance in Affinity and 249‰ in InDesign, against microtype's generic
-  // 100‰. Leaving them out gives them exactly that ordinary protrusion, the
-  // same depth on every line.
-  // Burasage (ぶら下げ組み): the ideographic and fullwidth stops hang fully
-  // into the right margin — the classical Japanese newspaper/book setting.
-  // Their glyphs sit in the left half of a fullwidth advance, so the ink
-  // lands just past the margin while the em-box hangs; kinsoku already
-  // guarantees they can end a line but never start one.
-  "\u3001": {
-    r: 1e3
-  },
-  "\u3002": {
-    r: 1e3
-  },
-  "\uFF0C": {
-    r: 1e3
-  },
-  "\uFF0E": {
-    r: 1e3
-  }
+var groups = {
+  quotes: `'"\u2018\u2019\u201C\u201D\u201A\u201E\u2039\u203A\xAB\xBB`,
+  stops: ".,",
+  cjk: "\u3001\u3002\uFF0C\uFF0E"
 };
+var hangingCharacters = {
+  start: groups.quotes,
+  end: groups.quotes + groups.stops + groups.cjk
+};
+var HANG = 1e3;
+var FLUSH = 0;
+function classify(base, chars, side, code) {
+  const out = {
+    ...base
+  };
+  for (const ch of chars) out[ch] = {
+    ...out[ch],
+    [side]: code
+  };
+  return out;
+}
+var hangingPunctuation = classify(classify({}, hangingCharacters.end, "r", HANG), hangingCharacters.start, "l", HANG);
 function normalizeHangingPunctuation(hang) {
   switch (hang) {
     case false:
@@ -489,42 +465,25 @@ function normalizeHangingPunctuation(hang) {
       return hang;
   }
 }
-var flushStarts = Object.fromEntries(Object.entries(hangingPunctuation).filter(_ref => {
-  let codes = _ref[1];
-  return codes.l !== void 0;
-}).map(_ref2 => {
-  let ch = _ref2[0];
-  return [ch, {
-    l: 0
-  }];
-}));
-function applySide(base, overrides, side) {
-  const out = {
-    ...base
-  };
-  for (const _ref3 of Object.entries(overrides)) {
-    const ch = _ref3[0];
-    const codes = _ref3[1];
-    const v = codes[side];
-    if (v !== void 0) out[ch] = {
-      ...out[ch],
-      [side]: v
-    };
+function composeProtrusion(base, user, hang, chars) {
+  if (chars === void 0) {
+    chars = hangingCharacters;
   }
-  return out;
-}
-function composeProtrusion(base, user, hang) {
   const mode = normalizeHangingPunctuation(hang);
   let rest = base;
   let first = base;
   if (mode !== "none") {
-    rest = applySide(base, hangingPunctuation, "r");
+    rest = classify(base, chars.end, "r", HANG);
     first = rest;
     if (mode !== "line-end-only") {
-      first = applySide(rest, hangingPunctuation, "l");
-      if (mode === "all-line-edges") rest = first;else rest = applySide(rest, flushStarts, "l");
+      first = classify(rest, chars.start, "l", HANG);
+      if (mode === "all-line-edges") rest = first;else rest = classify(rest, chars.start, "l", FLUSH);
     }
   }
+  const credit = mode === "none" ? void 0 : user !== null ? {
+    ...base,
+    ...user
+  } : base;
   if (user !== null) {
     const same = first === rest;
     rest = {
@@ -538,7 +497,8 @@ function composeProtrusion(base, user, hang) {
   }
   return {
     rest,
-    first
+    first,
+    credit
   };
 }
 
@@ -572,6 +532,11 @@ function lineWidthAt(widths, line) {
   if (typeof widths === "number") return widths;
   return widths[Math.min(line, widths.length - 1)] ?? 0;
 }
+function caseTransformedText(text, transform) {
+  if (transform === "uppercase") return text.toUpperCase();
+  if (transform === "lowercase") return text.toLowerCase();
+  return text;
+}
 
 // src/core/items.ts
 var SOFT_HYPHEN = "\xAD";
@@ -587,7 +552,8 @@ var NO_LINE_START = /[,.;:!?%)\]}\u00BB\u203A\u2019\u201D\u2026\u2030\u203C\u204
 var NO_LINE_END = /[([{\u00AB\u2039\u2018\u201C\u00BF\u00A1]/;
 var DIGIT = /\p{Nd}/u;
 var NEAR_PROHIBITIVE_PENALTY = 9999;
-var BREAKABLE_SPLIT = /([^\S\u00A0\u202F]+)/;
+var FIXED_SPACE_BREAK_PENALTY = 0;
+var TEXT_SEPARATOR_SPLIT = /([\u0009\u000A\u000D\u0020]+|[\u1680\u2000-\u200A\u205F\u3000])/;
 function mayBeCJK(text) {
   for (let i = 0; i < text.length; i++) {
     if (text.charCodeAt(i) >= 4352) return true;
@@ -595,16 +561,28 @@ function mayBeCJK(text) {
   return false;
 }
 function textMakesBox(text) {
-  return /[^\s\u00AD]|[\u00A0\u202F]/u.test(text);
+  return /[^\u0009\u000A\u000D\u0020\u00AD]/u.test(text);
 }
 function breakRp(items, b) {
-  const it = items[b];
-  if (it.type === ItemType.Penalty && it.width > 0) return it.rp;
+  let endBox;
   for (let i = b - 1; i >= 0; i--) {
     const prev = items[i];
-    if (prev.type === ItemType.Box) return prev.rp;
+    if (prev.type === ItemType.Box) {
+      endBox = prev;
+      break;
+    }
   }
-  return 0;
+  return rpAt(items[b], endBox);
+}
+function breakEndBox(para, b) {
+  const i = para.lastBoxBefore[b];
+  if (i < 0) return void 0;
+  const box = para.items[i];
+  return box.type === ItemType.Box ? box : void 0;
+}
+function rpAt(it, endBox) {
+  if (it.type === ItemType.Penalty && it.width > 0) return it.rp;
+  return endBox === void 0 ? 0 : endBox.rp;
 }
 function endingFloorRatio(need, glueY, flexY, maxRatio) {
   if (need <= 0) return 0;
@@ -696,13 +674,20 @@ function excludeFlow(text, start, exclusion) {
   };
 }
 var LAZY_ADVANCE = -1;
-function protrusionHang(opts, measure, ch, run, advanceOrLazy, side, firstLine) {
-  if (firstLine === void 0) {
-    firstLine = false;
-  }
-  if (opts.protrusion === false) return 0;
-  const table = firstLine ? run.protrusionFirst ?? opts.protrusionFirst ?? run.protrusion ?? opts.protrusion : run.protrusion ?? opts.protrusion;
-  const advCode = protrusionCodes(table, ch)?.[side] ?? 0;
+function protrusionTable(opts, run, firstLine) {
+  if (opts.protrusion === false) return false;
+  return firstLine ? run.protrusionFirst ?? opts.protrusionFirst ?? run.protrusion ?? opts.protrusion : run.protrusion ?? opts.protrusion;
+}
+function renderedChar(ch, run) {
+  return caseTransformedText(ch, run.textTransform);
+}
+function protrusionHang(table, measure, ch, run, advanceOrLazy, side) {
+  if (table === false) return 0;
+  const code = protrusionCodes(table, renderedChar(ch, run))?.[side] ?? 0;
+  return protrusionHangForCode(code, measure, ch, run, advanceOrLazy, side);
+}
+function protrusionHangForCode(code, measure, ch, run, advanceOrLazy, side) {
+  const advCode = Math.min(1e3, code);
   if (advCode === 0) return 0;
   const advance = advanceOrLazy < 0 ? measure.charAdvance(ch, run) : advanceOrLazy;
   const advHang = advCode / 1e3 * advance;
@@ -713,6 +698,36 @@ function protrusionHang(opts, measure, ch, run, advanceOrLazy, side, firstLine) 
     return Math.min(advHang, Math.max(0, advance - measure.inkBearings(ch, run).r));
   }
   return advHang;
+}
+function leadingProtrusion(opts, measure, text, run, firstLine) {
+  const table = protrusionTable(opts, run, firstLine);
+  if (table === false) return 0;
+  const mark = firstCodePoint(text);
+  const inkOnly = run.protrudeInkOnly === true && measure.inkBearings !== void 0;
+  const markCode = protrusionCodes(table, renderedChar(mark, run))?.l ?? 0;
+  if (inkOnly || markCode < 1e3) {
+    return protrusionHangForCode(markCode, measure, mark, run, LAZY_ADVANCE, "l");
+  }
+  const tail = text.slice(mark.length);
+  const hang = tail.length === 0 ? measure.charAdvance(mark, run) : measure.width(text, run) - measure.width(tail, run);
+  if (tail.length === 0) return hang;
+  const credit = run.protrusionCredit ?? opts.protrusionCredit ?? false;
+  return hang + protrusionHang(credit, measure, firstCodePoint(tail), run, LAZY_ADVANCE, "l");
+}
+function trailingProtrusion(opts, measure, text, run) {
+  const table = protrusionTable(opts, run, false);
+  if (table === false) return 0;
+  const mark = lastCodePoint(text);
+  const inkOnly = run.protrudeInkOnly === true && measure.inkBearings !== void 0;
+  const markCode = protrusionCodes(table, renderedChar(mark, run))?.r ?? 0;
+  if (inkOnly || markCode < 1e3) {
+    return protrusionHangForCode(markCode, measure, mark, run, LAZY_ADVANCE, "r");
+  }
+  const head = text.slice(0, text.length - mark.length);
+  const hang = head.length === 0 ? measure.charAdvance(mark, run) : measure.width(text, run) - measure.width(head, run);
+  if (head.length === 0) return hang;
+  const credit = run.protrusionCredit ?? opts.protrusionCredit ?? false;
+  return hang + protrusionHang(credit, measure, lastCodePoint(head), run, LAZY_ADVANCE, "r");
 }
 function buildItems(texts, runs, opts, measure) {
   const items = [];
@@ -749,7 +764,7 @@ function buildItems(texts, runs, opts, measure) {
     lastBoxRun = runIndex;
     lastBoxKey = pieceKey;
   };
-  const hyphenRp = run => piecePaintedEnd ? 0 : protrusionHang(opts, measure, "-", run, run.hyphenWidth, "r");
+  const hyphenRp = run => piecePaintedEnd ? 0 : protrusionHang(protrusionTable(opts, run, false), measure, "-", run, run.hyphenWidth, "r");
   const makeBox = function (text, runIndex, width, flowText, flowExclusion) {
     if (flowText === void 0) {
       flowText = text;
@@ -759,15 +774,11 @@ function buildItems(texts, runs, opts, measure) {
     let rp = 0;
     let lpFirst = 0;
     if (opts.protrusion !== false && flowText.length > 0) {
-      const first = firstCodePoint(flowText);
-      const last = lastCodePoint(flowText);
       if (!piecePaintedStart) {
-        lp = protrusionHang(opts, measure, first, run, LAZY_ADVANCE, "l");
-        lpFirst = (run.protrusionFirst ?? opts.protrusionFirst) === void 0 ? lp : protrusionHang(opts, measure, first, run, LAZY_ADVANCE, "l", true);
+        lp = leadingProtrusion(opts, measure, flowText, run, false);
+        lpFirst = (run.protrusionFirst ?? opts.protrusionFirst) === void 0 ? lp : leadingProtrusion(opts, measure, flowText, run, true);
       }
-      if (!piecePaintedEnd) {
-        rp = protrusionHang(opts, measure, last, run, LAZY_ADVANCE, "r");
-      }
+      if (!piecePaintedEnd) rp = trailingProtrusion(opts, measure, flowText, run);
     }
     let expStretch = 0;
     let expShrink = 0;
@@ -796,6 +807,8 @@ function buildItems(texts, runs, opts, measure) {
       lp,
       lpFirst,
       rp,
+      hangStretch: 0,
+      hangShrink: 0,
       expStretch,
       expShrink,
       trackStretch,
@@ -862,13 +875,16 @@ function buildItems(texts, runs, opts, measure) {
     pieceText[pieceCount++] = chunk;
     return false;
   };
-  const flushPendingSpace = function (nextRun, dashInitial) {
+  const flushPendingSpace = function (nextRun, dashInitial, fixedSpaceInitial) {
     if (dashInitial === void 0) {
       dashInitial = false;
     }
+    if (fixedSpaceInitial === void 0) {
+      fixedSpaceInitial = false;
+    }
     if (pendingSpaceRun >= 0 && hasBox) {
       const space = runs[pendingSpaceRun].space;
-      if (pendingLeadingSpace || pieceKey !== void 0 && pieceKey === lastBoxKey) {
+      if (pendingLeadingSpace || fixedSpaceInitial || pieceKey !== void 0 && pieceKey === lastBoxKey) {
         pushPenalty(INF_PENALTY, 0, false, false, 0, pendingSpaceRun);
       } else if (dashInitial) {
         pushPenalty(NEAR_PROHIBITIVE_PENALTY, 0, false, false, 0, pendingSpaceRun);
@@ -881,7 +897,8 @@ function buildItems(texts, runs, opts, measure) {
         stretchFil: 0,
         shrink: pendingLeadingSpace ? 0 : boundary ? space.shrink * opts.boundaryShrink : space.shrink,
         run: pendingSpaceRun,
-        rigid: !pendingLeadingSpace && boundary && opts.boundaryShrink < 1 ? true : void 0
+        rigid: !pendingLeadingSpace && boundary && opts.boundaryShrink < 1 ? true : void 0,
+        fixedSpaceInitial: fixedSpaceInitial || void 0
       });
     }
     pendingSpaceRun = -1;
@@ -939,20 +956,57 @@ function buildItems(texts, runs, opts, measure) {
       }
     }
   };
+  const pushOtherSpace = (separator, runIndex, exclusion) => {
+    const run = runs[runIndex];
+    flushPendingSpace(runIndex, false, true);
+    const precedingItem = items[items.length - 1];
+    const leadingGlue = precedingItem?.type === ItemType.Glue && precedingItem.fixedSpaceInitial === true ? precedingItem : void 0;
+    let chainIndex = items.length - 1;
+    if (leadingGlue !== void 0) chainIndex -= 2;
+    const boundary = items[chainIndex];
+    const behindBoundary = items[chainIndex - 1];
+    if (boundary?.type === ItemType.Penalty && boundary.fixedSpace === true && behindBoundary?.type === ItemType.Box && behindBoundary.otherSpace === true) {
+      items.splice(chainIndex, 1);
+      chainIndex -= 1;
+    }
+    const precedingBox = items[chainIndex];
+    const _excludeFlow2 = excludeFlow(separator, 0, exclusion),
+      flowText = _excludeFlow2.flowText,
+      flowExclusion = _excludeFlow2.flowExclusion;
+    const width = measure.width(flowText, run);
+    const box = makeBox(separator, runIndex, width, flowText, flowExclusion);
+    box.otherSpace = true;
+    box.rp = width + (precedingBox?.type === ItemType.Box && precedingBox.otherSpace === true ? precedingBox.rp : 0) + (leadingGlue?.width ?? 0);
+    box.hangStretch = (precedingBox?.type === ItemType.Box && precedingBox.otherSpace === true ? precedingBox.hangStretch : 0) + (leadingGlue?.stretch ?? 0);
+    box.hangShrink = (precedingBox?.type === ItemType.Box && precedingBox.otherSpace === true ? precedingBox.hangShrink : 0) + (leadingGlue?.shrink ?? 0);
+    emitBox(box, runIndex);
+    if (pieceKey === void 0 && separator !== "\u2007") {
+      items.push({
+        type: ItemType.Penalty,
+        penalty: FIXED_SPACE_BREAK_PENALTY,
+        width: 0,
+        flagged: false,
+        hyphen: false,
+        rp: 0,
+        run: runIndex,
+        fixedSpace: true
+      });
+    }
+  };
   const pushCJKToken = (token, runIndex, exclusion) => {
     const run = runs[runIndex];
     const clean = token.split(SOFT_HYPHEN).join("");
     if (clean.length === 0) return;
-    const groups = [];
+    const groups2 = [];
     let tokenOffset = 0;
     for (const cluster of graphemes(clean)) {
       const cjk = CJK_CHAR.test(cluster);
       const start = tokenOffset;
-      const _excludeFlow2 = excludeFlow(cluster, start, exclusion),
-        flowText = _excludeFlow2.flowText,
-        clusterExclusion = _excludeFlow2.flowExclusion;
+      const _excludeFlow3 = excludeFlow(cluster, start, exclusion),
+        flowText = _excludeFlow3.flowText,
+        clusterExclusion = _excludeFlow3.flowExclusion;
       tokenOffset = start + cluster.length;
-      const last = groups[groups.length - 1];
+      const last = groups2[groups2.length - 1];
       if (!cjk && last !== void 0 && !last.cjk) {
         const previousLength = last.text.length;
         last.text += cluster;
@@ -964,7 +1018,7 @@ function buildItems(texts, runs, opts, measure) {
           };
           if (last.flowExclusion === void 0) last.flowExclusion = shifted;else last.flowExclusion.end = shifted.end;
         }
-      } else groups.push({
+      } else groups2.push({
         cjk,
         text: cluster,
         flowText,
@@ -973,7 +1027,7 @@ function buildItems(texts, runs, opts, measure) {
     }
     flushPendingSpace(runIndex, isAnyDash(clean.charCodeAt(0)));
     let prev = null;
-    for (const group of groups) {
+    for (const group of groups2) {
       const width = measure.width(group.flowText, run);
       if (prev !== null) {
         const before = prev.group.cjk ? prev.group.text : graphemes(prev.group.text).pop() ?? "";
@@ -1020,7 +1074,7 @@ function buildItems(texts, runs, opts, measure) {
       pendingPaintedStart = true;
       pendingBoxStartProtrusion += piece.boxStartProtrusionPx;
     }
-    const parts = text.split(BREAKABLE_SPLIT);
+    const parts = text.split(TEXT_SEPARATOR_SPLIT);
     let pieceOffset = 0;
     for (let pi = 0; pi < parts.length; pi++) {
       const part = parts[pi];
@@ -1028,9 +1082,15 @@ function buildItems(texts, runs, opts, measure) {
       const partStart = pieceOffset;
       pieceOffset = partStart + part.length;
       if ((pi & 1) === 1) {
-        if (hasBox) {
-          pendingSpaceRun = run;
-          pendingLeadingSpace = !hasFlowBox;
+        const separator = part.charCodeAt(0);
+        if (separator === 9 || separator === 10 || separator === 13 || separator === 32) {
+          if (hasBox) {
+            pendingSpaceRun = run;
+            pendingLeadingSpace = !hasFlowBox;
+          }
+        } else {
+          const overlap2 = clipExclusion(piece.flowExclusion, partStart, part.length);
+          pushOtherSpace(part, run, overlap2);
         }
         continue;
       }
@@ -1082,8 +1142,11 @@ function withSums(items, runs) {
   const cumExpZ = new Float64Array(n + 1);
   const cumTrackY = new Float64Array(n + 1);
   const firstBoxAfter = new Int32Array(n + 1);
+  const lastBoxBefore = new Int32Array(n + 1);
+  lastBoxBefore[0] = -1;
   for (let i = 0; i < n; i++) {
     const it = items[i];
+    lastBoxBefore[i + 1] = it.type === ItemType.Box ? i : lastBoxBefore[i];
     let w = 0,
       y = 0,
       yFil = 0,
@@ -1125,7 +1188,8 @@ function withSums(items, runs) {
     cumExpY,
     cumExpZ,
     cumTrackY,
-    firstBoxAfter
+    firstBoxAfter,
+    lastBoxBefore
   };
 }
 
@@ -1313,11 +1377,12 @@ function renderedEndingWidth(para, widths, end, minWidth) {
   if (startItem !== void 0 && startItem.type === ItemType.Box) {
     L -= line === 0 ? startItem.lpFirst : startItem.lp;
   }
-  L -= breakRp(items, b);
+  const endBox = breakEndBox(para, b);
+  L -= rpAt(items[b], endBox);
   const need = minWidth * lineWidthAt(widths, line) - L;
   if (need <= 0) return L;
   const trackY = cumTrackY[b] - cumTrackY[start];
-  const glueOnly = Math.max(0, cumY[b] - cumY[start] - trackY);
+  const glueOnly = Math.max(0, cumY[b] - cumY[start] - trackY - (endBox?.hangStretch ?? 0));
   const flexY = trackY + (cumExpY[b] - cumExpY[start]);
   return endingFloorRatio(need, glueOnly, flexY, maxEndingStretch(minWidth)) !== null ? L + need : L;
 }
@@ -1339,6 +1404,7 @@ function attempt(para, widths, opts, mode) {
     cumExpZ = para.cumExpZ,
     cumTrackY = para.cumTrackY,
     firstBoxAfter = para.firstBoxAfter;
+  const lastBoxBefore = para.lastBoxBefore;
   const n = items.length;
   const lpAdjAt = (start, line) => {
     const it = items[start];
@@ -1391,12 +1457,16 @@ function attempt(para, widths, opts, mode) {
     } else {
       continue;
     }
-    const rp = breakRp(items, b);
+    const lastBox = lastBoxBefore[b];
+    const endBox = lastBox < 0 ? void 0 : items[lastBox];
+    const rp = rpAt(it, endBox);
+    const hangStretch = endBox?.hangStretch ?? 0;
+    const hangShrink = endBox?.hangShrink ?? 0;
     const forced = it.type === ItemType.Penalty && it.penalty <= -INF_PENALTY;
     const wB = cumW[b];
-    const yB = cumY[b];
+    const yB = cumY[b] - hangStretch;
     const yFilB = cumYfil[b];
-    const zB = cumZ[b];
+    const zB = cumZ[b] - hangShrink;
     const eyB = cumExpY[b];
     const ezB = cumExpZ[b];
     const tyB = cumTrackY[b];
@@ -1582,13 +1652,16 @@ function layoutLines(para, breaks, widths, opts, priorLastLineFit) {
     if (startItem !== void 0 && startItem.type === ItemType.Box) {
       leftHang = i === 0 ? startItem.lpFirst : startItem.lp;
     }
-    const rightHang = breakRp(items, b);
+    const endBox = breakEndBox(para, b);
+    const rightHang = rpAt(it, endBox);
+    const hangStretch = endBox?.hangStretch ?? 0;
+    const hangShrink = endBox?.hangShrink ?? 0;
     const penWidth = isPenalty ? it.width : 0;
     const L = cumW[b] - cumW[start] + penWidth - leftHang - rightHang;
     const W = lineWidthAt(widths, i);
-    const Yg = cumY[b] - cumY[start];
+    const Yg = Math.max(0, cumY[b] - cumY[start] - hangStretch);
     const Yfil = cumYfil[b] - cumYfil[start];
-    const Zg = cumZ[b] - cumZ[start];
+    const Zg = Math.max(0, cumZ[b] - cumZ[start] - hangShrink);
     const Ye = cumExpY[b] - cumExpY[start];
     const Ze = cumExpZ[b] - cumExpZ[start];
     const Yt = cumTrackY[b] - cumTrackY[start];
@@ -1654,7 +1727,7 @@ function layoutLines(para, breaks, widths, opts, priorLastLineFit) {
             }
           }
         } else if (fitTarget < 0) {
-          const Zfil = cumZ[b] - cumZ[start];
+          const Zfil = cumZ[b] - cumZ[start] - hangShrink;
           if (Zfil > 0) fitTarget = Math.max(fitTarget, need / Zfil);
         }
       }
@@ -3164,6 +3237,6 @@ function fontProtrusion(familyList) {
   const id = FAMILY_TO_TABLE[first];
   return id === void 0 ? void 0 : TABLES[id];
 }
-export { CJK_CHAR, Fitness, INF_BAD, INF_PENALTY, ItemType, UNDERFULL_RATIO, badness, breakParagraph, breakRp, buildItems, cjkBreakAllowed, composeProtrusion, defaultBreakOptions, defaultBuildOptions, demerits, demeritsUncapped, fitness, fontProtrusion, graphemes, hangingPunctuation, kinsokuNotAtLineEnd, kinsokuNotAtLineStart, latinProtrusion, layoutLines, lineText, lineWidthAt, maxEndingStretch, normalizeHangingPunctuation, protrusionCodes, textMakesBox, withSums };
-//# sourceMappingURL=chunk-YDWWCPIR.js.map
-//# sourceMappingURL=chunk-YDWWCPIR.js.map
+export { CJK_CHAR, Fitness, INF_BAD, INF_PENALTY, ItemType, UNDERFULL_RATIO, badness, breakEndBox, breakParagraph, breakRp, buildItems, caseTransformedText, cjkBreakAllowed, composeProtrusion, defaultBreakOptions, defaultBuildOptions, demerits, demeritsUncapped, fitness, fontProtrusion, graphemes, hangingCharacters, hangingPunctuation, kinsokuNotAtLineEnd, kinsokuNotAtLineStart, latinProtrusion, layoutLines, lineText, lineWidthAt, maxEndingStretch, normalizeHangingPunctuation, protrusionCodes, textMakesBox, withSums };
+//# sourceMappingURL=chunk-YVBFJY3S.js.map
+//# sourceMappingURL=chunk-YVBFJY3S.js.map
