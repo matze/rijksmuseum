@@ -663,29 +663,27 @@ a:hover { color: var(--color-accent); }
 .sheet-regions { display: none; padding: 0; gap: 7px; white-space: nowrap; }
 .sheet-regions[aria-pressed="false"] { color: color-mix(in srgb, var(--color-text) 62%, transparent); }
 
-/* Track and knob, both drawn in the button's own colour, so the switch says the
-   same thing the label does and there is one state to keep in step. */
+/* A framed square: the frame is always there, and a filled square settles
+   inside it when the links are on. Both are drawn in the button's own colour,
+   so the mark says the same thing the label does and there is one state to keep
+   in step. */
 .sheet-regions .switch {
   position: relative;
-  width: 22px;
+  width: 12px;
   height: 12px;
   border: 1px solid currentColor;
-  border-radius: 6px;
 }
 
 .sheet-regions .switch::after {
   content: '';
   position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  inset: 2px;
   background: currentColor;
-  transition: transform 160ms ease;
+  opacity: 0;
+  transition: opacity 160ms ease;
 }
 
-.sheet-regions[aria-pressed="true"] .switch::after { transform: translateX(10px); }
+.sheet-regions[aria-pressed="true"] .switch::after { opacity: 1; }
 
 .sheet-body { max-width: var(--sheet-width); margin: 0 auto; padding: 20px 18px 72px; }
 
