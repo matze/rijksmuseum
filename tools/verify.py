@@ -26,7 +26,8 @@ from common import ASSETS, DATA, ROOT  # noqa: E402
 
 IMAGE_WIDTHS = [480, 960, 1600, 2400]
 IMAGE_FORMATS = ["avif", "webp", "jpg"]
-KEPT = 0.7  # of each side of a photograph, at least, once its border is clipped
+KEPT = 0.7  # of each side of a photograph, at least, once a *detected* border is clipped
+PROPORTIONS = 0.03  # how far a hand-read box may sit from the work's stated shape
 MOST_OF_A_SIDE = 0.8  # of the work, which is as wide as a region may point
 LEAST_OF_A_SIDE = 0.02  # of the work, below which the dimming lights nothing
 MAIN_BUILDING = "HG"
@@ -87,8 +88,18 @@ def check_catalogue(catalogue: list[dict], report: Report) -> None:
         report.note(f"{len(undated)} catalogue entries carry no production date")
 
 
-def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) -> None:
+def read_by_hand() -> set[str]:
+    """The works whose content box is measured in `data/crops-extra.json`."""
+    path = DATA / "crops-extra.json"
+    boxes = json.loads(path.read_text()) if path.exists() else {}
+
+    return {number for number in boxes if not number.startswith("_")}
+
+
+def check_curated(tour: list[dict], report: Report) -> None:
     known = selectable_tags() | INTERNAL_TAGS
+    written_up = {work["objectNumber"]: work for work in tour}
+    by_hand = read_by_hand()
 
     for path in sorted((DATA / "curated").glob("*.md")):
         front = yaml.safe_load(path.read_text().split("---")[1])
@@ -97,10 +108,11 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
         if path.stem != number:
             report.fail(f"{path.name}: filename does not match objectNumber {number}")
 
-        entry = catalogue.get(number)
+        entry = written_up.get(number)
 
         if not entry:
-            report.fail(f"{path.name}: {number} is not in the on-view catalogue")
+            report.fail(f"{path.name}: {number} did not reach the tour — it was never "
+                        f"harvested, or carries no public-domain photograph")
             continue
 
         # A source pointing at the museum's own record must point at *this* record,
@@ -131,13 +143,13 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
 
     for work in tour:
         number = work["objectNumber"]
+        where = work.get("gallery")
 
-        if work["gallery"]["building"] != MAIN_BUILDING:
-            report.fail(f"{number}: in building {work['gallery']['building']}, which the "
-                        f"main-building route cannot reach")
-
-        if work["gallery"]["floor"] is None:
-            report.fail(f"{number}: no floor, so it cannot be placed on the route")
+        # The main building numbers the floor into the room code, so a work there
+        # that reports none was parsed wrong rather than hung somewhere unusual.
+        if where and where["building"] == MAIN_BUILDING and where["floor"] is None:
+            report.fail(f"{number}: in {where['code']}, which names no floor the route "
+                        f"can read")
 
         for width in IMAGE_WIDTHS:
             for suffix in IMAGE_FORMATS:
@@ -149,7 +161,7 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
         if not work["image"].get("aspectRatio"):
             report.fail(f"{number}: no aspect ratio, so the plate cannot reserve space")
 
-        check_crop(number, work["image"].get("crop"), report)
+        check_crop(work, by_hand, report)
 
         check_spans(number, work, report)
 
@@ -157,14 +169,22 @@ def check_curated(tour: list[dict], catalogue: dict[str, dict], report: Report) 
             check_region(f"{number} {where}", region, report)
 
 
-def check_crop(number: str, crop: list[float] | None, report: Report) -> None:
+def check_crop(work: dict, by_hand: set[str], report: Report) -> None:
     """A content box the guide clips its plate to.
 
     The box is what the visitor sees of the work, so a box that leaves the
     photograph, inverts, or takes a third of the picture away is a reading gone
     wrong rather than a border: it would hide the work and no test but this one
     would notice.
+
+    A box read by hand is held to a different rule. It is allowed to be deep,
+    because a work photographed in its frame really has lost a third of its
+    photograph to moulding — and in exchange it has to have the work's own
+    proportions, which a box cut in the wrong place cannot have by accident.
     """
+    number = work["objectNumber"]
+    crop = work["image"].get("crop")
+
     if crop is None:
         return
 
@@ -174,9 +194,28 @@ def check_crop(number: str, crop: list[float] | None, report: Report) -> None:
             and x + width <= 1.0001 and y + height <= 1.0001):
         report.fail(f"{number}: crop {crop} is not a box inside the photograph")
 
-    if min(width, height) < KEPT:
-        report.fail(f"{number}: crop keeps {min(width, height):.0%} of a side, which is "
-                    f"more than a border")
+    if number not in by_hand:
+        if min(width, height) < KEPT:
+            report.fail(f"{number}: crop keeps {min(width, height):.0%} of a side, which "
+                        f"is more than a border")
+
+        return
+
+    pixels = work["image"].get("pixels")
+    measured = work.get("dimensions", {})
+    stated = measured.get("width_cm"), measured.get("height_cm")
+
+    if not pixels or not all(stated):
+        report.fail(f"{number}: read by hand, but the record gives no size to check the "
+                    f"reading against")
+        return
+
+    box = (width * pixels[0]) / (height * pixels[1])
+    off = abs(box - stated[0] / stated[1]) / (stated[0] / stated[1])
+
+    if off > PROPORTIONS:
+        report.fail(f"{number}: the hand-read box is {box:.3f} wide to high, against the "
+                    f"record's {stated[0]}x{stated[1]} cm — off by {off:.1%}")
 
 
 def anchored(work: dict) -> Iterator[tuple[str, dict]]:
@@ -249,11 +288,30 @@ def check_region(where: str, region: list[float], report: Report) -> None:
                     f"find on the plate")
 
 
-def check_route_coverage(tour: list[dict], galleries: dict, report: Report) -> None:
-    floors = sorted({work["gallery"]["floor"] for work in tour})
-    report.note(f"{len(tour)} curated works across floors {floors}")
+def on_the_line(work: dict) -> bool:
+    """Whether the walking route can reach a work.
 
-    unplaced = [work["objectNumber"] for work in tour
+    The same rule `app/route.js` applies: the main building, and a floor read out
+    of the room code. A work the museum reports no location for fails it, and so
+    does the Asian Pavilion, whose `AK-1-23` names no storey.
+    """
+    where = work.get("gallery")
+
+    return bool(where) and where["building"] == MAIN_BUILDING and where["floor"] is not None
+
+
+def check_route_coverage(tour: list[dict], galleries: dict, report: Report) -> None:
+    walkable = [work for work in tour if on_the_line(work)]
+    floors = sorted({work["gallery"]["floor"] for work in walkable})
+    report.note(f"{len(walkable)} curated works on the line, across floors {floors}")
+
+    elsewhere = [work["objectNumber"] for work in tour if not on_the_line(work)]
+
+    if elsewhere:
+        report.note(f"{len(elsewhere)} curated works the route cannot reach, shown on the "
+                    f"contact sheet only: {', '.join(elsewhere)}")
+
+    unplaced = [work["objectNumber"] for work in walkable
                 if "position" not in galleries.get(work["gallery"]["code"], {})]
 
     if unplaced:
@@ -265,11 +323,10 @@ def main() -> None:
     catalogue = json.loads((DATA / "catalogue.json").read_text())
     galleries = json.loads((DATA / "galleries.json").read_text())
     tour = json.loads((DATA / "tour.json").read_text())
-    by_number = {entry["objectNumber"]: entry for entry in catalogue}
 
     report = Report()
     check_catalogue(catalogue, report)
-    check_curated(tour, by_number, report)
+    check_curated(tour, report)
     check_route_coverage(tour, galleries, report)
 
     for note in report.notes:
