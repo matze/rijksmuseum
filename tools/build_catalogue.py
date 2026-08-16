@@ -78,7 +78,26 @@ def aspect_ratio(measured: dict) -> str | None:
     return f"{round(width / height, 3)}"
 
 
-def normalise(record: dict, images: dict[str, dict], retrieved: str) -> dict | None:
+def searched_as(by_type: dict[str, list[str]]) -> dict[str, list[str]]:
+    """Object URI → the museum's own search types for it.
+
+    The harvest asks the search API for the types that are actually exhibited, so
+    the museum has already said of every candidate whether it is a painting or a
+    ship model. That is worth keeping: a painting is a flat thing photographed
+    face-on, and it is the only kind of object whose stated height and width can
+    be checked against its own photograph.
+    """
+    found: dict[str, list[str]] = {}
+
+    for name, uris in sorted(by_type.items()):
+        for uri in uris:
+            found.setdefault(uri, []).append(name)
+
+    return found
+
+
+def normalise(record: dict, images: dict[str, dict], types: dict[str, list[str]],
+              retrieved: str) -> dict | None:
     where = gallery(record)
     number = object_number(record)
     visual_uri = visual_item_uri(record)
@@ -109,6 +128,7 @@ def normalise(record: dict, images: dict[str, dict], retrieved: str) -> dict | N
         "credit": statements(record, "credit_line"),
         "dimensions": {k: v for k, v in measured.items() if v is not None},
         "gallery": where.as_json() if where else None,
+        "types": types.get(record["id"], []),
         "image": {**image, "widths": IMAGE_WIDTHS, "aspectRatio": aspect_ratio(measured)},
         "page": web_page(record),
         "retrieved": retrieved,
@@ -384,6 +404,12 @@ def parse_curated(path: Path) -> dict:
             if current not in CURATED_SECTIONS:
                 raise SystemExit(f"{path}: unknown section '{current}'")
 
+            # A second heading of the same name used to start the section again,
+            # which silently dropped everything written under the first one.
+            if current in sections:
+                raise SystemExit(f"{path}: '{current}' appears twice — one section holds "
+                                 f"as many paragraphs as it needs")
+
             sections[current] = []
         elif current:
             sections[current].append(line)
@@ -420,6 +446,7 @@ def parse_curated(path: Path) -> dict:
         "tags": front.get("tags", []),
         "sources": front["sources"],
         "displayTitle": front.get("displayTitle"),
+        "dimensionsSwapped": front.get("dimensionsSwapped"),
         "timeline": prose["timeline"][0],
         "closer": " ".join(block["text"] for block in prose["closer"]),
         "detail": prose["detail"],
@@ -465,7 +492,9 @@ def main() -> None:
                         help="stamp written onto every entry")
     args = parser.parse_args()
 
-    candidates = json.loads((CACHE / "candidates.json").read_text())["uris"]
+    searched = json.loads((CACHE / "candidates.json").read_text())
+    candidates = searched["uris"]
+    types = searched_as(searched["byType"])
     fetcher = Fetcher("records")
 
     records = [fetcher.get_json(uri) for uri in candidates
@@ -481,7 +510,7 @@ def main() -> None:
     # The catalogue proper is the on-view part of it; the rest is only reachable
     # by being written up, and reaches the guide through data/curated.
     harvested = [entry for record in records
-                 if (entry := normalise(record, images, args.retrieved))]
+                 if (entry := normalise(record, images, types, args.retrieved))]
 
     catalogue = sorted(
         (entry for entry in harvested if entry.get("gallery")),

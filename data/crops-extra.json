@@ -25,10 +25,18 @@
     "about a seventh off each side. The sight opening runs 137 to 823 across and",
     "121 to 683 down of 960x808. 686x562 gives 1.221 against the record's 45.5x37",
     "cm, 1.230.",
+    "SK-C-1845 is on loan and carved-framed like SK-C-1844. The sight opening runs",
+    "153 to 788 across and 146 to 672 down of 960x814, each side read where the",
+    "gilt lip and the shadow behind it give way to sky or wheat. 635x526 gives",
+    "1.207 — and this is the one work whose stated size it cannot be checked",
+    "against as it stands, the record having height and width the wrong way round.",
+    "Turned round, 61x50 cm reads 1.220, which the box matches to 1.1%. See the",
+    "dimensionsSwapped note in data/curated/SK-C-1845.md.",
     "Re-read them with: just crops '--review crops.png'"
   ],
   "SK-A-347": [0.0167, 0.0338, 0.9625, 0.9333],
   "SK-C-1844": [0.1427, 0.1497, 0.7146, 0.6955],
+  "SK-C-1845": [0.1594, 0.1794, 0.6615, 0.6462],
   "SK-C-2": [0.0396, 0.0852, 0.9208, 0.8296],
   "SK-C-211": [0.0125, 0.0258, 0.9708, 0.9472]
 }

@@ -60,6 +60,10 @@ treats `app/*.js` as ES modules.
   gives none and writes `data/locations.json` — the page's words, the place alone, and the
   day it was read, with a `null` for a page that says nothing so the asking is on record
   too. Four works come back placed; eleven still say nothing anywhere.
+- The search API has already typed every candidate — painting, sculpture, ship model — and
+  `types` carries that through to the entry. It is what lets `verify.py` check a stated
+  height and width against the work's own photograph, which is only meaningful for
+  something flat photographed face-on.
 - Gallery code `HG-2.31` → building HG, floor 2, room 2.31. `AK-1-23` (Asian Pavilion)
   carries no readable storey, so those works get `floor: null` and cannot be routed. The
   place names itself twice, once for the room and once for the building; `gallery()` reads
@@ -81,7 +85,7 @@ treats `app/*.js` as ES modules.
   unpainted edge of a panel. `detect_crops.py` measures the box that is the work and
   writes `data/crops.json`; the guide clips its plates to it and the files stay whole.
 
-Current state: 1237 on-view works, 244 rooms, 102 curated works of which 88 are on the
+Current state: 1237 on-view works, 244 rooms, 103 curated works of which 89 are on the
 line, 131 rooms located on the plan. A second `just build` must produce byte-identical
 JSON; that is the reproducibility check.
 
@@ -145,7 +149,8 @@ which read as margins under every simpler rule tried here — out of the crops.
 Frames are past what it will read: their browns and golds are the painting's own and they
 run deeper than the limit. Those are hand-measured into `data/crops-extra.json` and merged
 over the detected boxes. A hand-read box is exempt from the depth limit — Van Gogh's
-Riverbank is photographed in a carved frame that takes a seventh off every side — and is held to the museum's stated height and width instead, within 3%. `verify.py` does that
+Riverbank and his Wheatfield are both photographed in carved frames that take a seventh
+off every side — and is held to the museum's stated height and width instead, within 3%. `verify.py` does that
 arithmetic: a box cut in the right place has the work's own proportions, and one cut in
 the wrong place cannot have them by accident.
 
@@ -157,7 +162,15 @@ analysis size is what the whole argument is about.
 
 `data/curated/<objectNumber>.md`: YAML front matter (objectNumber, displayTitle, priority
 1–3, stayMinutes, tags, sources) then `## timeline / closer / detail / look / kids`.
-Hard-wrapped lines join into paragraphs; blank lines separate them.
+Hard-wrapped lines join into paragraphs; blank lines separate them. Each heading appears
+once and holds as many paragraphs as it needs — a second `## detail` used to start the
+section over and drop everything above it, and now fails the build.
+
+`dimensionsSwapped:` is the one other front-matter key, and it exists for one work. It
+says the record has this object's height and width the wrong way round, states what the
+record holds, and stops the sheet showing a size at all. It is not a free-text excuse:
+`verify.py` requires the stated pair to contradict the work's own photograph, and the
+turned pair to match it.
 
 A `region:` line closes the block above it and says which part of the work that block is
 about — the timeline, any `detail` paragraph, any `look` item. It carries four fractions
@@ -204,9 +217,14 @@ Rules `verify.py` enforces, each written after nearly shipping the mistake:
   reports none was parsed wrong. Being outside HG, or having no gallery at all, is allowed
   and costs the work its place on the line, not its entry
 - every curated work must have all three image widths
+- a painting's stated height and width must agree with the shape of its own photograph
+  within 20%, or the work must say `dimensionsSwapped` — and a work that says so must both
+  contradict its photograph as it stands and match it turned round. The tolerance is loose
+  because this is looking for a canvas filed on its side, not for a millimetre
 - `data/locations.json` may only supplement the records: an entry for a work whose record
   now names a gallery fails, and a work placed by a page must carry the day it was read
-- a hand-read crop must match the record's stated proportions within 3%; a detected one
+- a hand-read crop must match the record's stated proportions within 3% — turned round
+  where `dimensionsSwapped` says the record has them the wrong way round; a detected one
   must still keep 70% of every side
 - a region must be a box inside the work, and a *part* of it: `KEPT` does not apply, but a
   box over 80% of a side points at the whole picture and one under 2% cannot be found
@@ -317,9 +335,12 @@ Numbers are old-style figures (Cormorant Garamond); list markers hang in the pag
   they stay off the line. The badge is fetched rather than typed, and dated, so the
   staleness that argued against a hand-written mapping is at least visible.
 - SK-C-1845, Van Gogh's Wheatfield, is filed with its height and width the wrong way round
-  — the record and the dimensions sentence both make a landscape canvas portrait. It is not
-  curated for that reason. Nothing in the pipeline can catch this without measuring the
-  photograph, which would be deriving a fact from a picture.
+  — the record, the dimensions sentence and the frame's own measurements all make a
+  landscape canvas portrait. It is curated, and states no size: the sheet says what the
+  record holds and that the photograph contradicts it. Turning the pair round matches the
+  photograph to about a per cent, and `verify.py` requires both halves of that before it
+  will accept the note, which is as close to catching the error as a build can get without
+  measuring a picture and calling the result a fact.
 - Asian Pavilion: 52 on-view works, floor not derivable from `AK-*` codes. Three are
   curated and shown off the line; the other 49 are uncurated like most of the catalogue.
 - Prints and drawings are not harvested (424k records, essentially all in storage), so

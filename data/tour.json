@@ -126,6 +126,9 @@
       "en": "Shiva Nataraja",
       "nl": "Shiva Nataraja"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200106309"
   },
   {
@@ -244,6 +247,9 @@
       "en": "Guanyin",
       "nl": "Guanyin"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/20023389"
   },
   {
@@ -377,6 +383,9 @@
       "en": "Temple guardian",
       "nl": "Tempelwachter"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200480380"
   },
   {
@@ -506,6 +515,9 @@
       "en": "Writing Desk with Raised Back",
       "nl": "Schrijftafel met opstand"
     },
+    "types": [
+      "furniture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200318648"
   },
   {
@@ -635,6 +647,9 @@
       "en": "The Meeting of the Magi",
       "nl": "De ontmoeting van de koningen"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200116290"
   },
   {
@@ -775,6 +790,9 @@
       "en": "Sideboard",
       "nl": "Buffetkast"
     },
+    "types": [
+      "furniture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200362614"
   },
   {
@@ -901,6 +919,9 @@
       "en": "Calvary",
       "nl": "Calvarie"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200802870"
   },
   {
@@ -1030,6 +1051,9 @@
       "en": "Cabinet of a Militia Company",
       "nl": "Kast van een schutterij"
     },
+    "types": [
+      "furniture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200141753"
   },
   {
@@ -1170,6 +1194,9 @@
       "en": "Dolls’ house of Petronella Oortman",
       "nl": "Poppenhuis van Petronella Oortman"
     },
+    "types": [
+      "furniture"
+    ],
     "uri": "https://id.rijksmuseum.nl/2002678"
   },
   {
@@ -1297,6 +1324,9 @@
       "en": "Man and Machine",
       "nl": "Mens en machine"
     },
+    "types": [
+      "sculpture"
+    ],
     "uri": "https://id.rijksmuseum.nl/200122945"
   },
   {
@@ -1425,6 +1455,9 @@
       "en": "Model of the Slave Ship De Witte Oliphant",
       "nl": "Model van het slavenschip De Witte Oliphant"
     },
+    "types": [
+      "ship model"
+    ],
     "uri": "https://id.rijksmuseum.nl/200316100"
   },
   {
@@ -1557,6 +1590,9 @@
       "en": "Model of the William Rex",
       "nl": "Scheepsmodel William Rex"
     },
+    "types": [
+      "ship model"
+    ],
     "uri": "https://id.rijksmuseum.nl/200315848"
   },
   {
@@ -1709,6 +1745,9 @@
       "en": "The Battle of Waterloo",
       "nl": "De Slag bij Waterloo"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107874"
   },
   {
@@ -1845,6 +1884,9 @@
       "en": "Portrait of Jan van de Poll (1597-1678)",
       "nl": "Portret van Jan van de Poll (1597-1678)"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109344"
   },
   {
@@ -1968,6 +2010,9 @@
       "en": "The Yellow Riders",
       "nl": "De Gele Rijders"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108302"
   },
   {
@@ -2151,6 +2196,9 @@
       "en": "Portrait of a Married Couple, Likely Isaac Abrahamsz Massa and Beatrix van der Laen",
       "nl": "Portret van een echtpaar, mogelijk Isaac Abrahamsz Massa en Beatrix van der Laen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109346"
   },
   {
@@ -2313,6 +2361,9 @@
       "en": "The Merry Drinker",
       "nl": "De vrolijke drinker"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109347"
   },
   {
@@ -2431,6 +2482,9 @@
       "en": "The Well-stocked Kitchen",
       "nl": "De welvoorziene keuken"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109172"
   },
   {
@@ -2557,6 +2611,9 @@
       "en": "A Watermill",
       "nl": "Een watermolen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20015940"
   },
   {
@@ -2748,6 +2805,9 @@
       "en": "The Love Letter",
       "nl": "De liefdesbrief"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108370"
   },
   {
@@ -2908,6 +2968,9 @@
       "en": "Winter Landscape with Ice Skaters",
       "nl": "Winterlandschap met schaatsers"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108163"
   },
   {
@@ -3040,6 +3103,9 @@
       "en": "The Menagerie",
       "nl": "De menagerie"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109385"
   },
   {
@@ -3179,6 +3245,9 @@
       "en": "Helena van der Schalcke",
       "nl": "Helena van der Schalcke"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108271"
   },
   {
@@ -3327,6 +3396,9 @@
       "en": "A Maid with a Child in a Pantry",
       "nl": "Een dienstbode met een kind in een kelderkamer"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109391"
   },
   {
@@ -3465,6 +3537,9 @@
       "en": "Still Life with Flowers",
       "nl": "Stilleven met bloemen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108444"
   },
   {
@@ -3605,6 +3680,9 @@
       "en": "La Corniche near Monaco",
       "nl": "La Corniche bij Monaco"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108883"
   },
   {
@@ -3760,6 +3838,9 @@
       "en": "Landscape with a Stone Bridge",
       "nl": "Landschap met stenen brug"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200106038"
   },
   {
@@ -3921,6 +4002,9 @@
       "en": "Still Life with a Silver Jug and a Porcelain Bowl",
       "nl": "Stilleven met zilveren kan en porseleinen kom"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109415"
   },
   {
@@ -4056,6 +4140,9 @@
       "en": "Still Life with Asparagus",
       "nl": "Stilleven met asperges"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109193"
   },
   {
@@ -4211,6 +4298,9 @@
       "en": "The Adoration of the Magi",
       "nl": "De aanbidding van de koningen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109296"
   },
   {
@@ -4360,6 +4450,9 @@
       "en": "The Arrest of Diponegoro by Lieutenant General De Kock",
       "nl": "De arrestatie van Diponegoro door luitenant-generaal De Kock"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108932"
   },
   {
@@ -4491,6 +4584,9 @@
       "en": "Portrait of Jan Pranger and an Enslaved Servant",
       "nl": "Portret van Jan Pranger en een tot slaaf gemaakte bediende"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108934"
   },
   {
@@ -4624,6 +4720,9 @@
       "en": "The Trekvliet Shipping Canal near Rijswijk, known as the ‘View near the Geest Bridge’",
       "nl": "De Trekvliet bij Rijswijk, bekend als ‘Gezicht bij de Geestbrug’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108398"
   },
   {
@@ -4762,6 +4861,9 @@
       "en": "Still Life with Flowers on a Marble Tabletop",
       "nl": "Stilleven met bloemen op een marmeren tafelblad"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20027537"
   },
   {
@@ -4908,6 +5010,9 @@
       "en": "The Milkmaid",
       "nl": "Het melkmeisje"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108369"
   },
   {
@@ -5047,6 +5152,9 @@
       "en": "The Egyptian Widow",
       "nl": "De Egyptische weduwe"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108126"
   },
   {
@@ -5170,6 +5278,9 @@
       "en": "View of Zoutelande",
       "nl": "Gezicht op het dorp Zoutelande op Walcheren"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109353"
   },
   {
@@ -5285,6 +5396,9 @@
       "en": "The Seven Works of Mercy",
       "nl": "De zeven werken van barmhartigheid"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109466"
   },
   {
@@ -5468,6 +5582,9 @@
       "en": "View of Houses in Delft, Known as ‘The Little Street’",
       "nl": "Gezicht op huizen in Delft, bekend als ‘Het straatje’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108371"
   },
   {
@@ -5613,6 +5730,9 @@
       "en": "Portrait of Don Ramón Satué",
       "nl": "Portret van Don Ramón Satué"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109334"
   },
   {
@@ -5749,6 +5869,9 @@
       "en": "The Egg Dance",
       "nl": "De eierdans"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108123"
   },
   {
@@ -5879,6 +6002,9 @@
       "en": "The Nieuwe Kerk and the Town Hall on the Dam in Amsterdam",
       "nl": "De Nieuwe Kerk en het stadhuis op de Dam in Amsterdam"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20027073"
   },
   {
@@ -6017,6 +6143,9 @@
       "en": "The Sick Child",
       "nl": "Het zieke kind"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109480"
   },
   {
@@ -6135,6 +6264,9 @@
       "en": "Old Woman Reading, Probably the Prophetess Anna",
       "nl": "Oude lezende vrouw, waarschijnlijk de profetes Hanna"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107947"
   },
   {
@@ -6257,6 +6389,9 @@
       "en": "Portraits of Sir Thomas Gresham and Anne Fernely",
       "nl": "Portretten van Sir Thomas Gresham en Anne Fernely"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107768"
   },
   {
@@ -6391,6 +6526,9 @@
       "en": "The Saint Elizabeth’s Day Flood",
       "nl": "De Sint-Elisabethsvloed"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109490"
   },
   {
@@ -6508,6 +6646,9 @@
       "en": "Self-portrait",
       "nl": "Zelfportret"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109794"
   },
   {
@@ -6650,6 +6791,9 @@
       "en": "Jeremiah Lamenting the Destruction of Jerusalem",
       "nl": "Jeremia treurend over de verwoesting van Jeruzalem"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107946"
   },
   {
@@ -6761,6 +6905,9 @@
       "en": "Man in Oriental Dress",
       "nl": "Man in oosterse kleding"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107930"
   },
   {
@@ -6867,6 +7014,9 @@
       "en": "Bentheim Castle",
       "nl": "Kasteel Bentheim"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20015860"
   },
   {
@@ -7005,6 +7155,9 @@
       "en": "View of Haarlem from the Northwest, with the Bleaching Fields in the Foreground",
       "nl": "Gezicht op Haarlem uit het noordwesten, met de blekerijen op de voorgrond"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107958"
   },
   {
@@ -7136,6 +7289,9 @@
       "en": "The Singel Bridge at the Paleisstraat in Amsterdam",
       "nl": "De Singelbrug bij de Paleisstraat in Amsterdam"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108317"
   },
   {
@@ -7256,6 +7412,9 @@
       "en": "Girl in a White Kimono",
       "nl": "Meisje in witte kimono"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108304"
   },
   {
@@ -7390,6 +7549,9 @@
       "en": "Interior of the Church of St Bavo in Haarlem",
       "nl": "Interieur van de Sint-Bavokerk in Haarlem"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107963"
   },
   {
@@ -7529,6 +7691,9 @@
       "en": "Morning Ride along the Beach",
       "nl": "Morgenrit langs het strand"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109454"
   },
   {
@@ -7678,6 +7843,9 @@
       "en": "Mary Magdalene",
       "nl": "Maria Magdalena"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107985"
   },
   {
@@ -7824,6 +7992,9 @@
       "en": "Self-portrait",
       "nl": "Zelfportret"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20020404"
   },
   {
@@ -7971,6 +8142,9 @@
       "en": "The Feast of St Nicholas",
       "nl": "Het Sint-Nicolaasfeest"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/2006398"
   },
   {
@@ -8095,6 +8269,9 @@
       "en": "Haarlem Citizen",
       "nl": "Haarlemse burger"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107986"
   },
   {
@@ -8220,6 +8397,9 @@
       "en": "Jupiter, Disguised as Diana, Seducing the Nymph Callisto",
       "nl": "Jupiter, vermomd als Diana, verleidt de nimf Callisto"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200110473"
   },
   {
@@ -8372,6 +8552,9 @@
       "en": "The Threatened Swan",
       "nl": "De bedreigde zwaan"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108146"
   },
   {
@@ -8495,6 +8678,9 @@
       "en": "Gallant Conversation, Known as ‘The Paternal Admonition’",
       "nl": "Galante conversatie, bekend als ‘De vaderlijke vermaning’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108277"
   },
   {
@@ -8618,6 +8804,9 @@
       "en": "Self-portrait as the Apostle Paul",
       "nl": "Zelfportret als de apostel Paulus"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107952"
   },
   {
@@ -8783,6 +8972,9 @@
       "en": "Young Woman in Fantasy Costume",
       "nl": "Jonge vrouw in gefantaseerde kleding"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107944"
   },
   {
@@ -8910,6 +9102,9 @@
       "en": "River Landscape with Riders",
       "nl": "Rivierlandschap met ruiters"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109265"
   },
   {
@@ -9046,6 +9241,9 @@
       "en": "Self-portrait",
       "nl": "Zelfportret"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20028787"
   },
   {
@@ -9179,6 +9377,9 @@
       "en": "Still Life with a Turkey Pie",
       "nl": "Stilleven met kalkoenpastei"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109183"
   },
   {
@@ -9341,6 +9542,9 @@
       "en": "Tobit and Anna with the Kid",
       "nl": "Tobit en Anna met het bokje"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107945"
   },
   {
@@ -9446,6 +9650,9 @@
       "en": "Portrait of Haesje Jacobsdr van Cleyburg",
       "nl": "Portret van Haesje Jacobsdr van Cleyburg"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107936"
   },
   {
@@ -9612,6 +9819,9 @@
       "en": "Johannes Wtenbogaert",
       "nl": "Johannes Wtenbogaert"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200138946"
   },
   {
@@ -9752,6 +9962,9 @@
       "en": "Portrait of Petronella Dunois",
       "nl": "Portret van Petronella Dunois"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200318085"
   },
   {
@@ -9860,6 +10073,9 @@
       "en": "Portrait of a Wounded KNIL soldier",
       "nl": "Portret van een gewonde KNIL-militair"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200412933"
   },
   {
@@ -10015,6 +10231,9 @@
       "en": "Adolf and Catharina Croeser, Known as ‘The Burgomaster of Delft and his Daughter’",
       "nl": "Adolf en Catharina Croeser, bekend als ‘De burgemeester van Delft en zijn dochter’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20020408"
   },
   {
@@ -10118,6 +10337,9 @@
       "en": "Oostzijdse Mill along the River Gein by Moonlight",
       "nl": "Oostzijdse molen aan het Gein bij maanlicht"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200471926"
   },
   {
@@ -10244,6 +10466,9 @@
       "en": "Landscape with an Episode from the Conquest of America",
       "nl": "Landschap met een episode uit de verovering van Amerika"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200552425"
   },
   {
@@ -10354,6 +10579,9 @@
       "en": "Portrait of Marten Soolmans",
       "nl": "Portret van Marten Soolmans"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200639587"
   },
   {
@@ -10492,6 +10720,9 @@
       "en": "Self-Portrait with Flowers",
       "nl": "Zelfportret met bloemen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200815187"
   },
   {
@@ -10625,6 +10856,9 @@
       "en": "The Standard Bearer",
       "nl": "De vaandeldrager"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20022176"
   },
   {
@@ -10762,6 +10996,9 @@
       "en": "Cows in a Meadow near a Farm",
       "nl": "Koeien in de wei bij een boerderij"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107889"
   },
   {
@@ -10896,6 +11133,9 @@
       "en": "Man Smoking a Pipe",
       "nl": "Pijprokende man"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20027803"
   },
   {
@@ -11036,6 +11276,9 @@
       "en": "The Town Hall on Dam Square, Amsterdam",
       "nl": "Het stadhuis op de Dam in Amsterdam"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108214"
   },
   {
@@ -11207,6 +11450,9 @@
       "en": "Interior with Women beside a Linen Cupboard",
       "nl": "Binnenhuis met vrouwen bij een linnenkast"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/2003051"
   },
   {
@@ -11327,6 +11573,9 @@
       "en": "Portrait of Maritge Claesdr Vooght",
       "nl": "Portret van Maritge Claesdr Vooght"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109374"
   },
   {
@@ -11460,6 +11709,9 @@
       "en": "A Mother Delousing her Child’s Hair, Known as ‘A Mother’s Duty’",
       "nl": "Een moeder die het haar van haar kind reinigt, bekend als ‘Moedertaak’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20028104"
   },
   {
@@ -11589,6 +11841,9 @@
       "en": "The Ratification of the Treaty of Münster",
       "nl": "Het sluiten van de Vrede van Munster"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200414512"
   },
   {
@@ -11729,6 +11984,9 @@
       "en": "Enjoying the Ice near a Town",
       "nl": "IJsvermaak bij een stad"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200529588"
   },
   {
@@ -11852,6 +12110,9 @@
       "en": "Portrait of Oopjen Coppit",
       "nl": "Portret van Oopjen Coppit"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200642954"
   },
   {
@@ -11949,6 +12210,9 @@
       "en": "Portrait of Jan Willemsz van der Pluym",
       "nl": "Portret van Jan Willemsz van der Pluym"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200320381"
   },
   {
@@ -12046,6 +12310,9 @@
       "en": "Portrait of Jaapgen Caerlsdr",
       "nl": "Portret van Jaapgen Caerlsdr"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20012763"
   },
   {
@@ -12186,6 +12453,9 @@
       "en": "The Singel near the Lutheran Church in Amsterdam",
       "nl": "Het Singel bij de Lutherse Kerk te Amsterdam"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200672685"
   },
   {
@@ -12326,7 +12596,166 @@
       "en": "Riverbank with Trees",
       "nl": "Oever met bomen"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200672686"
+  },
+  {
+    "artist": "Vincent van Gogh",
+    "artistUri": "https://id.rijksmuseum.nl/2102256",
+    "attribution": "Vincent van Gogh",
+    "closer": "Stand back for the yellow, then come close: almost none of the field is painted yellow. It is orange, red, green and blue, laid on stroke by stroke.",
+    "credit": {
+      "en": "On loan from the Stichting Collectie P. & N. de Boer",
+      "nl": "Bruikleen van de Stichting Collectie P. & N. de Boer"
+    },
+    "date": "1888",
+    "dateEarliest": 1888,
+    "dateLatest": 1888,
+    "detail": [
+      {
+        "spans": [
+          {
+            "end": 385,
+            "region": [
+              0.2998,
+              0.5464,
+              0.2201,
+              0.2499
+            ],
+            "start": 355
+          }
+        ],
+        "text": "He was about thirty-five when he moved south, and the stay was prolific: in under 444 days at Arles he made about a hundred drawings, more than two hundred paintings, and wrote more than two hundred letters. The wheat harvest of June 1888 gave him a run of canvases, and on 21 June he described them to his brother Theo as landscapes \"yellow — old gold — done quickly, quickly, quickly, and in a hurry just like the harvester who is silent under the blazing sun, intent only on the reaping\"."
+      },
+      {
+        "spans": [
+          {
+            "end": 325,
+            "region": [
+              0.8198,
+              0.145,
+              0.1001,
+              0.18
+            ],
+            "start": 283
+          }
+        ],
+        "text": "The sky is laid in long horizontal strokes and the field in short upright ones, so the two halves of the picture are different weather to the hand as well as to the eye. What stands between them is a thin strip of the world: a white farmhouse with an orange roof, a haystack, sheds, a row of dark trees at the right-hand edge, and the blue line of the hills behind all of it."
+      }
+    ],
+    "dimensions": {
+      "display": "height 63.4 cm x width 52.2 cm",
+      "height_cm": 61.0,
+      "width_cm": 50.0
+    },
+    "dimensionsSwapped": "The record gives this canvas as height 61 cm by width 50 cm — taller than it is wide — and the museum's own photograph of it is wider than it is tall. Both cannot be right, and nothing the guide is allowed to do decides which, so it states no size for this work at all. Turn the record's pair round and it gives the shape the photograph has, to within about one per cent; the frame is measured the same way round, and comes out the same.",
+    "displayTitle": "Wheatfield",
+    "gallery": {
+      "building": "HG",
+      "code": "HG-1.18",
+      "floor": 1,
+      "house": {
+        "en": "Main building",
+        "nl": "Hoofdgebouw"
+      },
+      "name": {
+        "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
+        "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
+      },
+      "position": [
+        159.4,
+        82.0
+      ],
+      "room": "1.18"
+    },
+    "image": {
+      "aspectRatio": "1.179",
+      "crop": [
+        0.1594,
+        0.1794,
+        0.6615,
+        0.6462
+      ],
+      "pixels": [
+        10055,
+        8526
+      ],
+      "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "service": "https://iiif.micr.io/aOMot",
+      "widths": [
+        480,
+        960,
+        1600,
+        2400
+      ]
+    },
+    "kids": "Nearly all of this painting is one crop growing in one field. Count the buildings you can find out beyond it — they are all small and some of them are hiding.",
+    "look": [
+      {
+        "region": [
+          0.2,
+          0.175,
+          0.1599,
+          0.1551
+        ],
+        "text": "The white farmhouse and its orange roof, the one thing in the picture given any size."
+      },
+      {
+        "region": [
+          0.2609,
+          0.8104,
+          0.19,
+          0.175
+        ],
+        "text": "The green weeds standing in the wheat at the bottom, each one a single stroke."
+      },
+      {
+        "region": [
+          0.7197,
+          0.3965,
+          0.26,
+          0.18
+        ],
+        "text": "The pale, greener band cutting across the wheat on the right."
+      }
+    ],
+    "medium": {
+      "nl": "olieverf op doek"
+    },
+    "objectNumber": "SK-C-1845",
+    "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1845--8ea35a6f35721839ca3e3375f1b7748c",
+    "priority": 2,
+    "retrieved": "2026-08-16",
+    "sources": [
+      "https://www.rijksmuseum.nl/en/collection/object/SK-C-1845--8ea35a6f35721839ca3e3375f1b7748c",
+      "https://id.rijksmuseum.nl/200672687",
+      "https://en.wikipedia.org/wiki/Wheat_Fields"
+    ],
+    "stayMinutes": 4,
+    "tags": [
+      "vangogh",
+      "19c",
+      "landscape"
+    ],
+    "timeline": {
+      "region": [
+        0.19,
+        0.1701,
+        0.19,
+        0.1701
+      ],
+      "text": "In 1888 Paris had become too busy for Van Gogh and in the spring he left for Arles, in the south of France, where the colours of the landscape took hold of him. Here the horizon is set high, so the yellow of the wheat takes almost the whole picture, and the blue of the hills and the sky is worked up to stand against it."
+    },
+    "title": {
+      "en": "Wheatfield",
+      "nl": "Korenveld"
+    },
+    "types": [
+      "painting"
+    ],
+    "uri": "https://id.rijksmuseum.nl/200672687"
   },
   {
     "artist": "Bartholomeus van der Helst",
@@ -12481,6 +12910,9 @@
       "en": "Banquet at the Crossbowmen’s Guild in Celebration of the Treaty of Münster",
       "nl": "Schuttersmaaltijd ter viering van de Vrede van Munster"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109366"
   },
   {
@@ -12618,6 +13050,9 @@
       "en": "The Windmill at Wijk bij Duurstede",
       "nl": "De molen bij Wijk bij Duurstede"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107959"
   },
   {
@@ -12778,6 +13213,9 @@
       "en": "Isaac and Rebecca, Known as ‘The Jewish Bride’",
       "nl": "Isaak en Rebekka, bekend als ‘Het Joodse bruidje’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107934"
   },
   {
@@ -12900,6 +13338,9 @@
       "en": "The Merry Family",
       "nl": "Het vrolijke huisgezin"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108012"
   },
   {
@@ -13027,6 +13468,9 @@
       "en": "The Cannon Shot",
       "nl": "Het kanonschot"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108360"
   },
   {
@@ -13150,6 +13594,9 @@
       "en": "Woman Reading a Letter",
       "nl": "Brieflezende vrouw"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200108372"
   },
   {
@@ -13270,6 +13717,9 @@
       "en": "Militia Company of District XI under the Command of Captain Reynier Reael",
       "nl": "Schutters van wijk XI onder leiding van kapitein Reynier Reael"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200109350"
   },
   {
@@ -13423,6 +13873,9 @@
       "en": "The Night Watch Militia Company of District II under the Command of Captain Frans Banninck Cocq",
       "nl": "De Nachtwacht"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107928"
   },
   {
@@ -13558,6 +14011,9 @@
       "en": "Old Woman Saying Grace, Known as ‘The Prayer without End’",
       "nl": "Oude vrouw in gebed, bekend als ‘Het gebed zonder end’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/20015947"
   },
   {
@@ -13712,6 +14168,9 @@
       "en": "Portrait of a Woman, Probably Maria Trip (1619-1683)",
       "nl": "Portret van een vrouw, waarschijnlijk Maria Trip"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107942"
   },
   {
@@ -13850,6 +14309,9 @@
       "en": "The Sampling Officials of the Amsterdam Drapers’ Guild, Known as ‘The Syndics’",
       "nl": "De waardijns van het Amsterdamse lakenbereidersgilde, bekend als ‘De Staalmeesters’"
     },
+    "types": [
+      "painting"
+    ],
     "uri": "https://id.rijksmuseum.nl/200107929"
   }
 ]

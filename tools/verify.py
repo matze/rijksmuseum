@@ -32,6 +32,8 @@ PROPORTIONS = 0.03  # how far a hand-read box may sit from the work's stated sha
 MOST_OF_A_SIDE = 0.8  # of the work, which is as wide as a region may point
 LEAST_OF_A_SIDE = 0.02  # of the work, below which the dimming lights nothing
 STALE_AFTER_DAYS = 180  # after which a location read off a web page is worth reading again
+FLAT = "painting"  # the one kind of object whose size its photograph can be checked against
+SHAPE = 0.2  # how far a painting's stated shape may sit from the shape of its photograph
 MAIN_BUILDING = "HG"
 RECORD_URI = re.compile(r"^https://id\.rijksmuseum\.nl/\d+$")
 ARTICLE_URI = re.compile(r"^https://en\.wikipedia\.org/wiki/[^\s?#]+$")
@@ -164,6 +166,7 @@ def check_curated(tour: list[dict], report: Report) -> None:
             report.fail(f"{number}: no aspect ratio, so the plate cannot reserve space")
 
         check_crop(work, by_hand, report)
+        check_shape(work, report)
 
         check_spans(number, work, report)
 
@@ -204,8 +207,7 @@ def check_crop(work: dict, by_hand: set[str], report: Report) -> None:
         return
 
     pixels = work["image"].get("pixels")
-    measured = work.get("dimensions", {})
-    stated = measured.get("width_cm"), measured.get("height_cm")
+    stated = shape_stated(work)
 
     if not pixels or not all(stated):
         report.fail(f"{number}: read by hand, but the record gives no size to check the "
@@ -218,6 +220,69 @@ def check_crop(work: dict, by_hand: set[str], report: Report) -> None:
     if off > PROPORTIONS:
         report.fail(f"{number}: the hand-read box is {box:.3f} wide to high, against the "
                     f"record's {stated[0]}x{stated[1]} cm — off by {off:.1%}")
+
+
+def shape_stated(work: dict) -> tuple[float | None, float | None]:
+    """The width and height the record states, turned round where it has them
+    the wrong way round — which is a claim the work has to make in writing, and
+    which `check_shape` makes it prove against its own photograph."""
+    measured = work.get("dimensions", {})
+    stated = measured.get("width_cm"), measured.get("height_cm")
+
+    return stated[::-1] if work.get("dimensionsSwapped") else stated
+
+
+def check_shape(work: dict, report: Report) -> None:
+    """A painting's stated size against the shape of its own photograph.
+
+    A painting is flat and is photographed face-on, so the museum's height and
+    width and the museum's picture of it are two statements about one rectangle
+    and have to agree. Where they do not, one of them is wrong: Van Gogh's
+    Wheatfield is filed 61 x 50 cm, taller than wide, and photographed wider than
+    tall. Such a work has to carry a `dimensionsSwapped` note saying so, and the
+    sheet then states no size at all — and turning the pair round has to give the
+    shape the photograph has, or the note is a story rather than a reading.
+
+    The tolerance is loose on purpose. This is looking for a contradiction — a
+    canvas filed on its side — not for a millimetre: a photograph may keep a
+    little of the wall around a work no border reading would cut.
+    """
+    number = work["objectNumber"]
+    measured = work.get("dimensions", {})
+    stated = measured.get("width_cm"), measured.get("height_cm")
+    pixels = work["image"].get("pixels")
+    swapped = work.get("dimensionsSwapped")
+
+    if FLAT not in work.get("types", []) or not pixels or not all(stated):
+        if swapped:
+            report.fail(f"{number}: says its size is the wrong way round, but nothing here "
+                        f"can check that — it is searched as "
+                        f"{', '.join(work.get('types', [])) or 'no type at all'} and "
+                        f"measured {stated[1]}x{stated[0]}")
+
+        return
+
+    x, y, width, height = work["image"].get("crop") or [0, 0, 1, 1]
+    box = (width * pixels[0]) / (height * pixels[1])
+    off = abs(box - stated[0] / stated[1]) / (stated[0] / stated[1])
+
+    if off > SHAPE and not swapped:
+        report.fail(f"{number}: the record says {stated[1]}x{stated[0]} cm and its own "
+                    f"photograph is {box:.3f} wide to high — off by {off:.0%}")
+
+    if not swapped:
+        return
+
+    if off <= SHAPE:
+        report.fail(f"{number}: says its size is the wrong way round, but the record and "
+                    f"the photograph agree to within {off:.0%} as they stand")
+
+    turned = abs(box - stated[1] / stated[0]) / (stated[1] / stated[0])
+
+    if turned > SHAPE:
+        report.fail(f"{number}: says its size is the wrong way round, but turning it round "
+                    f"gives {stated[0]}x{stated[1]} against a photograph {box:.3f} wide to "
+                    f"high — still off by {turned:.0%}")
 
 
 def anchored(work: dict) -> Iterator[tuple[str, dict]]:

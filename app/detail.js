@@ -141,9 +141,12 @@ el('span', { class: 'switch', 'aria-hidden': 'true' }));
 export function renderDetail(work, state, actions) {
   const title = work.displayTitle ?? work.title.en ?? work.title.nl;
   const byline = [work.artist, work.date].filter(Boolean).join(', ');
-  const dimensions = work.dimensions?.height_cm && work.dimensions?.width_cm
-    ? `${work.dimensions.height_cm} × ${work.dimensions.width_cm} cm`
-    : work.dimensions?.display;
+  // A work whose stated size contradicts the museum's own photograph of it states
+  // no size: the note under the facts says so, and says what the record holds.
+  const dimensions = work.dimensionsSwapped ? null
+    : work.dimensions?.height_cm && work.dimensions?.width_cm
+      ? `${work.dimensions.height_cm} × ${work.dimensions.width_cm} cm`
+      : work.dimensions?.display;
   // The sheet is reachable from the contact sheet on the setup screen too, where
   // there is no line to go back to.
   const back = state.phase === PHASE.setup ? 'Back to the plan' : 'Back to the line';
@@ -203,6 +206,7 @@ export function renderDetail(work, state, actions) {
         : null,
 
       el('div', { class: 'provenance quiet' },
+        work.dimensionsSwapped ? el('div', { text: work.dimensionsSwapped }) : null,
         locationNote(work) ? el('div', { text: locationNote(work) }) : null,
         el('div', { text: `Object ${work.objectNumber}. Facts retrieved from the `
           + `Rijksmuseum collection data on ${work.retrieved}. Image public domain.` }),
