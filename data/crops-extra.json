@@ -14,8 +14,21 @@
     "record's 547x232 cm, 2.358.",
     "SK-C-211: 12 left, 16 right, 21 top, 22 bottom of 960x814. 932x771 gives",
     "1.209 against the record's 101x83 cm, 1.217.",
+    "SK-A-347 is not framed but is shot on its stretcher, with the tacking edge",
+    "showing on all four sides and a photographic colour chart along the bottom —",
+    "which the detector will not reach, being far deeper than a fiftieth of the",
+    "side. Painting begins at line 42 from the top, 41 from the bottom, 16 from",
+    "the left and 20 from the right of 960x1244, each read where the shadowed",
+    "brown of the tacking edge gives way to the sky or the foreground. 924x1161",
+    "gives 0.796 against the record's 68x54 cm, 0.794.",
+    "SK-C-1844 is on loan and is photographed in a deep carved frame that takes",
+    "about a seventh off each side. The sight opening runs 137 to 823 across and",
+    "121 to 683 down of 960x808. 686x562 gives 1.221 against the record's 45.5x37",
+    "cm, 1.230.",
     "Re-read them with: just crops '--review crops.png'"
   ],
+  "SK-A-347": [0.0167, 0.0338, 0.9625, 0.9333],
+  "SK-C-1844": [0.1427, 0.1497, 0.7146, 0.6955],
   "SK-C-2": [0.0396, 0.0852, 0.9208, 0.8296],
   "SK-C-211": [0.0125, 0.0258, 0.9708, 0.9472]
 }
