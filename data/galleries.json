@@ -3,6 +3,10 @@
     "building": "AK",
     "code": "AK-1",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -14,6 +18,10 @@
     "building": "AK",
     "code": "AK-1-01",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -25,6 +33,10 @@
     "building": "AK",
     "code": "AK-1-02",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -36,6 +48,10 @@
     "building": "AK",
     "code": "AK-1-04",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -47,6 +63,10 @@
     "building": "AK",
     "code": "AK-1-06",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -58,6 +78,10 @@
     "building": "AK",
     "code": "AK-1-08",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -69,6 +93,10 @@
     "building": "AK",
     "code": "AK-1-09",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -80,6 +108,10 @@
     "building": "AK",
     "code": "AK-1-17",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -91,6 +123,10 @@
     "building": "AK",
     "code": "AK-1-18",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -102,6 +138,10 @@
     "building": "AK",
     "code": "AK-1-19",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -113,6 +153,10 @@
     "building": "AK",
     "code": "AK-1-20",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -124,6 +168,10 @@
     "building": "AK",
     "code": "AK-1-21",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -135,6 +183,10 @@
     "building": "AK",
     "code": "AK-1-22",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -146,6 +198,10 @@
     "building": "AK",
     "code": "AK-1-23",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -157,6 +213,10 @@
     "building": "AK",
     "code": "AK-1-26",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -168,6 +228,10 @@
     "building": "AK",
     "code": "AK-1-27",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -179,6 +243,10 @@
     "building": "AK",
     "code": "AK-1-29",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "India and Indonesia",
       "nl": "India en Indonesië"
@@ -190,6 +258,10 @@
     "building": "AK",
     "code": "AK-2",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -201,6 +273,10 @@
     "building": "AK",
     "code": "AK-2-02",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -212,6 +288,10 @@
     "building": "AK",
     "code": "AK-2-03",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -223,6 +303,10 @@
     "building": "AK",
     "code": "AK-2-05",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -234,6 +318,10 @@
     "building": "AK",
     "code": "AK-2-06",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -245,6 +333,10 @@
     "building": "AK",
     "code": "AK-2-08",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -256,6 +348,10 @@
     "building": "AK",
     "code": "AK-2-09",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -267,6 +363,10 @@
     "building": "AK",
     "code": "AK-2-11",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -278,6 +378,10 @@
     "building": "AK",
     "code": "AK-2-12",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -289,6 +393,10 @@
     "building": "AK",
     "code": "AK-2-13",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -300,6 +408,10 @@
     "building": "AK",
     "code": "AK-2-24",
     "floor": null,
+    "house": {
+      "en": "Asian Pavilion",
+      "nl": "Aziatisch Paviljoen"
+    },
     "name": {
       "en": "China, Korea and Japan",
       "nl": "China, Korea en Japan"
@@ -311,6 +423,10 @@
     "building": "HG",
     "code": "HG-0.1",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -322,6 +438,10 @@
     "building": "HG",
     "code": "HG-0.1-01",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -333,6 +453,10 @@
     "building": "HG",
     "code": "HG-0.1-02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -344,6 +468,10 @@
     "building": "HG",
     "code": "HG-0.1-04",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -355,6 +483,10 @@
     "building": "HG",
     "code": "HG-0.1-05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -366,6 +498,10 @@
     "building": "HG",
     "code": "HG-0.1-06",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -377,6 +513,10 @@
     "building": "HG",
     "code": "HG-0.1-07",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -388,6 +528,10 @@
     "building": "HG",
     "code": "HG-0.1-08",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -399,6 +543,10 @@
     "building": "HG",
     "code": "HG-0.1-12",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -410,6 +558,10 @@
     "building": "HG",
     "code": "HG-0.1-13",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -421,6 +573,10 @@
     "building": "HG",
     "code": "HG-0.1-15",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -432,6 +588,10 @@
     "building": "HG",
     "code": "HG-0.1-16",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -443,6 +603,10 @@
     "building": "HG",
     "code": "HG-0.1-17",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -454,6 +618,10 @@
     "building": "HG",
     "code": "HG-0.1-19",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -465,6 +633,10 @@
     "building": "HG",
     "code": "HG-0.1-20",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -476,6 +648,10 @@
     "building": "HG",
     "code": "HG-0.1-23",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -487,6 +663,10 @@
     "building": "HG",
     "code": "HG-0.1-26",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -498,6 +678,10 @@
     "building": "HG",
     "code": "HG-0.1-28",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -509,6 +693,10 @@
     "building": "HG",
     "code": "HG-0.1-31",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -520,6 +708,10 @@
     "building": "HG",
     "code": "HG-0.1-32",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in the Netherlands",
       "nl": "Christelijke kunst in de Nederlanden"
@@ -531,6 +723,10 @@
     "building": "HG",
     "code": "HG-0.10",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Porcelain",
       "nl": "Porselein"
@@ -546,6 +742,10 @@
     "building": "HG",
     "code": "HG-0.10-Z10.05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Porcelain",
       "nl": "Porselein"
@@ -561,6 +761,10 @@
     "building": "HG",
     "code": "HG-0.11-Z11.02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dutch relics",
       "nl": "Vaderlandse relieken"
@@ -576,6 +780,10 @@
     "building": "HG",
     "code": "HG-0.12-Z12.01A",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Armory",
       "nl": "Wapenkamer"
@@ -591,6 +799,10 @@
     "building": "HG",
     "code": "HG-0.12-Z12.01B",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Armory",
       "nl": "Wapenkamer"
@@ -606,6 +818,10 @@
     "building": "HG",
     "code": "HG-0.12-Z12.03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Armory",
       "nl": "Wapenkamer"
@@ -621,6 +837,10 @@
     "building": "HG",
     "code": "HG-0.12-Z12.11A",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Armory",
       "nl": "Wapenkamer"
@@ -636,6 +856,10 @@
     "building": "HG",
     "code": "HG-0.13",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -651,6 +875,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.01",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -666,6 +894,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -681,6 +913,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -696,6 +932,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.10",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -711,6 +951,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.12",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -726,6 +970,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.13",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -741,6 +989,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.14",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -756,6 +1008,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.15",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -771,6 +1027,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.16",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -786,6 +1046,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.17",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -801,6 +1065,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.18",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -816,6 +1084,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.19",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -831,6 +1103,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.20",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -846,6 +1122,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.21",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -861,6 +1141,10 @@
     "building": "HG",
     "code": "HG-0.13-Z13.22",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Navy model room",
       "nl": "Marinemodellenkamer"
@@ -876,6 +1160,10 @@
     "building": "HG",
     "code": "HG-0.2",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -887,6 +1175,10 @@
     "building": "HG",
     "code": "HG-0.2-01",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -898,6 +1190,10 @@
     "building": "HG",
     "code": "HG-0.2-02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -909,6 +1205,10 @@
     "building": "HG",
     "code": "HG-0.2-03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -920,6 +1220,10 @@
     "building": "HG",
     "code": "HG-0.2-04",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -931,6 +1235,10 @@
     "building": "HG",
     "code": "HG-0.2-05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -942,6 +1250,10 @@
     "building": "HG",
     "code": "HG-0.2-13",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -953,6 +1265,10 @@
     "building": "HG",
     "code": "HG-0.2-14",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -964,6 +1280,10 @@
     "building": "HG",
     "code": "HG-0.2-17",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -975,6 +1295,10 @@
     "building": "HG",
     "code": "HG-0.2-18",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Christian art in France, Germany and Italy",
       "nl": "Christelijke kunst in Frankrijk, Duitsland en Italië"
@@ -986,6 +1310,10 @@
     "building": "HG",
     "code": "HG-0.4",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Emperor, nobility, bourgeoisie",
       "nl": "Keizer, adel, burgerij"
@@ -1001,6 +1329,10 @@
     "building": "HG",
     "code": "HG-0.4-11",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Emperor, nobility, bourgeoisie",
       "nl": "Keizer, adel, burgerij"
@@ -1016,6 +1348,10 @@
     "building": "HG",
     "code": "HG-0.5",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1031,6 +1367,10 @@
     "building": "HG",
     "code": "HG-0.5-03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1046,6 +1386,10 @@
     "building": "HG",
     "code": "HG-0.5-05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1061,6 +1405,10 @@
     "building": "HG",
     "code": "HG-0.5-08",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1076,6 +1424,10 @@
     "building": "HG",
     "code": "HG-0.5-10",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1091,6 +1443,10 @@
     "building": "HG",
     "code": "HG-0.5-12",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1106,6 +1462,10 @@
     "building": "HG",
     "code": "HG-0.5-13",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in Italy",
       "nl": "Renaissance in Italië"
@@ -1121,6 +1481,10 @@
     "building": "HG",
     "code": "HG-0.6",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in the Netherlands",
       "nl": "Renaissance in de Nederlanden"
@@ -1136,6 +1500,10 @@
     "building": "HG",
     "code": "HG-0.6-01",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in the Netherlands",
       "nl": "Renaissance in de Nederlanden"
@@ -1151,6 +1519,10 @@
     "building": "HG",
     "code": "HG-0.6-03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in the Netherlands",
       "nl": "Renaissance in de Nederlanden"
@@ -1166,6 +1538,10 @@
     "building": "HG",
     "code": "HG-0.6-04",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in the Netherlands",
       "nl": "Renaissance in de Nederlanden"
@@ -1181,6 +1557,10 @@
     "building": "HG",
     "code": "HG-0.6-05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Renaissance in the Netherlands",
       "nl": "Renaissance in de Nederlanden"
@@ -1196,6 +1576,10 @@
     "building": "HG",
     "code": "HG-0.7-Z1.01",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Delftware, silver and glass",
       "nl": "Delfts aardewerk, zilver en glas"
@@ -1211,6 +1595,10 @@
     "building": "HG",
     "code": "HG-0.7-Z2.02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Delftware, silver and glass",
       "nl": "Delfts aardewerk, zilver en glas"
@@ -1226,6 +1614,10 @@
     "building": "HG",
     "code": "HG-0.7-Z3.03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Delftware, silver and glass",
       "nl": "Delfts aardewerk, zilver en glas"
@@ -1241,6 +1633,10 @@
     "building": "HG",
     "code": "HG-0.7-Z4.05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Delftware, silver and glass",
       "nl": "Delfts aardewerk, zilver en glas"
@@ -1256,6 +1652,10 @@
     "building": "HG",
     "code": "HG-0.7-Z5.05",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Delftware, silver and glass",
       "nl": "Delfts aardewerk, zilver en glas"
@@ -1271,6 +1671,10 @@
     "building": "HG",
     "code": "HG-0.8-Z6.02",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Music room",
       "nl": "Muziekkamer"
@@ -1286,6 +1690,10 @@
     "building": "HG",
     "code": "HG-0.9-Z8.03",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Fashion and jewelry",
       "nl": "Mode en juwelen"
@@ -1301,6 +1709,10 @@
     "building": "HG",
     "code": "HG-0.9-Z8.04",
     "floor": 0,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Fashion and jewelry",
       "nl": "Mode en juwelen"
@@ -1316,6 +1728,10 @@
     "building": "HG",
     "code": "HG-1.1",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Citizens and regents",
       "nl": "Burgers en regenten"
@@ -1327,6 +1743,10 @@
     "building": "HG",
     "code": "HG-1.1-01",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Citizens and regents",
       "nl": "Burgers en regenten"
@@ -1338,6 +1758,10 @@
     "building": "HG",
     "code": "HG-1.1-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Citizens and regents",
       "nl": "Burgers en regenten"
@@ -1349,6 +1773,10 @@
     "building": "HG",
     "code": "HG-1.1-05",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Citizens and regents",
       "nl": "Burgers en regenten"
@@ -1360,6 +1788,10 @@
     "building": "HG",
     "code": "HG-1.10",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1375,6 +1807,10 @@
     "building": "HG",
     "code": "HG-1.10-01",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1390,6 +1826,10 @@
     "building": "HG",
     "code": "HG-1.10-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1405,6 +1845,10 @@
     "building": "HG",
     "code": "HG-1.10-05",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1420,6 +1864,10 @@
     "building": "HG",
     "code": "HG-1.10-11",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1435,6 +1883,10 @@
     "building": "HG",
     "code": "HG-1.10-12",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1450,6 +1902,10 @@
     "building": "HG",
     "code": "HG-1.10-15",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Age of enlightment in the Netherlands / Stadtholder Willem V and the revolution",
       "nl": "De verlichting in Nederland / Stadhouder Willem V en de revolutie"
@@ -1465,6 +1921,10 @@
     "building": "HG",
     "code": "HG-1.11",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -1480,6 +1940,10 @@
     "building": "HG",
     "code": "HG-1.11-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -1495,6 +1959,10 @@
     "building": "HG",
     "code": "HG-1.11-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -1510,6 +1978,10 @@
     "building": "HG",
     "code": "HG-1.11-05",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -1525,6 +1997,10 @@
     "building": "HG",
     "code": "HG-1.11-06",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -1540,6 +2016,10 @@
     "building": "HG",
     "code": "HG-1.12",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "1815: Waterloo and King Willem I",
       "nl": "1815: Waterloo en koning Willem I"
@@ -1555,6 +2035,10 @@
     "building": "HG",
     "code": "HG-1.12-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "1815: Waterloo and King Willem I",
       "nl": "1815: Waterloo en koning Willem I"
@@ -1570,6 +2054,10 @@
     "building": "HG",
     "code": "HG-1.12-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "1815: Waterloo and King Willem I",
       "nl": "1815: Waterloo en koning Willem I"
@@ -1585,6 +2073,10 @@
     "building": "HG",
     "code": "HG-1.12-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "1815: Waterloo and King Willem I",
       "nl": "1815: Waterloo en koning Willem I"
@@ -1600,6 +2092,10 @@
     "building": "HG",
     "code": "HG-1.13",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1615,6 +2111,10 @@
     "building": "HG",
     "code": "HG-1.13-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1630,6 +2130,10 @@
     "building": "HG",
     "code": "HG-1.13-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1645,6 +2149,10 @@
     "building": "HG",
     "code": "HG-1.14",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Romanticism in the Netherlands",
       "nl": "De romantiek in Nederland"
@@ -1660,6 +2168,10 @@
     "building": "HG",
     "code": "HG-1.15",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Historicism",
       "nl": "Historisme"
@@ -1675,6 +2187,10 @@
     "building": "HG",
     "code": "HG-1.15-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Historicism",
       "nl": "Historisme"
@@ -1690,6 +2206,10 @@
     "building": "HG",
     "code": "HG-1.15-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Historicism",
       "nl": "Historisme"
@@ -1705,6 +2225,10 @@
     "building": "HG",
     "code": "HG-1.15-05",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Historicism",
       "nl": "Historisme"
@@ -1720,6 +2244,10 @@
     "building": "HG",
     "code": "HG-1.17",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -1735,6 +2263,10 @@
     "building": "HG",
     "code": "HG-1.17-11",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -1750,6 +2282,10 @@
     "building": "HG",
     "code": "HG-1.18",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
       "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
@@ -1765,6 +2301,10 @@
     "building": "HG",
     "code": "HG-1.18-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Hague School / Amsterdam impressionists / Van Gogh and contemporaries",
       "nl": "Haagse School / Amsterdamse impressionisten / Van Gogh en tijdgenoten"
@@ -1780,6 +2320,10 @@
     "building": "HG",
     "code": "HG-1.2",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1791,6 +2335,10 @@
     "building": "HG",
     "code": "HG-1.2-01",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1802,6 +2350,10 @@
     "building": "HG",
     "code": "HG-1.2-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1813,6 +2365,10 @@
     "building": "HG",
     "code": "HG-1.2-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1824,6 +2380,10 @@
     "building": "HG",
     "code": "HG-1.2-06",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1835,6 +2395,10 @@
     "building": "HG",
     "code": "HG-1.2-08",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Rococo in the Netherlands / Stadtholder Willem IV",
       "nl": "Rococo in Nederland / Stadhouder Willem IV"
@@ -1846,6 +2410,10 @@
     "building": "HG",
     "code": "HG-1.3",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "At the Ottoman court",
       "nl": "Aan het Ottomaanse hof"
@@ -1861,6 +2429,10 @@
     "building": "HG",
     "code": "HG-1.4",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1876,6 +2448,10 @@
     "building": "HG",
     "code": "HG-1.4-02",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1891,6 +2467,10 @@
     "building": "HG",
     "code": "HG-1.4-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -1906,6 +2486,10 @@
     "building": "HG",
     "code": "HG-1.5",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -1921,6 +2505,10 @@
     "building": "HG",
     "code": "HG-1.5-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -1936,6 +2524,10 @@
     "building": "HG",
     "code": "HG-1.5-06",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -1951,6 +2543,10 @@
     "building": "HG",
     "code": "HG-1.6",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Amsterdam canal room 1748 / Painting",
       "nl": "Amsterdamse grachtenkamer 1748 / Schilderkunst"
@@ -1966,6 +2562,10 @@
     "building": "HG",
     "code": "HG-1.7",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Haarlem reception room 1794 / Neoclassicism in the Netherlands",
       "nl": "Haarlemse ontvangstkamer 1794 / Neoclassicisme in Nederland"
@@ -1981,6 +2581,10 @@
     "building": "HG",
     "code": "HG-1.7-01",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Haarlem reception room 1794 / Neoclassicism in the Netherlands",
       "nl": "Haarlemse ontvangstkamer 1794 / Neoclassicisme in Nederland"
@@ -1996,6 +2600,10 @@
     "building": "HG",
     "code": "HG-1.9",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2011,6 +2619,10 @@
     "building": "HG",
     "code": "HG-1.9-03",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2026,6 +2638,10 @@
     "building": "HG",
     "code": "HG-1.9-04",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2041,6 +2657,10 @@
     "building": "HG",
     "code": "HG-1.9-05",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2056,6 +2676,10 @@
     "building": "HG",
     "code": "HG-1.9-07",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2071,6 +2695,10 @@
     "building": "HG",
     "code": "HG-1.9-08",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2086,6 +2714,10 @@
     "building": "HG",
     "code": "HG-1.9-10",
     "floor": 1,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "European court art",
       "nl": "Europese hofkunst"
@@ -2101,6 +2733,10 @@
     "building": "HG",
     "code": "HG-2.1",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The birth of the Republic / Mannerism and caravaggism",
       "nl": "De geboorte van de Republiek / Maniërisme en caravaggisme"
@@ -2112,6 +2748,10 @@
     "building": "HG",
     "code": "HG-2.1-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The birth of the Republic / Mannerism and caravaggism",
       "nl": "De geboorte van de Republiek / Maniërisme en caravaggisme"
@@ -2123,6 +2763,10 @@
     "building": "HG",
     "code": "HG-2.1-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The birth of the Republic / Mannerism and caravaggism",
       "nl": "De geboorte van de Republiek / Maniërisme en caravaggisme"
@@ -2134,6 +2778,10 @@
     "building": "HG",
     "code": "HG-2.1-04",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The birth of the Republic / Mannerism and caravaggism",
       "nl": "De geboorte van de Republiek / Maniërisme en caravaggisme"
@@ -2145,6 +2793,10 @@
     "building": "HG",
     "code": "HG-2.10",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2156,6 +2808,10 @@
     "building": "HG",
     "code": "HG-2.11",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2167,6 +2823,10 @@
     "building": "HG",
     "code": "HG-2.12-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Drinking games",
       "nl": "Drinkspelletjes"
@@ -2178,6 +2838,10 @@
     "building": "HG",
     "code": "HG-2.12-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Drinking games",
       "nl": "Drinkspelletjes"
@@ -2189,6 +2853,10 @@
     "building": "HG",
     "code": "HG-2.12-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Drinking games",
       "nl": "Drinkspelletjes"
@@ -2200,6 +2868,10 @@
     "building": "HG",
     "code": "HG-2.13",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2211,6 +2883,10 @@
     "building": "HG",
     "code": "HG-2.13-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2222,6 +2898,10 @@
     "building": "HG",
     "code": "HG-2.14",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2233,6 +2913,10 @@
     "building": "HG",
     "code": "HG-2.15",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Power at see",
       "nl": "Macht op zee"
@@ -2244,6 +2928,10 @@
     "building": "HG",
     "code": "HG-2.15-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Power at see",
       "nl": "Macht op zee"
@@ -2255,6 +2943,10 @@
     "building": "HG",
     "code": "HG-2.16-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Medals",
       "nl": "Penningen"
@@ -2270,6 +2962,10 @@
     "building": "HG",
     "code": "HG-2.17",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dutch painters in Italy",
       "nl": "Nederlandse schilders in Italië"
@@ -2285,6 +2981,10 @@
     "building": "HG",
     "code": "HG-2.17-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dutch painters in Italy",
       "nl": "Nederlandse schilders in Italië"
@@ -2300,6 +3000,10 @@
     "building": "HG",
     "code": "HG-2.17-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dutch painters in Italy",
       "nl": "Nederlandse schilders in Italië"
@@ -2315,6 +3019,10 @@
     "building": "HG",
     "code": "HG-2.18",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Citizens in power",
       "nl": "Burgers aan de macht"
@@ -2330,6 +3038,10 @@
     "building": "HG",
     "code": "HG-2.19",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The mansion",
       "nl": "Het herenhuis"
@@ -2345,6 +3057,10 @@
     "building": "HG",
     "code": "HG-2.19-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The mansion",
       "nl": "Het herenhuis"
@@ -2360,6 +3076,10 @@
     "building": "HG",
     "code": "HG-2.19-04",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The mansion",
       "nl": "Het herenhuis"
@@ -2375,6 +3095,10 @@
     "building": "HG",
     "code": "HG-2.19-06",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The mansion",
       "nl": "Het herenhuis"
@@ -2390,6 +3114,10 @@
     "building": "HG",
     "code": "HG-2.2",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Tapestries",
       "nl": "Wandtapijten"
@@ -2405,6 +3133,10 @@
     "building": "HG",
     "code": "HG-2.2-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Tapestries",
       "nl": "Wandtapijten"
@@ -2420,6 +3152,10 @@
     "building": "HG",
     "code": "HG-2.2-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Tapestries",
       "nl": "Wandtapijten"
@@ -2435,6 +3171,10 @@
     "building": "HG",
     "code": "HG-2.20",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dolls' houses",
       "nl": "Poppenhuizen"
@@ -2450,6 +3190,10 @@
     "building": "HG",
     "code": "HG-2.20-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dolls' houses",
       "nl": "Poppenhuizen"
@@ -2465,6 +3209,10 @@
     "building": "HG",
     "code": "HG-2.20-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dolls' houses",
       "nl": "Poppenhuizen"
@@ -2480,6 +3228,10 @@
     "building": "HG",
     "code": "HG-2.20-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dolls' houses",
       "nl": "Poppenhuizen"
@@ -2495,6 +3247,10 @@
     "building": "HG",
     "code": "HG-2.20-04",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Dolls' houses",
       "nl": "Poppenhuizen"
@@ -2510,6 +3266,10 @@
     "building": "HG",
     "code": "HG-2.22",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "King Stadtholder William III and Mary Stuart / Delftware",
       "nl": "Koning-stadhouder Willem III en Mary Stuart / Delfts aardewerk"
@@ -2521,6 +3281,10 @@
     "building": "HG",
     "code": "HG-2.22-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "King Stadtholder William III and Mary Stuart / Delftware",
       "nl": "Koning-stadhouder Willem III en Mary Stuart / Delfts aardewerk"
@@ -2532,6 +3296,10 @@
     "building": "HG",
     "code": "HG-2.22-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "King Stadtholder William III and Mary Stuart / Delftware",
       "nl": "Koning-stadhouder Willem III en Mary Stuart / Delfts aardewerk"
@@ -2543,6 +3311,10 @@
     "building": "HG",
     "code": "HG-2.22-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "King Stadtholder William III and Mary Stuart / Delftware",
       "nl": "Koning-stadhouder Willem III en Mary Stuart / Delfts aardewerk"
@@ -2554,6 +3326,10 @@
     "building": "HG",
     "code": "HG-2.22-05",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "King Stadtholder William III and Mary Stuart / Delftware",
       "nl": "Koning-stadhouder Willem III en Mary Stuart / Delfts aardewerk"
@@ -2565,6 +3341,10 @@
     "building": "HG",
     "code": "HG-2.23",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2580,6 +3360,10 @@
     "building": "HG",
     "code": "HG-2.23-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2595,6 +3379,10 @@
     "building": "HG",
     "code": "HG-2.23-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2610,6 +3398,10 @@
     "building": "HG",
     "code": "HG-2.23-06",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2625,6 +3417,10 @@
     "building": "HG",
     "code": "HG-2.23-07",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2640,6 +3436,10 @@
     "building": "HG",
     "code": "HG-2.23-10",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "French court art",
       "nl": "Franse hofkunst"
@@ -2655,6 +3455,10 @@
     "building": "HG",
     "code": "HG-2.24",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2666,6 +3470,10 @@
     "building": "HG",
     "code": "HG-2.25",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2677,6 +3485,10 @@
     "building": "HG",
     "code": "HG-2.26",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Sculpture",
       "nl": "Beeldhouwkunst"
@@ -2688,6 +3500,10 @@
     "building": "HG",
     "code": "HG-2.26-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Sculpture",
       "nl": "Beeldhouwkunst"
@@ -2699,6 +3515,10 @@
     "building": "HG",
     "code": "HG-2.26-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Sculpture",
       "nl": "Beeldhouwkunst"
@@ -2710,6 +3530,10 @@
     "building": "HG",
     "code": "HG-2.26-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Sculpture",
       "nl": "Beeldhouwkunst"
@@ -2721,6 +3545,10 @@
     "building": "HG",
     "code": "HG-2.27",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2732,6 +3560,10 @@
     "building": "HG",
     "code": "HG-2.28",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Painting",
       "nl": "Schilderkunst"
@@ -2743,6 +3575,10 @@
     "building": "HG",
     "code": "HG-2.3",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2754,6 +3590,10 @@
     "building": "HG",
     "code": "HG-2.3-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2765,6 +3605,10 @@
     "building": "HG",
     "code": "HG-2.3-04",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2776,6 +3620,10 @@
     "building": "HG",
     "code": "HG-2.3-06",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2787,6 +3635,10 @@
     "building": "HG",
     "code": "HG-2.3-07",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2798,6 +3650,10 @@
     "building": "HG",
     "code": "HG-2.3-10",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2809,6 +3665,10 @@
     "building": "HG",
     "code": "HG-2.3-12",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2820,6 +3680,10 @@
     "building": "HG",
     "code": "HG-2.3-14",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The art and wonder room",
       "nl": "De kunst- en wonderkamer"
@@ -2831,6 +3695,10 @@
     "building": "HG",
     "code": "HG-2.30.1",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2846,6 +3714,10 @@
     "building": "HG",
     "code": "HG-2.30.2",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2861,6 +3733,10 @@
     "building": "HG",
     "code": "HG-2.30.3",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2876,6 +3752,10 @@
     "building": "HG",
     "code": "HG-2.30.4",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2891,6 +3771,10 @@
     "building": "HG",
     "code": "HG-2.30.5",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2906,6 +3790,10 @@
     "building": "HG",
     "code": "HG-2.30.6",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2921,6 +3809,10 @@
     "building": "HG",
     "code": "HG-2.30.8",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Gallery of Honour",
       "nl": "Eregalerij"
@@ -2936,6 +3828,10 @@
     "building": "HG",
     "code": "HG-2.31",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Night Watch Gallery",
       "nl": "Nachtwachtzaal"
@@ -2951,6 +3847,10 @@
     "building": "HG",
     "code": "HG-2.32",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Sculpture gallery",
       "nl": "Beeldengalerij"
@@ -2962,6 +3862,10 @@
     "building": "HG",
     "code": "HG-2.4",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Flemish influences",
       "nl": "Vlaamse invloeden"
@@ -2977,6 +3881,10 @@
     "building": "HG",
     "code": "HG-2.4-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Flemish influences",
       "nl": "Vlaamse invloeden"
@@ -2992,6 +3900,10 @@
     "building": "HG",
     "code": "HG-2.4-02",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Flemish influences",
       "nl": "Vlaamse invloeden"
@@ -3007,6 +3919,10 @@
     "building": "HG",
     "code": "HG-2.4-03",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Flemish influences",
       "nl": "Vlaamse invloeden"
@@ -3022,6 +3938,10 @@
     "building": "HG",
     "code": "HG-2.5",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Power struggle in the young Republic",
       "nl": "Machtsstrijd in de jonge Republiek"
@@ -3037,6 +3957,10 @@
     "building": "HG",
     "code": "HG-2.6",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Specialisation in painting",
       "nl": "Specialisme in de schilderkunst"
@@ -3052,6 +3976,10 @@
     "building": "HG",
     "code": "HG-2.6-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Specialisation in painting",
       "nl": "Specialisme in de schilderkunst"
@@ -3067,6 +3995,10 @@
     "building": "HG",
     "code": "HG-2.7",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Cabinet",
       "nl": "Kabinet"
@@ -3078,6 +4010,10 @@
     "building": "HG",
     "code": "HG-2.8",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The young Rembrandt / The peace treaty of Münster 1648",
       "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
@@ -3089,6 +4025,10 @@
     "building": "HG",
     "code": "HG-2.8-01",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The young Rembrandt / The peace treaty of Münster 1648",
       "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
@@ -3100,6 +4040,10 @@
     "building": "HG",
     "code": "HG-2.8-06",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The young Rembrandt / The peace treaty of Münster 1648",
       "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
@@ -3111,6 +4055,10 @@
     "building": "HG",
     "code": "HG-2.8-10",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The young Rembrandt / The peace treaty of Münster 1648",
       "nl": "De jonge Rembrandt / De Vrede van Münster 1648"
@@ -3122,6 +4070,10 @@
     "building": "HG",
     "code": "HG-2.9",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -3137,6 +4089,10 @@
     "building": "HG",
     "code": "HG-2.9-10",
     "floor": 2,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "The Netherlands overseas",
       "nl": "Nederland overzee"
@@ -3152,6 +4108,10 @@
     "building": "HG",
     "code": "HG-3.1",
     "floor": 3,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Men",
       "nl": "Mens"
@@ -3163,6 +4123,10 @@
     "building": "HG",
     "code": "HG-3.1-03",
     "floor": 3,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Men",
       "nl": "Mens"
@@ -3174,6 +4138,10 @@
     "building": "HG",
     "code": "HG-3.1-12",
     "floor": 3,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Men",
       "nl": "Mens"
@@ -3185,6 +4153,10 @@
     "building": "HG",
     "code": "HG-3.2",
     "floor": 3,
+    "house": {
+      "en": "Main building",
+      "nl": "Hoofdgebouw"
+    },
     "name": {
       "en": "Machine",
       "nl": "Machine"
@@ -3196,6 +4168,10 @@
     "building": "TV",
     "code": "TV-0.3",
     "floor": 0,
+    "house": {
+      "en": "KPN Wing",
+      "nl": "KPN-vleugel"
+    },
     "name": {
       "en": "Room 0.3",
       "nl": "Zaal 0.3"
