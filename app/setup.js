@@ -5,7 +5,7 @@
 import { el } from './dom.js';
 import { plate } from './plate.js';
 import { BUDGETS } from './state.js';
-import { ARTIST_TAGS, THEME_TAGS, buildRoute, focusLabel, inRouteOrder } from './route.js';
+import { ARTIST_TAGS, THEME_TAGS, buildRoute, focusLabel, inRouteOrder, onTheLine } from './route.js';
 
 const BUDGET_LABELS = new Map([[60, '1 h'], [90, '1½ h'], [120, '2 h'], [180, '3 h']]);
 
@@ -42,6 +42,16 @@ const plannedWorks = (items) => new Set(items
  *  groups keep the walking order they came in. */
 const planFirst = (entries, lit) => [...entries].sort((a, b) => Number(lit(b)) - Number(lit(a)));
 
+/** What a tile says about itself.
+ *
+ *  A work the line cannot reach was not left out of this plan — no plan would
+ *  ever hold it — and the tile is the only place the visitor is told so. */
+const tileState = (work, planned) => {
+  if (!onTheLine(work)) return 'off the line';
+
+  return planned ? 'in this plan' : 'not in this plan';
+};
+
 /** One work in the contact sheet. Whether the plan reaches it is said in the
  *  tile's own text, not only in its dimming, so the sheet reads the same to a
  *  screen reader as it does to an eye. `data-order` is its place in the walking
@@ -61,7 +71,7 @@ function tile(work, planned, order, actions) {
   el('span', { class: 'plate-band' }, plate(work, TILE_SIZES)),
   el('span', { class: 'tile-title', text: title }),
   el('span', { class: 'tile-by muted', text: byline }),
-  el('span', { class: 'tile-state', text: planned ? 'in this plan' : 'not in this plan' }));
+  el('span', { class: 'tile-state', text: tileState(work, planned) }));
 }
 
 export function renderSetup(state, works, actions) {
@@ -124,14 +134,18 @@ export function renderSetup(state, works, actions) {
     }),
     el('p', { class: 'preview quiet', text: previewLine(state, stopCount) }));
 
-  // Its own block, not part of the constraint column: forty plates want more
+  const strays = works.filter((work) => !onTheLine(work)).length;
+
+  // Its own block, not part of the constraint column: a hundred plates want more
   // width than a form does, and get it as soon as the window has any to give.
   const sheet = el('div', { class: 'collection-block' },
     el('hr', { class: 'hr collection-rule' }),
     el('div', { class: 'section-label' }, 'Everything the guide can show you'),
     el('p', { class: 'hint quiet' },
       `All ${works.length} works are written up in full. The plan comes first, in walking `
-      + 'order; the dimmed ones fall outside it. Tap any of them to read its entry.'),
+      + 'order; the dimmed ones fall outside it. Tap any of them to read its entry. '
+      + `The last ${strays} are off the line whatever you ask for — the museum publishes `
+      + 'no room for them, or they hang where the route does not go.'),
     el('div', { class: 'collection' },
       planFirst([...walkingOrder.keys()], (work) => planned.has(work.objectNumber))
         .map((work) => tile(work, planned.has(work.objectNumber),
@@ -167,11 +181,14 @@ export function paintSetup(state, works) {
 
   const tiles = all('.tile');
 
+  const byNumber = new Map(works.map((work) => [work.objectNumber, work]));
+
   tiles.forEach((node) => {
     const lit = planned.has(node.dataset.object);
 
     node.setAttribute('data-lit', String(lit));
-    node.querySelector('.tile-state').textContent = lit ? 'in this plan' : 'not in this plan';
+    node.querySelector('.tile-state').textContent =
+      tileState(byNumber.get(node.dataset.object), lit);
   });
 
   // Appending nodes that are already in the grid moves them, so the plates keep

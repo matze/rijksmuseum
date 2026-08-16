@@ -85,9 +85,19 @@ function compareRooms(a, b) {
   return 0;
 }
 
+/** Whether the line can reach a work at all.
+ *
+ *  Two things put a work out of reach. The museum publishes no location for some
+ *  of what it owns — the Milkmaid and the Jewish Bride among them — and the
+ *  Asian Pavilion's room codes name no storey to climb to. Either way the work
+ *  is written up and readable; it is only never walked to. */
+export const onTheLine = (work) =>
+  work.gallery?.building === 'HG' && work.gallery.floor !== null;
+
 export const inRouteOrder = (a, b) =>
-  floorRank(a.gallery.floor) - floorRank(b.gallery.floor)
-  || compareRooms(a.gallery.room, b.gallery.room)
+  Number(onTheLine(b)) - Number(onTheLine(a))
+  || floorRank(a.gallery?.floor) - floorRank(b.gallery?.floor)
+  || compareRooms(a.gallery?.room ?? '', b.gallery?.room ?? '')
   || a.objectNumber.localeCompare(b.objectNumber);
 
 /** How long the visitor stands in front of a work, in minutes. */
@@ -106,8 +116,8 @@ function score(work, focus, kids) {
 
 /** The candidate works, best first — the order stops are added and dropped in. */
 function rankWorks(works, { focus, kids }) {
-  const pool = works.filter((work) =>
-    !focus.length || work.priority === 1 || work.tags.some((tag) => focus.includes(tag)));
+  const pool = works.filter((work) => onTheLine(work)
+    && (!focus.length || work.priority === 1 || work.tags.some((tag) => focus.includes(tag))));
 
   return [...pool].sort((a, b) =>
     score(a, focus, kids) - score(b, focus, kids) || inRouteOrder(a, b));

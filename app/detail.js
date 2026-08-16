@@ -6,6 +6,7 @@
 
 import { el } from './dom.js';
 import { plate, plateVars } from './plate.js';
+import { onTheLine } from './route.js';
 import { PHASE, REGIONS } from './state.js';
 
 /** Above the two-column breakpoint the plate has a column of its own and is
@@ -27,6 +28,39 @@ const fact = (key, value) => value
     el('span', { class: 'kicker k', text: key }),
     el('span', { class: 'v', text: value }))
   : null;
+
+/** Where the museum says the work is, in the head of the sheet.
+ *
+ *  A room and a floor is what the line walks to. Outside the main building
+ *  there is no floor to climb to, so the place names itself instead — and for
+ *  the works the museum publishes no location for at all, saying so is the only
+ *  honest line, and the reason the work is not on the line. */
+const whereabouts = (where) => {
+  if (!where) return 'Location not published';
+
+  if (where.building === 'HG' && where.floor !== null) {
+    return `Room ${where.room} · Floor ${where.floor}`;
+  }
+
+  return [where.house?.en, where.name?.en ?? `Room ${where.room}`].filter(Boolean).join(' · ');
+};
+
+/** Why a work is missing from every plan, said on the work's own sheet.
+ *
+ *  The visitor meets these in the contact sheet, permanently dimmed, and is
+ *  owed the reason. Neither of the two is that the work is unimportant. */
+const whyNotWalked = (work) => {
+  if (onTheLine(work)) return null;
+
+  if (!work.gallery) {
+    return 'The museum publishes no gallery for this object, so the guide has nowhere to '
+      + 'put it on the line. That is a gap in the data rather than a statement about the '
+      + 'work — check the museum’s own entry for where it is hanging today.';
+  }
+
+  return `It stands in the ${work.gallery.house?.en ?? work.gallery.building}, which the `
+    + 'line through the main building does not enter. Worth its own walk.';
+};
 
 /** Everything in a work's prose that names a place on it, in reading order.
  *
@@ -106,10 +140,7 @@ export function renderDetail(work, state, actions) {
   },
   el('div', { class: 'sheet-head' },
     el('div', {},
-      el('span', {
-        class: 'kicker',
-        text: `Room ${work.gallery.room} · Floor ${work.gallery.floor}`,
-      }),
+      el('span', { class: 'kicker', text: whereabouts(work.gallery) }),
       el('div', { class: 'sheet-head-end' },
         ids.size
           ? [regionSwitch(state, actions),
@@ -143,9 +174,11 @@ export function renderDetail(work, state, actions) {
         fact('Attribution', work.attribution !== work.artist ? work.attribution : null),
         fact('Medium', work.medium?.en ?? work.medium?.nl),
         fact('Dimensions', dimensions),
-        fact('Where', `${work.gallery.name?.en ?? 'Room ' + work.gallery.room}, `
-          + `Room ${work.gallery.room}`),
-        fact('Planned stay', `${work.stayMinutes} minutes`),
+        fact('Where', work.gallery
+          ? `${work.gallery.name?.en ?? 'Room ' + work.gallery.room}, `
+            + `Room ${work.gallery.room}`
+          : null),
+        fact('Planned stay', onTheLine(work) ? `${work.stayMinutes} minutes` : null),
         fact('Credit', work.credit?.en ?? work.credit?.nl)),
 
       state.kids && work.kids
@@ -155,6 +188,7 @@ export function renderDetail(work, state, actions) {
         : null,
 
       el('div', { class: 'provenance quiet' },
+        whyNotWalked(work) ? el('div', { text: whyNotWalked(work) }) : null,
         el('div', { text: `Object ${work.objectNumber}. Facts retrieved from the `
           + `Rijksmuseum collection data on ${work.retrieved}. Image public domain.` }),
         link(work.page, 'The museum’s own entry for this work'),
