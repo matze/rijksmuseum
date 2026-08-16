@@ -67,18 +67,20 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
 
-    catalogue = {entry["objectNumber"]: entry
-                 for entry in json.loads((DATA / "catalogue.json").read_text())}
+    # The tour, not the catalogue: a curated work does not have to be on view,
+    # and `build_catalogue.py` has already joined every one of them to its facts.
+    written_up = {entry["objectNumber"]: entry
+                  for entry in json.loads((DATA / "tour.json").read_text())}
     wanted = curated_numbers()
-    missing = [number for number in wanted if number not in catalogue]
+    missing = [number for number in wanted if number not in written_up]
 
     if missing:
-        print(f"warning: no catalogue entry for {', '.join(missing)} — "
-              f"off view, so no image is fetched", file=sys.stderr)
+        print(f"warning: {', '.join(missing)} never reached the tour, so no image is "
+              f"fetched", file=sys.stderr)
 
     WORKS.mkdir(parents=True, exist_ok=True)
     fetcher = Fetcher("images", force=args.force)
-    entries = [catalogue[number] for number in wanted if number in catalogue]
+    entries = [written_up[number] for number in wanted if number in written_up]
 
     total = 0
 

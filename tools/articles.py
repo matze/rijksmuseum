@@ -26,7 +26,7 @@ from urllib.parse import quote, urlencode
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from common import DATA, Fetcher  # noqa: E402
+from common import DATA, Fetcher, creator, harvested, titles  # noqa: E402
 
 API = "https://en.wikipedia.org/w/api.php"
 ARTICLE = "https://en.wikipedia.org/wiki/"
@@ -71,16 +71,28 @@ def show(page: dict, *, full: bool, limit: int) -> None:
 
 
 def terms_for(number: str) -> str:
+    """Title and artist, to search on. The catalogue first, then the harvest —
+    a work the museum reports no location for is missing from the one and
+    present in the other, and is exactly as worth reading about."""
     catalogue = {entry["objectNumber"]: entry
                  for entry in json.loads((DATA / "catalogue.json").read_text())}
     entry = catalogue.get(number)
 
-    if not entry:
-        raise SystemExit(f"{number} is not in the on-view catalogue")
+    if entry:
+        title = entry["title"].get("en") or entry["title"].get("nl") or ""
 
-    title = entry["title"].get("en") or entry["title"].get("nl") or ""
+        return f"{title} {entry.get('artist') or ''}".strip()
 
-    return f"{title} {entry.get('artist') or ''}".strip()
+    records = Fetcher("records")
+    uri = harvested(records).get(number)
+
+    if not uri:
+        raise SystemExit(f"{number} was never harvested")
+
+    record = records.get_json(uri)
+    names = titles(record)
+
+    return f"{names.get('en') or names.get('nl') or ''} {creator(record)['display'] or ''}".strip()
 
 
 def main() -> None:

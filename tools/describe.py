@@ -24,8 +24,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import (AAT, DATA, Fetcher, as_list, classifications, creator,  # noqa: E402
-                    dimensions, gallery, language_of, production_date, statements,
-                    titles, web_page)
+                    dimensions, gallery, harvested, language_of, production_date,
+                    statements, titles, web_page)
 
 STATEMENT_KINDS = ("description", "attribution", "medium_statement", "credit_line",
                    "inscription", "provenance", "dimensions_statement")
@@ -47,8 +47,8 @@ def curated() -> set[str]:
 
 
 def summarise(entry: dict) -> str:
-    where = entry["gallery"]
-    return (f"{where['room']:<8} {entry['objectNumber']:<11} "
+    where = entry.get("gallery") or {}
+    return (f"{where.get('room', '—'):<8} {entry['objectNumber']:<11} "
             f"{(entry['title'].get('en') or entry['title'].get('nl') or '')[:44]:<45} "
             f"{(entry.get('artist') or '')[:30]}")
 
@@ -110,13 +110,25 @@ def main() -> None:
         and (args.floor is None or entry["gallery"]["floor"] == args.floor)
         and not (args.uncurated and number in written)]
 
+    fetcher = Fetcher("records")
+
+    # A work the museum reports no location for is absent from the catalogue and
+    # can still be written up, so an object named outright is looked for in the
+    # whole harvest rather than only in what is on view.
+    for number in chosen:
+        if number not in entries and (uri := harvested(fetcher).get(number)):
+            record = fetcher.get_json(uri)
+            entries[number] = {"objectNumber": number, "uri": uri, "title": titles(record),
+                               "artist": creator(record)["display"]}
+
     missing = [number for number in chosen if number not in entries]
 
     if missing:
-        raise SystemExit(f"not in the catalogue (not on view?): {', '.join(missing)}")
+        raise SystemExit(f"never harvested: {', '.join(missing)}")
 
-    chosen.sort(key=lambda number: (entries[number]["gallery"]["floor"] or 0,
-                                    entries[number]["gallery"]["room"], number))
+    chosen.sort(key=lambda number: ((entries[number].get("gallery") or {}).get("floor") or 0,
+                                    (entries[number].get("gallery") or {}).get("room", ""),
+                                    number))
 
     if args.list:
         for number in chosen:
@@ -124,8 +136,6 @@ def main() -> None:
 
         print(f"\n{len(chosen)} works", file=sys.stderr)
         return
-
-    fetcher = Fetcher("records")
 
     for number in chosen:
         describe(number, entries[number], fetcher, brief=args.brief)

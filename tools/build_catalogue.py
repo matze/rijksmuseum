@@ -6,7 +6,12 @@
 
 `data/catalogue.json`  every on-view work with a public-domain image, facts only
 `data/galleries.json`  the rooms those works hang in, grouped by floor
-`data/tour.json`       catalogue entries joined to the curated prose in data/curated
+`data/tour.json`       the curated works, prose joined to the museum's own facts
+
+A curated work does not have to be on view. The museum reports no
+`current_location` for the Milkmaid or the Jewish Bride, so neither can be put on
+a walking line; both are still in the collection and worth reading about, and
+they ship in `tour.json` with no gallery at all rather than with a guessed one.
 
 Nothing here invents a value. A field that the museum does not publish is absent
 from the output, and `verify.py` decides whether that absence is tolerable.
@@ -76,7 +81,7 @@ def normalise(record: dict, images: dict[str, dict], retrieved: str) -> dict | N
     number = object_number(record)
     visual_uri = visual_item_uri(record)
 
-    if not where or not number or not visual_uri:
+    if not number or not visual_uri:
         return None
 
     image = images.get(visual_uri)
@@ -101,7 +106,7 @@ def normalise(record: dict, images: dict[str, dict], retrieved: str) -> dict | N
         "medium": statements(record, "medium_statement"),
         "credit": statements(record, "credit_line"),
         "dimensions": {k: v for k, v in measured.items() if v is not None},
-        "gallery": where.as_json(),
+        "gallery": where.as_json() if where else None,
         "image": {**image, "widths": IMAGE_WIDTHS, "aspectRatio": aspect_ratio(measured)},
         "page": web_page(record),
         "retrieved": retrieved,
@@ -404,9 +409,14 @@ def main() -> None:
 
     images = image_services(records, fetcher)
 
+    # Everything harvested that has a public-domain photograph, on view or not.
+    # The catalogue proper is the on-view part of it; the rest is only reachable
+    # by being written up, and reaches the guide through data/curated.
+    harvested = [entry for record in records
+                 if (entry := normalise(record, images, args.retrieved))]
+
     catalogue = sorted(
-        (entry for record in records
-         if (entry := normalise(record, images, args.retrieved))),
+        (entry for entry in harvested if entry.get("gallery")),
         key=lambda e: (e["gallery"]["floor"] is None, e["gallery"]["floor"] or 0,
                        room_order(e["gallery"]["room"]), e["objectNumber"]),
     )
@@ -427,15 +437,15 @@ def main() -> None:
     iiif = Fetcher("iiif")
     crops = load_crops()
     curated = [parse_curated(path) for path in sorted((DATA / "curated").glob("*.md"))]
-    by_number = {entry["objectNumber"]: entry for entry in catalogue}
+    by_number = {entry["objectNumber"]: entry for entry in harvested}
     tour = []
 
     for work in curated:
         facts = by_number.get(work["objectNumber"])
 
         if not facts:
-            print(f"warning: curated {work['objectNumber']} is not in the on-view "
-                  f"catalogue — it has moved or come off display", file=sys.stderr)
+            print(f"warning: curated {work['objectNumber']} was never harvested, or has "
+                  f"no public-domain photograph", file=sys.stderr)
             continue
 
         entry = with_image_shape(facts, iiif)
@@ -450,8 +460,10 @@ def main() -> None:
         tour.append({**entry, **{k: v for k, v in prose.items() if v is not None}})
 
     write_json(DATA / "tour.json", tour)
+    off_line = sum(1 for work in tour if not work.get("gallery"))
     print(f"{len(catalogue)} on-view works across {len(galleries)} rooms, "
-          f"{len(tour)}/{len(curated)} curated works placed", file=sys.stderr)
+          f"{len(tour)}/{len(curated)} curated works written up "
+          f"({off_line} of them with no location the museum publishes)", file=sys.stderr)
 
 
 if __name__ == "__main__":
