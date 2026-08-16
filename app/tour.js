@@ -6,7 +6,8 @@
 import { el } from './dom.js';
 import { floorPlan, planCaption } from './floorplan.js';
 import { plate } from './plate.js';
-import { focusLabel } from './route.js';
+import { focusLabel, overBy } from './route.js';
+import { MODE } from './state.js';
 
 const PLATE_SIZES = '(min-width: 640px) 538px, calc(100vw - 36px)';
 
@@ -25,7 +26,7 @@ const marker = (kind) => [
 const row = (kind, ...content) =>
   el('div', { class: `row row-${kind}` }, el('div', { class: 'rail' }), marker(kind), content);
 
-function stopEntry(item, state, actions) {
+function stopEntry(item, state, route, actions) {
   const { work } = item;
   const title = work.displayTitle ?? work.title.en ?? work.title.nl;
   const byline = [work.artist, work.date].filter(Boolean).join(', ');
@@ -72,18 +73,36 @@ const breakEntry = (item) => row('break', el('div', { class: 'card entry-break',
   el('div', { class: 'break-title', text: item.title }),
   el('div', { class: 'break-text muted', text: item.text })));
 
-function terminusEntry(item, state, actions) {
-  const selection = [`${state.minutes} min`, focusLabel(state.focus)]
-    .concat(state.kids ? ['with children'] : [])
-    .concat(state.stepFree ? ['step-free'] : [])
-    .join(' · ');
+/** What made this line, said at the top of it.
+ *
+ *  In the guided flow that is the constraints the visitor set. In the picking
+ *  flow the works themselves are the answer, so the recap names neither a focus
+ *  nor the two constraints that flow does not offer — and it owns up to a walk
+ *  that runs past the time asked for, because nothing was dropped to prevent
+ *  that. */
+function recap(state, route) {
+  if (state.mode !== MODE.picked) {
+    return [[`${state.minutes} min`, focusLabel(state.focus)]
+      .concat(state.kids ? ['with children'] : [])
+      .concat(state.stepFree ? ['step-free'] : [])
+      .join(' · ')];
+  }
 
+  const over = overBy(route, state.minutes);
+  const counted = `${route.stopCount} ${route.stopCount === 1 ? 'work' : 'works'}`;
+
+  return [`Hand-picked · ${counted} · ${route.plannedMinutes} min`]
+    .concat(over > 0 ? [`${over} min over the ${state.minutes} min you asked for`] : []);
+}
+
+function terminusEntry(item, state, route, actions) {
   return row('terminus', el('div', { class: 'card entry-term', 'data-lit': 'true' },
     el('div', { class: 'kicker', text: item.kicker }),
     el('div', { class: 'term-title', text: item.title }),
     el('div', { class: 'term-text muted', text: item.text }),
     item.at === 'start'
-      ? el('div', { class: 'selection muted', text: selection })
+      ? el('div', { class: 'selection muted' },
+        recap(state, route).map((text) => el('div', { text })))
       : el('div', { class: 'actions' },
         el('button', {
           type: 'button', class: 'btn btn-secondary',
@@ -112,7 +131,7 @@ export function renderTour(state, route, actions) {
     el('div', { class: 'progress' }, el('i')));
 
   const line = el('div', { class: 'line' },
-    route.items.map((item) => ENTRIES[item.kind](item, state, actions)));
+    route.items.map((item) => ENTRIES[item.kind](item, state, route, actions)));
 
   return el('div', {}, chrome, line);
 }
