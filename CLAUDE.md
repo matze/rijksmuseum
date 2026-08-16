@@ -50,9 +50,20 @@ treats `app/*.js` as ES modules.
 
 - `GET /search/collection?type=painting` pages object ids via `next`.
 - `GET https://id.rijksmuseum.nl/{id}` with `Accept: application/ld+json` resolves a record.
-- **`current_location` is the on-view filter.** No `current_location` means not on display.
+- **`current_location` is the on-view filter** for `catalogue.json`. No `current_location`
+  means the museum publishes no room; it does not mean the work is in storage, and for the
+  Milkmaid and a dozen others it plainly is not. A curated work does not need one — see
+  *Off the line* below.
 - Gallery code `HG-2.31` → building HG, floor 2, room 2.31. `AK-1-23` (Asian Pavilion)
-  carries no readable storey, so those works get `floor: null` and cannot be routed.
+  carries no readable storey, so those works get `floor: null` and cannot be routed. The
+  place names itself twice, once for the room and once for the building; `gallery()` reads
+  both, so a work outside the main building can still say where it is.
+- **Height and width are only ever read from one run of measurements.** A record may
+  measure the object, then its frame, then the case it travels in, naming each run in the
+  `identified_by` of its own nodes. Pairing across runs states a size the object has never
+  had, so `dimensions()` takes the run the record leaves unnamed, or calls the whole
+  (`geheel`, `overall`), or the only one measured both ways — and otherwise reports no
+  numbers and lets the sheet fall back to the museum's own dimensions sentence.
 - Images: object → `shows` → VisualItem → `digitally_shown_by` → IIIF level 2 on
   `iiif.micr.io`, Public Domain Mark. `fetch_images.py` writes 480/960/1600/2400px AVIF,
   WebP and JPEG under `assets/works/` for curated works only. 2400 is for the detail sheet
@@ -64,9 +75,30 @@ treats `app/*.js` as ES modules.
   unpainted edge of a panel. `detect_crops.py` measures the box that is the work and
   writes `data/crops.json`; the guide clips its plates to it and the files stay whole.
 
-Current state: 1237 on-view works, 244 rooms, 40 curated works, 131 rooms located on the
-plan. A second `just build` must produce byte-identical JSON; that is the reproducibility
-check.
+Current state: 1237 on-view works, 244 rooms, 102 curated works of which 84 are on the
+line, 131 rooms located on the plan. A second `just build` must produce byte-identical
+JSON; that is the reproducibility check.
+
+### Off the line
+
+A curated work does not have to be walkable. Two things put one out of reach: the museum
+publishes no `current_location` for it, or it hangs in a building the route does not enter
+— the Asian Pavilion, the KPN Wing. Either way it is written up, photographed, tiled on
+the contact sheet and readable in full; it is only never a stop.
+
+- `build_catalogue.py` normalises every harvested record. `catalogue.json` keeps the
+  on-view part; `tour.json` joins the curated prose to whichever of them it names, with no
+  `gallery` key at all when the museum gives none.
+- `route.js` exports `onTheLine`, and it is the one place the rule lives: main building,
+  and a floor read out of the room code. `rankWorks` filters on it; the contact-sheet tile
+  says `off the line` instead of `not in this plan`; the detail sheet says which of the two
+  reasons applies, in the provenance note where the guide shows its working.
+- `fetch_records.py` follows the imagery hop for on-view objects **and** for anything named
+  in `data/curated`. Following it for all nine thousand candidates would cost twenty
+  thousand requests to photograph a collection nobody is being shown.
+- `common.harvested()` indexes object number → record URI over the whole harvest, cached in
+  `cache/by-object-number.json`, so `just describe SK-A-2344` and `just articles` reach a
+  work the catalogue does not hold.
 
 ### Floor plan
 
@@ -98,9 +130,12 @@ wall behind the ship model and the lit floor at the foot of the Night Watch — 
 which read as margins under every simpler rule tried here — out of the crops.
 
 Frames are past what it will read: their browns and golds are the painting's own and they
-run deeper than the limit. Those are hand-measured into `data/crops-extra.json`, merged
-over the detected boxes, and both readings there are checked against the museum's stated
-height and width — a box cut in the right place has the work's own proportions.
+run deeper than the limit. Those are hand-measured into `data/crops-extra.json` and merged
+over the detected boxes. A hand-read box is exempt from the depth limit — Van Gogh's
+Riverbank is photographed in a carved frame that takes a seventh off every side — and is
+held to the museum's stated height and width instead, within 3%. `verify.py` does that
+arithmetic: a box cut in the right place has the work's own proportions, and one cut in
+the wrong place cannot have them by accident.
 
 Read the result with `just crops "--review sheet.png"` and look at the PNG. Judging a cut
 means looking at the edge magnified, not at the thumbnail; a band 12px wide at the 960px
@@ -151,7 +186,14 @@ Rules `verify.py` enforces, each written after nearly shipping the mistake:
   opaque and gets typed from memory — copy it from `just describe`)
 - Wikipedia sources must be `https://en.wikipedia.org/wiki/...` article URLs
 - tags must exist in the setup screen's vocabulary, read out of `app/route.js`
-- curated works must be in building HG with a floor, and have all three image widths
+- every curated file must reach `tour.json`; a work that was never harvested, or carries no
+  public-domain photograph, is a file that ships nothing
+- a work in building HG must have a floor — the room code names one, so a work there that
+  reports none was parsed wrong. Being outside HG, or having no gallery at all, is allowed
+  and costs the work its place on the line, not its entry
+- every curated work must have all three image widths
+- a hand-read crop must match the record's stated proportions within 3%; a detected one
+  must still keep 70% of every side
 - a region must be a box inside the work, and a *part* of it: `KEPT` does not apply, but a
   box over 80% of a side points at the whole picture and one under 2% cannot be found
 - a phrase's offsets must lie inside its own block's text and not overlap another's — they
@@ -250,14 +292,25 @@ Numbers are old-style figures (Cormorant Garamond); list markers hang in the pag
 
 ## Known and deliberate
 
-- The Milkmaid (SK-A-2344), The Jewish Bride (SK-C-216) and The Syndics (SK-C-6) return no
-  `current_location`, so the guide omits them. Surprising for three permanent highlights;
-  worth a human check against the live hang before release.
-- Asian Pavilion: 52 on-view works excluded, floor not derivable from `AK-*` codes.
+- Fifteen curated works return no `current_location` — the Milkmaid, the Jewish Bride, the
+  Syndics, the Feast of St Nicholas among them. They are written up and shown off the line.
+  The museum's *own object pages* do give a display location for several of them, so the
+  gap is in the Linked Art records rather than in the hang. Reading those pages into a
+  hand-written location file would put them back on the route, at the cost of a mapping
+  that goes stale silently; that trade has not been taken.
+- SK-C-1845, Van Gogh's Wheatfield, is filed with its height and width the wrong way round
+  — the record and the dimensions sentence both make a landscape canvas portrait. It is not
+  curated for that reason. Nothing in the pipeline can catch this without measuring the
+  photograph, which would be deriving a fact from a picture.
+- Asian Pavilion: 52 on-view works, floor not derivable from `AK-*` codes. Three are
+  curated and shown off the line; the other 49 are uncurated like most of the catalogue.
 - Prints and drawings are not harvested (424k records, essentially all in storage), so
   Rembrandt's etchings are invisible here even if they are hanging.
 - A single-artist focus can run short of the requested time — there are only two Vermeers
   and twelve Rembrandt paintings on view. That is a content ceiling, not a routing bug.
+- Eighteen curated works show a Dutch medium statement, because the record carries no
+  English one. The museum's own words in the museum's own language beat a translation the
+  guide would have had to invent.
 
 ## Working here
 
