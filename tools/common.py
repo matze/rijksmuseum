@@ -235,6 +235,34 @@ def object_number(record: dict) -> str | None:
     return None
 
 
+def harvested(fetcher: Fetcher) -> dict[str, str]:
+    """Object number → record URI, over everything the harvest reached.
+
+    `data/catalogue.json` holds only what is on view, and a curated work need not
+    be: the museum publishes no location for the Milkmaid. The tools that gather
+    source material therefore cannot go through the catalogue. Reading nine
+    thousand records to answer one question is slow, so the index is written
+    beside them in the cache and rebuilt whenever the candidate list moves.
+    """
+    candidates = CACHE / "candidates.json"
+    index = CACHE / "by-object-number.json"
+
+    if index.exists() and index.stat().st_mtime >= candidates.stat().st_mtime:
+        return json.loads(index.read_text())
+
+    found: dict[str, str] = {}
+
+    for uri in json.loads(candidates.read_text())["uris"]:
+        path = fetcher.path_for(uri)
+
+        if path.exists() and (number := object_number(json.loads(path.read_text()))):
+            found.setdefault(number, uri)
+
+    index.write_text(json.dumps(found, ensure_ascii=False, sort_keys=True))
+
+    return found
+
+
 @dataclass(frozen=True)
 class Gallery:
     code: str
@@ -242,10 +270,11 @@ class Gallery:
     room: str
     floor: int | None
     name: dict[str, str]
+    house: dict[str, str]
 
     def as_json(self) -> dict:
         return {"code": self.code, "building": self.building, "room": self.room,
-                "floor": self.floor, "name": self.name}
+                "floor": self.floor, "name": self.name, "house": self.house}
 
 
 # Main-building codes name the floor in the room number: `HG-2.31` is floor 2,
@@ -261,24 +290,38 @@ def gallery(record: dict) -> Gallery | None:
 
     Codes look like `HG-2.31`, or `HG-0.7-Z2.01` for a showcase inside a room.
     The floor is the leading component of the first room segment.
+
+    The place is named twice over, once for the room and once for the building
+    that holds it. Both are read: a work in a building the route does not enter
+    has only its building's name to say where it is.
     """
     location = record.get("current_location")
 
     if not location:
         return None
 
-    code, name = None, {}
+    code, name, house = None, {}, {}
 
     for identity in as_list(location.get("identified_by")):
         if identity.get("type") == "Identifier" and identity.get("content"):
             code = identity["content"]
             continue
 
-        gallery_names = [part["content"] for part in as_list(identity.get("part"))
-                         if AAT["gallery_name"] in classifications(part) and part.get("content")]
+        language = language_of(identity)
 
-        if gallery_names and (language := language_of(identity)):
-            name[language] = gallery_names[0]
+        if not language:
+            continue
+
+        for part in as_list(identity.get("part")):
+            kinds = classifications(part)
+
+            if not part.get("content"):
+                continue
+
+            if AAT["gallery_name"] in kinds:
+                name.setdefault(language, part["content"])
+            elif AAT["building_name"] in kinds:
+                house.setdefault(language, part["content"])
 
     if not code:
         return None
@@ -292,7 +335,7 @@ def gallery(record: dict) -> Gallery | None:
     room = dotted.group(0) if dotted else "-".join(segments)
 
     return Gallery(code=code, building=building, room=room,
-                   floor=int(dotted["floor"]) if dotted else None, name=name)
+                   floor=int(dotted["floor"]) if dotted else None, name=name, house=house)
 
 
 def notations(node: dict) -> dict[str, str]:
@@ -341,26 +384,64 @@ def production_date(record: dict) -> tuple[str | None, int | None, int | None]:
     return None, None, None
 
 
+AXES = {"height": "height_cm", "width": "width_cm"}
+
+#: What a record calls the run of measurements that is of the whole object,
+#: rather than of its plinth, its frame or the case it travels in. Naming no run
+#: at all is the ordinary way of saying it. Both languages, because a run does
+#: not always carry an English name.
+THE_WHOLE = ("", "geheel", "overall", "total")
+
+
+def measurement_run(dimension: dict) -> str:
+    """Which run of measurements a dimension belongs to.
+
+    A record may measure the same object several times over — the support, the
+    painted surface, the frame — and names each run in the `identified_by` of
+    every node in it. The names come in both languages and in either order, so
+    one language has to be chosen or the same run answers to two keys.
+    """
+    names = as_list(dimension.get("identified_by"))
+    english = [name["content"] for name in names if language_of(name) == "en" and name.get("content")]
+
+    return (english or [name["content"] for name in names if name.get("content")] or [""])[0]
+
+
 def dimensions(record: dict) -> dict:
-    """Height and width in centimetres, plus the museum's own display string."""
-    measured: dict[str, float] = {}
+    """Height and width in centimetres, plus the museum's own display string.
+
+    Reading the first height and the first width would pair a framed height with
+    a bare canvas width — Vermeer's letter-reader is filed both ways — and report
+    a size the object has never had. So a pair is only ever taken from one run,
+    and only when there is no doubt which run is the work: the run the record
+    leaves unnamed, or the only one measured both ways. Where a record measures
+    its object and its plinth and says nothing about which is which, the guide
+    states no size and shows the museum's own sentence instead.
+    """
+    runs: dict[str, dict[str, float]] = {}
 
     for dimension in as_list(record.get("dimension")):
-        axis = None
-
-        for classifier in as_list(dimension.get("classified_as")):
-            equivalents = {e.get("id") for e in as_list(classifier.get("equivalent"))}
-
-            if AAT["height"] in equivalents:
-                axis = "height_cm"
-            elif AAT["width"] in equivalents:
-                axis = "width_cm"
-
+        equivalents = {e.get("id") for classifier in as_list(dimension.get("classified_as"))
+                       for e in as_list(classifier.get("equivalent"))}
+        axis = next((field for name, field in AXES.items() if AAT[name] in equivalents), None)
         in_centimetres = any(u.get("id") == AAT["centimetres"]
                              for u in as_list(dimension.get("unit")))
 
-        if axis and in_centimetres and dimension.get("value") is not None:
-            measured.setdefault(axis, float(dimension["value"]))
+        if not axis or not in_centimetres or dimension.get("value") is None:
+            continue
+
+        run = measurement_run(dimension)
+        runs.setdefault(run, {}).setdefault(axis, []).append(float(dimension["value"]))
+
+    # A run that measures one axis twice is two runs the record forgot to name —
+    # the Standard Bearer is 102.6 or 118.8 cm high depending on which of its two
+    # unnamed heights goes with which width — and is no more usable than none.
+    complete = {name: {axis: values[0] for axis, values in run.items()}
+                for name, run in runs.items()
+                if run.keys() == set(AXES.values()) and all(len(v) == 1 for v in run.values())}
+
+    measured = next((complete[name] for name in THE_WHOLE if name in complete),
+                    next(iter(complete.values())) if len(complete) == 1 else {})
 
     display = statements(record, "dimensions_statement")
 
