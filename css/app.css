@@ -149,6 +149,30 @@ a:hover { color: var(--color-accent); }
   margin: 26px 0 10px;
 }
 
+/* The two flows, named side by side directly under the title. Whichever is
+   pressed, the body below it is that flow and nothing of the other one is on the
+   screen — which is the whole reason the switch is here rather than folded into
+   the constraints as another chip. */
+.mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+
+/* The two stand the same height because they are a pair, but the note follows
+   its own label rather than being pushed to the floor of the taller one. */
+.chip-mode {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  justify-items: start;
+  text-align: left;
+  padding: 9px 12px;
+}
+
+.chip-mode .chip-note { text-align: left; }
+
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .wrap { display: flex; flex-wrap: wrap; gap: 8px; }
 .stack { display: grid; gap: 8px; }
@@ -163,6 +187,12 @@ a:hover { color: var(--color-accent); }
 
 .preview { margin: 12px 0 0; font-size: 12.5px; text-align: center; }
 .hint { margin: 10px 0 0; font-size: 12.5px; }
+
+/* The one reading in the picking flow that judges rather than counts, so it sits
+   against the chips that set the time and carries the running voice, not the
+   hint's. It is gold only when the picks have outgrown the time. */
+.pick-against { margin: 12px 0 0; font-size: 14.5px; text-wrap: pretty; }
+.pick-against[data-over="true"] { color: var(--color-accent-700); }
 
 /* — the contact sheet: every curated work, dimmed when the plan misses it — */
 
@@ -181,7 +211,13 @@ a:hover { color: var(--color-accent); }
   margin-top: 18px;
 }
 
-.tile {
+/* The tile is a cell holding two controls, because the verb changes with the
+   flow and a button cannot hold another button: the picture means read in the
+   one flow and pick in the other, and the caption under it always reads. Neither
+   of them is drawn as a control — the wall is a wall of pictures. */
+.tile { text-align: center; transition: opacity .12s linear; }
+
+.tile-face, .tile-caption {
   display: block;
   width: 100%;
   border: 0;
@@ -191,14 +227,50 @@ a:hover { color: var(--color-accent); }
   font: inherit;
   text-align: center;
   cursor: pointer;
-  transition: opacity .12s linear;
 }
 
-/* The same dimming the line uses for what is not being read, doing the same job:
-   what the current constraints leave out is still there, just not lit. */
-.tile[data-lit="false"] { opacity: var(--dim); }
-.tile[data-lit="false"]:hover { opacity: .62; }
-.tile:hover .tile-title { color: var(--color-accent-700); }
+/* Dimming means something different in each flow, so the rule is keyed on the
+   flow. Guided: the same dimming the line uses for what is not being read, doing
+   the same job — what the current constraints leave out is still there, just not
+   lit. Picking: nothing is dimmed for being unpicked, because ninety-odd dim
+   plates are a wall nobody can read, and only what can never be walked to is. */
+.screen[data-mode="guided"] .tile[data-lit="false"] { opacity: var(--dim); }
+.screen[data-mode="guided"] .tile[data-lit="false"]:hover { opacity: .62; }
+.screen[data-mode="picked"] .tile[data-reachable="false"] { opacity: var(--dim); }
+.screen[data-mode="picked"] .tile[data-reachable="false"]:hover { opacity: .62; }
+
+.tile-caption:hover .tile-title { color: var(--color-accent-700); }
+.tile-face:disabled { cursor: default; }
+
+/* A picked work is marked on the picture itself. An outline hugs the plate at
+   whatever proportions the work has, which a badge in a corner cannot do — the
+   plates here are anything from a miniature to a two-metre canvas. The pointer
+   shows the same outline before the tap, faintly, so what a tap is about to do
+   is legible without a word being printed for it. */
+.screen[data-mode="picked"] .tile[data-picked="true"] .plate-wrap {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.screen[data-mode="picked"] .tile[data-picked="false"][data-reachable="true"]
+  .tile-face:hover .plate-wrap {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+  outline-offset: 3px;
+}
+
+/* Its line is held open on every tile in the flow, whether or not the work is
+   picked: the same reason two title lines are held open, which is that a row of
+   plates has to keep standing on one line while it is being picked from. */
+.tile-check {
+  display: none;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--color-accent-700);
+}
+
+.screen[data-mode="picked"] .tile-check { display: block; visibility: hidden; }
+.screen[data-mode="picked"] .tile[data-picked="true"] .tile-check { visibility: visible; }
+
 
 /* Nothing is cropped to tidy the grid: each plate is fitted inside a band of one
    height and hung on its floor, so the works keep their own proportions and a
@@ -263,6 +335,50 @@ a:hover { color: var(--color-accent); }
   }
 
   .tile-by { display: block; }
+}
+
+/* — the count under the picking wall — */
+
+/* The mirror of the tour's own bar: that one sticks to the top of the line, this
+   one to the foot of the wall, because picking happens while scrolling a hundred
+   plates and the count and the way out have to stay in reach of the thumb. It is
+   drawn only in the flow that has anything to count. */
+.pick-bar { display: none; }
+
+.screen[data-mode="picked"] .pick-bar {
+  display: block;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--color-bg) 93%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--color-divider);
+}
+
+.pick-row {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pick-count {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pick-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.pick-start:disabled { opacity: .45; cursor: default; }
+
+/* The count is the reading that can be cut; the two controls cannot. */
+@media (max-width: 389px) {
+  .pick-row { padding: 10px 14px; gap: 8px; }
+  .pick-count { font-size: 12.5px; }
 }
 
 /* — the line — */
@@ -615,6 +731,9 @@ a:hover { color: var(--color-accent); }
 .actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 .selection { margin-top: 14px; border-top: 1px solid var(--color-divider);
   padding-top: 10px; font-size: 14.5px; }
+/* The second line is only ever there when a hand-picked walk runs past the time
+   asked for, and that is worth being seen rather than merely printed. */
+.selection > div + div { margin-top: 2px; color: var(--color-accent-700); }
 
 /* — detail sheet — */
 

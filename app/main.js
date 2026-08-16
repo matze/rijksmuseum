@@ -6,9 +6,9 @@ import { formatClock, pacing } from './clock.js';
 import { paintRegions, renderDetail } from './detail.js';
 import { trackFocus } from './focus.js';
 import { linkRegions } from './regions.js';
-import { buildRoute } from './route.js';
+import { routeFor } from './route.js';
 import { paintSetup, renderSetup } from './setup.js';
-import { PHASE, REGIONS, load, persist } from './state.js';
+import { MODE, PHASE, REGIONS, load, persist } from './state.js';
 import { paintChrome, renderTour } from './tour.js';
 
 /** How often the header re-reads the clock. A minute display needs no more. */
@@ -42,7 +42,32 @@ const actions = {
   update(mutate) {
     mutate(state);
     persist(state);
-    paintSetup(state, works);
+    paintSetup(state, works, actions);
+  },
+
+  /** Which flow composes the line. Not a history entry: the two are controls on
+   *  one screen, like the chips, and Back should step out of the screen rather
+   *  than back through every mind that was changed on it. */
+  setMode(mode) {
+    actions.update((next) => { next.mode = mode; });
+  },
+
+  /** A tap on a work means the verb of the flow it is tapped in. */
+  tapWork(objectNumber) {
+    if (state.mode === MODE.picked) actions.togglePick(objectNumber);
+    else actions.openDetail(objectNumber);
+  },
+
+  togglePick(objectNumber) {
+    actions.update((next) => {
+      next.picked = next.picked.includes(objectNumber)
+        ? next.picked.filter((each) => each !== objectNumber)
+        : [...next.picked, objectNumber];
+    });
+  },
+
+  clearPicks() {
+    actions.update((next) => { next.picked = []; });
   },
 
   start() {
@@ -136,7 +161,7 @@ function render() {
   if (state.phase === PHASE.setup) {
     root.append(renderSetup(state, works, actions));
   } else {
-    route = buildRoute(works, state);
+    route = routeFor(works, state);
     root.append(renderTour(state, route, actions));
   }
 
