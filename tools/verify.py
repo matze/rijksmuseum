@@ -16,6 +16,7 @@ import json
 import re
 import sys
 from collections.abc import Iterator
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -30,6 +31,7 @@ KEPT = 0.7  # of each side of a photograph, at least, once a *detected* border i
 PROPORTIONS = 0.03  # how far a hand-read box may sit from the work's stated shape
 MOST_OF_A_SIDE = 0.8  # of the work, which is as wide as a region may point
 LEAST_OF_A_SIDE = 0.02  # of the work, below which the dimming lights nothing
+STALE_AFTER_DAYS = 180  # after which a location read off a web page is worth reading again
 MAIN_BUILDING = "HG"
 RECORD_URI = re.compile(r"^https://id\.rijksmuseum\.nl/\d+$")
 ARTICLE_URI = re.compile(r"^https://en\.wikipedia\.org/wiki/[^\s?#]+$")
@@ -288,6 +290,61 @@ def check_region(where: str, region: list[float], report: Report) -> None:
                     f"find on the plate")
 
 
+def check_locations(tour: list[dict], report: Report) -> None:
+    """The display locations read off the museum's own object pages.
+
+    That file supplements the records and has to stay a supplement: an entry for
+    a work whose record has since named a gallery is stale, and the build would
+    quietly ignore it. A location taken off a web page also ages, so the day it
+    was read travels with it and is said out loud here.
+    """
+    path = DATA / "locations.json"
+
+    if not path.exists():
+        report.note("no data/locations.json: no work is placed by the museum's own page")
+        return
+
+    stated = json.loads(path.read_text())
+    written_up = {work["objectNumber"]: work for work in tour}
+    placed = [work for work in tour if (work.get("gallery") or {}).get("source") == "page"]
+
+    for number, found in stated["works"].items():
+        work = written_up.get(number)
+
+        if not work:
+            report.fail(f"locations.json: {number} is not a curated work")
+            continue
+
+        where = work.get("gallery") or {}
+
+        if where.get("source") != "page" and where:
+            report.fail(f"locations.json: {number} is in {where['code']} in the record "
+                        f"now — the entry is stale and the build is ignoring it")
+
+        if found["location"] and not where:
+            report.note(f"{number}: its page says {found['location']!r}, which no gallery "
+                        f"the museum names answers to, so it stays off the line")
+
+    for work in placed:
+        number = work["objectNumber"]
+
+        if number not in stated["works"]:
+            report.fail(f"{number}: placed by a page that data/locations.json does not hold")
+
+        if not work["gallery"].get("read"):
+            report.fail(f"{number}: placed by a page with no date of reading")
+
+    if placed:
+        days = (date.today() - date.fromisoformat(stated["retrieved"])).days
+        report.note(f"{len(placed)} curated works are placed by the museum's own object "
+                    f"page, read {days} days ago: "
+                    f"{', '.join(work['objectNumber'] for work in placed)}")
+
+        if days > STALE_AFTER_DAYS:
+            report.note(f"those readings are over {STALE_AFTER_DAYS} days old — "
+                        f"re-run `just harvest` before trusting them")
+
+
 def on_the_line(work: dict) -> bool:
     """Whether the walking route can reach a work.
 
@@ -311,8 +368,11 @@ def check_route_coverage(tour: list[dict], galleries: dict, report: Report) -> N
         report.note(f"{len(elsewhere)} curated works the route cannot reach, shown on the "
                     f"contact sheet only: {', '.join(elsewhere)}")
 
+    # A work placed by the museum's own page carries its position itself: its
+    # room holds no on-view work, so galleries.json has never heard of it.
     unplaced = [work["objectNumber"] for work in walkable
-                if "position" not in galleries.get(work["gallery"]["code"], {})]
+                if "position" not in work["gallery"]
+                and "position" not in galleries.get(work["gallery"]["code"], {})]
 
     if unplaced:
         report.note(f"{len(unplaced)} curated works are in rooms the published plan does "
@@ -327,6 +387,7 @@ def main() -> None:
     report = Report()
     check_catalogue(catalogue, report)
     check_curated(tour, report)
+    check_locations(tour, report)
     check_route_coverage(tour, galleries, report)
 
     for note in report.notes:

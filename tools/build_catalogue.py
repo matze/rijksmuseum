@@ -9,9 +9,11 @@
 `data/tour.json`       the curated works, prose joined to the museum's own facts
 
 A curated work does not have to be on view. The museum reports no
-`current_location` for the Milkmaid or the Jewish Bride, so neither can be put on
-a walking line; both are still in the collection and worth reading about, and
-they ship in `tour.json` with no gallery at all rather than with a guessed one.
+`current_location` for the Milkmaid or the Jewish Bride; both are still in the
+collection and worth reading about. Where its own object page says where the
+work hangs, `data/locations.json` carries those words and the work goes back on
+the line, marked as placed by the page. Where nothing says, it ships in
+`tour.json` with no gallery at all rather than with a guessed one.
 
 Nothing here invents a value. A field that the museum does not publish is absent
 from the output, and `verify.py` decides whether that absence is tolerable.
@@ -172,6 +174,72 @@ def build_galleries(catalogue: list[dict]) -> dict:
     return dict(sorted(galleries.items(),
                        key=lambda kv: (kv[1]["floor"] is None, kv[1]["floor"] or 0,
                                        room_order(kv[1]["room"]), kv[0])))
+
+
+def load_locations() -> dict[str, dict]:
+    """What the museum's own object page says, for works whose record says nothing.
+
+    `fetch_locations.py` reads the page's badge; the place here is the one it
+    names, in the museum's own words, and the date is the day it was read — a
+    location taken off a web page is only as good as the day it was taken. A work
+    whose page carries no badge is in the file with a null and drops out here.
+    """
+    path = DATA / "locations.json"
+
+    if not path.exists():
+        return {}
+
+    stated = json.loads(path.read_text())
+
+    return {number: {"place": found["location"], "read": stated["retrieved"]}
+            for number, found in stated["works"].items() if found.get("location")}
+
+
+def shared_room(rooms: list[str]) -> str | None:
+    """The room several rooms are parts of: 2.30.1 and 2.30.8 are both 2.30."""
+    shared: list[str] = []
+
+    for level in zip(*(room.split(".") for room in rooms)):
+        if len(set(level)) != 1:
+            break
+
+        shared.append(level[0])
+
+    return ".".join(shared) or None
+
+
+def named_gallery(place: str, galleries: dict, plan: dict) -> dict | None:
+    """The gallery the museum's page means when it says a work is *there*.
+
+    The page names a hall — "Gallery of Honour" — and the records name seven bays
+    HG-2.30.1 to HG-2.30.8 "Gallery of Honour". The hall is the room those bays
+    are parts of, and its floor and building are theirs. A page that names a room
+    number instead is matched against the room numbers themselves.
+
+    Nothing is invented: a place the museum's own gallery names do not answer to,
+    or one whose galleries disagree about which floor or building they are on,
+    resolves to nothing and leaves the work off the line.
+    """
+    named = [room for room in galleries.values()
+             if place in (room["room"], room["code"]) or place in room["name"].values()]
+    houses = {(room["building"], room["floor"]) for room in named}
+
+    if not named or len(houses) != 1:
+        return None
+
+    room = shared_room([found["room"] for found in named])
+    building, floor = houses.pop()
+
+    if not room:
+        return None
+
+    where = {"code": f"{building}-{room}", "building": building, "room": room, "floor": floor,
+             "name": named[0]["name"], "house": named[0]["house"], "source": "page"}
+
+    if position := plan_position(plan, where):
+        where["position"] = position
+
+    return where
 
 
 #: The museum's attribution line sometimes ends in a note about the evidence for
@@ -436,6 +504,8 @@ def main() -> None:
 
     iiif = Fetcher("iiif")
     crops = load_crops()
+    plan = load_plan()
+    locations = load_locations()
     curated = [parse_curated(path) for path in sorted((DATA / "curated").glob("*.md"))]
     by_number = {entry["objectNumber"]: entry for entry in harvested}
     tour = []
@@ -450,6 +520,17 @@ def main() -> None:
 
         entry = with_image_shape(facts, iiif)
 
+        # The record names no room and the museum's own page does. That is the
+        # museum in a second voice rather than a guess, so the work goes back on
+        # the line — and says on its sheet where the location came from.
+        if not entry.get("gallery") and (stated := locations.get(work["objectNumber"])):
+            if where := named_gallery(stated["place"], galleries, plan):
+                entry = {**entry, "gallery": {**where, "read": stated["read"]}}
+            else:
+                print(f"warning: {work['objectNumber']} is on display in "
+                      f"{stated['place']!r}, which no gallery the museum names answers to",
+                      file=sys.stderr)
+
         crop = crops.get(work["objectNumber"])
 
         if crop:
@@ -460,10 +541,12 @@ def main() -> None:
         tour.append({**entry, **{k: v for k, v in prose.items() if v is not None}})
 
     write_json(DATA / "tour.json", tour)
-    off_line = sum(1 for work in tour if not work.get("gallery"))
+    unplaced = sum(1 for work in tour if not work.get("gallery"))
+    by_page = sum(1 for work in tour if work.get("gallery", {}).get("source") == "page")
     print(f"{len(catalogue)} on-view works across {len(galleries)} rooms, "
           f"{len(tour)}/{len(curated)} curated works written up "
-          f"({off_line} of them with no location the museum publishes)", file=sys.stderr)
+          f"({unplaced} of them with no location the museum publishes anywhere, "
+          f"{by_page} placed by the museum's object page)", file=sys.stderr)
 
 
 if __name__ == "__main__":

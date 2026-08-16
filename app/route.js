@@ -148,6 +148,13 @@ export function selectWorks(works, state) {
   return { works: chosen.sort(inRouteOrder), ranked, takesBreak };
 }
 
+/** Whether two room numbers name the same room.
+ *
+ *  The Gallery of Honour is 2.30 and its bays are 2.30.1 to 2.30.8: a work in a
+ *  bay is in the hall, not in a room beside it. Two bays are still a walk down
+ *  the hall, so only a room and one of its own parts count as one place. */
+const sameRoom = (a, b) => a === b || a.startsWith(`${b}.`) || b.startsWith(`${a}.`);
+
 const distanceBetween = (a, b) => {
   const from = a.gallery.position;
   const to = b.gallery.position;
@@ -174,7 +181,7 @@ function walkBetween(previous, work, stepFree) {
     };
   }
 
-  if (previous.gallery.room === work.gallery.room) {
+  if (sameRoom(previous.gallery.room, work.gallery.room)) {
     return { minutes: WALK.sameRoom, text: 'Same room — turn around.' };
   }
 

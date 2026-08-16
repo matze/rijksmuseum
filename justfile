@@ -14,6 +14,7 @@ setup:
 harvest *ARGS:
     {{run}} tools/fetch_candidates.py {{ARGS}}
     {{run}} tools/fetch_records.py {{ARGS}}
+    {{run}} tools/fetch_locations.py {{ARGS}}
 
 # Regenerate the catalogue, the tour pool and the artwork imagery.
 build:

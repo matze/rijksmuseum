@@ -17,25 +17,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from common import (CACHE, DATA, Fetcher, digital_object_uris, gallery,  # noqa: E402
-                    in_parallel, object_number, visual_item_uri)
-
-
-def curated_numbers() -> set[str]:
-    """The object numbers `data/curated` writes about, read without a YAML parser.
-
-    This runs before the catalogue exists, so the front matter is all there is to
-    read, and one line of it is all that is wanted.
-    """
-    return {match.group(1)
-            for path in (DATA / "curated").glob("*.md")
-            if (match := re.search(r"^objectNumber:\s*(\S+)", path.read_text(), re.M))}
+from common import (CACHE, Fetcher, curated_numbers, digital_object_uris,  # noqa: E402
+                    gallery, in_parallel, object_number, visual_item_uri)
 
 
 def main() -> None:

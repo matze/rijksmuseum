@@ -15,7 +15,7 @@ the handoff and never recalled from memory. If a fact cannot be sourced, it does
 ## Commands
 
     just setup          # vendor the typefaces and justif — assets/ is not committed
-    just harvest        # search API → candidate ids → Linked Art records (cached)
+    just harvest        # search API → candidate ids → records → object-page locations
     just build          # borders → records → data/*.json, then IIIF derivatives
     just crops "..."    # detect_crops.py alone; "--review sheet.png" draws every box
     just floorplan      # read room coordinates out of the museum's published plan PDF
@@ -34,8 +34,9 @@ treats `app/*.js` as ES modules.
 
     tools/      retrieval and generation (Python). common.py holds one accessor per
                 Linked Art field — the auditable seam between museum data and rendered text
-    data/       generated catalogue.json, galleries.json, tour.json, crops.json;
-                hand-written curated/*.md, floorplan-extra.json and crops-extra.json
+    data/       generated catalogue.json, galleries.json, tour.json, crops.json and
+                locations.json; hand-written curated/*.md, floorplan-extra.json and
+                crops-extra.json
     app/        plain ES modules, loaded directly by index.html
     css/        ds-classical.css (vendored design system, unmodified) + app.css
     vendor/     justif, committed
@@ -54,6 +55,11 @@ treats `app/*.js` as ES modules.
   means the museum publishes no room; it does not mean the work is in storage, and for the
   Milkmaid and a dozen others it plainly is not. A curated work does not need one — see
   *Off the line* below.
+- The museum's *own object page* carries a location badge the records do not: *On display
+  in Gallery of Honour*. `fetch_locations.py` reads it for every curated work whose record
+  gives none and writes `data/locations.json` — the page's words, the place alone, and the
+  day it was read, with a `null` for a page that says nothing so the asking is on record
+  too. Four works come back placed; eleven still say nothing anywhere.
 - Gallery code `HG-2.31` → building HG, floor 2, room 2.31. `AK-1-23` (Asian Pavilion)
   carries no readable storey, so those works get `floor: null` and cannot be routed. The
   place names itself twice, once for the room and once for the building; `gallery()` reads
@@ -75,16 +81,16 @@ treats `app/*.js` as ES modules.
   unpainted edge of a panel. `detect_crops.py` measures the box that is the work and
   writes `data/crops.json`; the guide clips its plates to it and the files stay whole.
 
-Current state: 1237 on-view works, 244 rooms, 102 curated works of which 84 are on the
+Current state: 1237 on-view works, 244 rooms, 102 curated works of which 88 are on the
 line, 131 rooms located on the plan. A second `just build` must produce byte-identical
 JSON; that is the reproducibility check.
 
 ### Off the line
 
-A curated work does not have to be walkable. Two things put one out of reach: the museum
-publishes no `current_location` for it, or it hangs in a building the route does not enter
-— the Asian Pavilion, the KPN Wing. Either way it is written up, photographed, tiled on
-the contact sheet and readable in full; it is only never a stop.
+A curated work does not have to be walkable. Two things put one out of reach: nothing the
+museum publishes says where it is, or it hangs in a building the route does not enter —
+the Asian Pavilion, the KPN Wing. Either way it is written up, photographed, tiled on the
+contact sheet and readable in full; it is only never a stop. Eleven works and three.
 
 - `build_catalogue.py` normalises every harvested record. `catalogue.json` keeps the
   on-view part; `tour.json` joins the curated prose to whichever of them it names, with no
@@ -99,6 +105,13 @@ the contact sheet and readable in full; it is only never a stop.
 - `common.harvested()` indexes object number → record URI over the whole harvest, cached in
   `cache/by-object-number.json`, so `just describe SK-A-2344` and `just articles` reach a
   work the catalogue does not hold.
+- A work the records place nowhere and the museum's own page places in a hall is put back
+  on the line. `named_gallery()` matches the page's words against the museum's own gallery
+  names: seven bays are named *Gallery of Honour* in the records, they agree on building
+  and floor, and the room they are all parts of is `HG-2.30`. A place no gallery answers
+  to resolves to nothing and the work stays off the line. Such a gallery carries
+  `source: "page"` and the day it was read, the sheet says both, and `verify.py` fails an
+  entry the records have since overtaken and counts the days since the reading.
 
 ### Floor plan
 
@@ -132,8 +145,7 @@ which read as margins under every simpler rule tried here — out of the crops.
 Frames are past what it will read: their browns and golds are the painting's own and they
 run deeper than the limit. Those are hand-measured into `data/crops-extra.json` and merged
 over the detected boxes. A hand-read box is exempt from the depth limit — Van Gogh's
-Riverbank is photographed in a carved frame that takes a seventh off every side — and is
-held to the museum's stated height and width instead, within 3%. `verify.py` does that
+Riverbank is photographed in a carved frame that takes a seventh off every side — and is held to the museum's stated height and width instead, within 3%. `verify.py` does that
 arithmetic: a box cut in the right place has the work's own proportions, and one cut in
 the wrong place cannot have them by accident.
 
@@ -192,6 +204,8 @@ Rules `verify.py` enforces, each written after nearly shipping the mistake:
   reports none was parsed wrong. Being outside HG, or having no gallery at all, is allowed
   and costs the work its place on the line, not its entry
 - every curated work must have all three image widths
+- `data/locations.json` may only supplement the records: an entry for a work whose record
+  now names a gallery fails, and a work placed by a page must carry the day it was read
 - a hand-read crop must match the record's stated proportions within 3%; a detected one
   must still keep 70% of every side
 - a region must be a box inside the work, and a *part* of it: `KEPT` does not apply, but a
@@ -215,6 +229,9 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
   at the ends of the page, where nothing can reach a fixed line.
 - Route: floors in order `[0, 1, 3, 2]` so the visit ends on the Night Watch. Selection
   then layout; if the plan overruns the budget, drop the weakest stop and lay out again.
+  A room and one of its own parts are one place — `2.30` and `2.30.1` are both the Gallery
+  of Honour, so that walk says *same room* rather than sending the visitor to a bay they
+  are standing in. Two bays are still a walk down the hall.
 - Persistence: one localStorage key. A started visit resumes on the timeline.
 - Dark only. There is no theme switch and no `prefers-color-scheme` branch; the tokens in
   `app.css` sit on bare `:root` and override the design system's light ones.
@@ -292,12 +309,13 @@ Numbers are old-style figures (Cormorant Garamond); list markers hang in the pag
 
 ## Known and deliberate
 
-- Fifteen curated works return no `current_location` — the Milkmaid, the Jewish Bride, the
-  Syndics, the Feast of St Nicholas among them. They are written up and shown off the line.
-  The museum's *own object pages* do give a display location for several of them, so the
-  gap is in the Linked Art records rather than in the hang. Reading those pages into a
-  hand-written location file would put them back on the route, at the cost of a mapping
-  that goes stale silently; that trade has not been taken.
+- Fifteen curated works return no `current_location`. The museum's own object pages place
+  four of them — the Milkmaid, the Standard Bearer, the Jewish Bride, the Syndics, all in
+  the Gallery of Honour — and `data/locations.json` carries those readings, so those four
+  walk. The other eleven, the Feast of St Nicholas and the Merry Family among them, carry
+  no badge on their page either: nothing the museum publishes says where they are, and
+  they stay off the line. The badge is fetched rather than typed, and dated, so the
+  staleness that argued against a hand-written mapping is at least visible.
 - SK-C-1845, Van Gogh's Wheatfield, is filed with its height and width the wrong way round
   — the record and the dimensions sentence both make a landscape canvas portrait. It is not
   curated for that reason. Nothing in the pipeline can catch this without measuring the

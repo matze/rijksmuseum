@@ -62,6 +62,21 @@ const whyNotWalked = (work) => {
     + 'line through the main building does not enter. Worth its own walk.';
 };
 
+/** Where a work's whereabouts came from, when they did not come from the record.
+ *
+ *  The collection data names no gallery for a handful of the best-known works in
+ *  the building. The museum's own page for them does, and that is the museum in
+ *  a second voice rather than a guess — so the line walks to them, and says here
+ *  what it read and when it read it. */
+const howLocated = (work) => work.gallery?.source === 'page'
+  ? `The collection record names no gallery for this work. The museum’s own page for it `
+    + `said it was on display in the ${work.gallery.name?.en ?? 'gallery named there'}`
+    + `${work.gallery.read ? `, read on ${work.gallery.read}` : ''}, and that is where this `
+    + `line walks. A location taken off a web page is only as good as the day it was taken.`
+  : null;
+
+const locationNote = (work) => howLocated(work) ?? whyNotWalked(work);
+
 /** Everything in a work's prose that names a place on it, in reading order.
  *
  *  A block either points whole or points by phrase, so an anchor is a block or
@@ -188,7 +203,7 @@ export function renderDetail(work, state, actions) {
         : null,
 
       el('div', { class: 'provenance quiet' },
-        whyNotWalked(work) ? el('div', { text: whyNotWalked(work) }) : null,
+        locationNote(work) ? el('div', { text: locationNote(work) }) : null,
         el('div', { text: `Object ${work.objectNumber}. Facts retrieved from the `
           + `Rijksmuseum collection data on ${work.retrieved}. Image public domain.` }),
         link(work.page, 'The museum’s own entry for this work'),

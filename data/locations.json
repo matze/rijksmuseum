@@ -1,0 +1,88 @@
+{
+  "_comment": [
+    "Where the museum's own object page says a work is, for the curated works",
+    "whose Linked Art record names no current_location. `badge` is the page's",
+    "words; `location` is the place alone, and is what build_catalogue.py",
+    "matches against the museum's own gallery names. A null location means the",
+    "page was read and showed no badge.",
+    "Regenerate with: just harvest"
+  ],
+  "retrieved": "2026-08-16",
+  "works": {
+    "SK-A-156": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-156--3721f2c6ae5b0149b91d8001f1b47574"
+    },
+    "SK-A-2344": {
+      "badge": "On display in Gallery of Honour",
+      "location": "Gallery of Honour",
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2344--42dd0e658c2979aec8e144d2357c55c0"
+    },
+    "SK-A-347": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-347--9824cd76dc0155d058a0615a9549e9b7"
+    },
+    "SK-A-385": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-385--b61f0c4c7cf5a503a2246ecde104fd28"
+    },
+    "SK-A-4050": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4050--4faa97ed774e6e3f81b76cf3aed6226d"
+    },
+    "SK-A-5033": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5033--8e1e37eae253bf0f528928483b8ca933"
+    },
+    "SK-A-5092": {
+      "badge": "On display in Gallery of Honour",
+      "location": "Gallery of Honour",
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-5092--276afc534e38c0f29adceef589000c3a"
+    },
+    "SK-C-139": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-139--2ac6a353e8cdf054ad95122aa35babb4"
+    },
+    "SK-C-149": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-149--a04f41193ef4a71d4a242e7b831ca0e4"
+    },
+    "SK-C-1768": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-1768--6b7d967cdf05b81c2416359e06adaf52"
+    },
+    "SK-C-216": {
+      "badge": "On display in Gallery of Honour",
+      "location": "Gallery of Honour",
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-216--019c1265e6dbf108d4587ab2b7c02c66"
+    },
+    "SK-C-229": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-229--f6c4f4db1681a8704b372bda0183623b"
+    },
+    "SK-C-251": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-251--8e9e02c8045362ffb2171b2fb52953ba"
+    },
+    "SK-C-374": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-374--39d1a561a0e487fe7f299dbaf6314d22"
+    },
+    "SK-C-6": {
+      "badge": "On display in Gallery of Honour",
+      "location": "Gallery of Honour",
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-C-6--575b43f479d021359fb5f63b32f7c234"
+    }
+  }
+}

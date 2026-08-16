@@ -263,6 +263,17 @@ def harvested(fetcher: Fetcher) -> dict[str, str]:
     return found
 
 
+def curated_numbers() -> set[str]:
+    """The object numbers `data/curated` writes about, read without a YAML parser.
+
+    The tools that call this run before the catalogue exists, so the front matter
+    is all there is to read, and one line of it is all that is wanted.
+    """
+    return {match.group(1)
+            for path in (DATA / "curated").glob("*.md")
+            if (match := re.search(r"^objectNumber:\s*(\S+)", path.read_text(), re.M))}
+
+
 @dataclass(frozen=True)
 class Gallery:
     code: str
