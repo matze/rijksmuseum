@@ -13,7 +13,10 @@ import { dirname, join } from 'node:path';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildRoute, focusLabel, stayFor } from '../app/route.js';
+import {
+  buildRoute, chosenRoute, focusLabel, inRouteOrder, onTheLine, overBy, routeFor, stayFor,
+} from '../app/route.js';
+import { MODE } from '../app/state.js';
 import { formatClock, pacing } from '../app/clock.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -123,4 +126,76 @@ test('pacing speaks to where the visitor actually is', () => {
 
 test('the clock is zero-padded', () => {
   assert.equal(formatClock(new Date(2026, 0, 1, 9, 5)), '09:05');
+});
+
+/* The picking flow. Its invariant is the inverse of the guided one: the guided
+ * line must never overrun the budget, and this one must never drop a work to
+ * avoid overrunning it. */
+
+const walkable = works.filter(onTheLine);
+const numbersOf = (chosen) => chosen.map((work) => work.objectNumber);
+
+const picked = (numbers, minutes = 120) =>
+  chosenRoute(works, { mode: MODE.picked, minutes, picked: numbers });
+
+const stopsOf = (route) => route.items.filter((item) => item.kind === 'stop');
+
+test('a hand-picked plan holds exactly the works picked, in walking order', () => {
+  const sample = walkable.filter((_, index) => index % 7 === 0);
+  const route = picked(numbersOf(sample));
+
+  assert.deepEqual(numbersOf(stopsOf(route).map((stop) => stop.work)),
+    numbersOf([...sample].sort(inRouteOrder)));
+});
+
+test('a hand-picked line still runs one way, Atrium to exit', () => {
+  const route = picked(numbersOf(walkable));
+  const ranks = stopsOf(route).map((stop) => FLOOR_ORDER.indexOf(stop.work.gallery.floor));
+
+  assert.equal(route.items.at(0).title, 'Atrium');
+  assert.equal(route.items.at(-1).title, 'Exit');
+  assert.deepEqual([...ranks].sort((a, b) => a - b), ranks);
+});
+
+test('nothing is dropped to fit the time, and the overrun is reported', () => {
+  const route = picked(numbersOf(walkable), 60);
+
+  assert.equal(route.stopCount, walkable.length);
+  assert.ok(route.plannedMinutes > 60, 'the whole collection cannot fit an hour');
+  assert.equal(overBy(route, 60), route.plannedMinutes - 60);
+});
+
+test('a pick the line cannot reach, or does not know, is dropped silently', () => {
+  const stray = works.find((work) => !onTheLine(work));
+  const reachable = walkable[0];
+
+  assert.ok(stray, 'the data should still hold works off the line');
+
+  const route = picked([reachable.objectNumber, stray.objectNumber, 'SK-NOT-A-WORK']);
+
+  assert.deepEqual(numbersOf(stopsOf(route).map((stop) => stop.work)),
+    [reachable.objectNumber]);
+});
+
+test('picking nothing is a walk from the Atrium straight out', () => {
+  const route = picked([]);
+
+  assert.equal(route.stopCount, 0);
+  assert.deepEqual(route.items.map((item) => item.kind), ['terminus', 'walk', 'terminus']);
+});
+
+test('the sit-down is owed to the length of the walk, not to the budget', () => {
+  assert.equal(picked(numbersOf(walkable.slice(0, 1)), 180).items
+    .filter((item) => item.kind === 'break').length, 0);
+  assert.equal(picked(numbersOf(walkable), 60).items
+    .filter((item) => item.kind === 'break').length, 1);
+});
+
+test('the mode decides which flow composes the line', () => {
+  const one = walkable[0].objectNumber;
+  const state = { mode: MODE.picked, minutes: 120, focus: [], kids: false,
+    stepFree: false, picked: [one] };
+
+  assert.equal(routeFor(works, state).stopCount, 1);
+  assert.ok(routeFor(works, { ...state, mode: MODE.guided }).stopCount > 1);
 });

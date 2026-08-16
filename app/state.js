@@ -7,6 +7,13 @@ const KEY = 'rijks-guide-v1';
 
 export const PHASE = Object.freeze({ setup: 'setup', tour: 'tour' });
 
+/** Which of the two flows composed the line.
+ *
+ *  In `guided` the visitor states constraints and the guide chooses the works;
+ *  in `picked` the visitor chooses the works and the guide only walks them. The
+ *  stylesheet reads this off the screen, so it is a word rather than a flag. */
+export const MODE = Object.freeze({ guided: 'guided', picked: 'picked' });
+
 /** Whether the detail sheet joins its prose to the parts of the work it names.
  *  The stylesheet reads this off the sheet, so it is a word rather than a flag. */
 export const REGIONS = Object.freeze({ on: 'on', off: 'off' });
@@ -16,17 +23,21 @@ export const BUDGETS = [60, 90, 120, 180];
 
 const defaults = () => ({
   phase: PHASE.setup,
+  mode: MODE.guided,
   minutes: 120,
   focus: [],
   kids: false,
   stepFree: false,
+  picked: [],
   started: 0,
   open: null,
   active: 1,
   regions: REGIONS.on,
 });
 
-const PERSISTED = ['minutes', 'focus', 'kids', 'stepFree', 'started', 'regions'];
+const PERSISTED = [
+  'mode', 'minutes', 'focus', 'kids', 'stepFree', 'picked', 'started', 'regions',
+];
 
 export function load() {
   const state = defaults();

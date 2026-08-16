@@ -1,7 +1,10 @@
 /** Composing one unbroken line from the Atrium to the exit.
  *
  *  Two steps: choose which works fit the time available, then lay them out in an
- *  order that never doubles back. */
+ *  order that never doubles back. The second step is the whole of the guide's
+ *  job when the visitor has done the choosing themselves — see `chosenRoute`. */
+
+import { MODE } from './state.js';
 
 /** Tag vocabulary offered on the setup screen, in the order it is shown. */
 export const ARTIST_TAGS = [
@@ -216,6 +219,39 @@ export function buildRoute(works, state) {
 
   return route;
 }
+
+/** The picking flow offers neither of these, so the line it lays out has
+ *  neither: full-length stops and the stairs. Saying so once here is what keeps
+ *  a constraint the visitor cannot see out of a plan they can. */
+const PICKED_CONSTRAINTS = { kids: false, stepFree: false };
+
+/** The line through the works the visitor chose themselves.
+ *
+ *  Nothing is ranked and nothing is dropped: the picks are the plan, and the
+ *  only decisions left are the order to walk them in and what that costs. A
+ *  work the line cannot reach cannot be picked on the screen either, so the
+ *  filter here is for a selection that outlived the data it was made against. */
+export function chosenRoute(works, state) {
+  const picked = new Set(state.picked);
+  const stops = works
+    .filter((work) => picked.has(work.objectNumber) && onTheLine(work))
+    .sort(inRouteOrder);
+  const straight = layOut(stops, false, PICKED_CONSTRAINTS);
+
+  // The sit-down is owed to the length of the walk, not to the budget, which
+  // here is only advice. Long walks get one in either flow.
+  return straight.plannedMinutes >= BREAK_THRESHOLD
+    ? layOut(stops, true, PICKED_CONSTRAINTS)
+    : straight;
+}
+
+/** The one place the two flows meet: every view asks for the route, not for the
+ *  flow that composes it. */
+export const routeFor = (works, state) =>
+  state.mode === MODE.picked ? chosenRoute(works, state) : buildRoute(works, state);
+
+/** Minutes the plan runs over the time asked for; negative is time to spare. */
+export const overBy = (route, minutes) => route.plannedMinutes - minutes;
 
 function layOut(works, takesBreak, { kids, stepFree }) {
   const items = [];
