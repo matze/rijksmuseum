@@ -1,9 +1,10 @@
 # Rijksmuseum visitor guide
 
-A single-page, mobile-first browser guide. The visitor picks constraints (time, artists
-and periods, children, step-free); the app composes one unbroken walkable line from the
-Atrium to the exit, with no backtracking, and a live clock says whether they are ahead or
-behind.
+A single-page, mobile-first browser guide. The visitor either states constraints (time,
+artists and periods, children, step-free) and the guide chooses the works, or chooses the
+works themselves off a wall of the whole curated collection. Either way the app composes
+one unbroken walkable line from the Atrium to the exit, with no backtracking, and a live
+clock says whether they are ahead or behind.
 
 ## The rule that governs everything
 
@@ -251,6 +252,40 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
   of Honour, so that walk says *same room* rather than sending the visitor to a bay they
   are standing in. Two bays are still a walk down the hall.
 - Persistence: one localStorage key. A started visit resumes on the timeline.
+
+### Two flows
+
+`state.mode` names which one composes the line, and `routeFor` in `route.js` is the one
+place they meet: every view asks for the route, never for the flow behind it.
+
+- **Guided** is the older one. `selectWorks` ranks and fills the budget, `buildRoute` drops
+  the weakest stop until the plan honours the time asked for.
+- **Picked** is the visitor's own list. `chosenRoute` takes `state.picked`, keeps what the
+  line can reach, sorts by `inRouteOrder` and hands it to the same `layOut`. **Nothing is
+  ranked and nothing is dropped**: the budget is advice, an overrun is stated in minutes on
+  the setup screen and again on the start terminus, and the sit-down is owed to the length
+  of the walk rather than to the budget. It offers neither children nor step-free, so it
+  lays out with neither — `PICKED_CONSTRAINTS` says that once, and the screen says so in a
+  line rather than hiding it.
+
+The switch is two named chips under the title, and the flows never overlap on the screen:
+`.mode-body` holds everything that differs and is the only part swapped. `data-mode` on
+`.screen` gates the rest in CSS, so a change of mode never rebuilds a tile and never
+re-decodes a hundred plates.
+
+The contact sheet serves both, and the same marks mean different things in each. Guided:
+tapping a tile reads it, the plan is pulled to the front, and what the constraints missed
+is dimmed. Picked: tapping the picture picks it, the wall holds walking order so a tile
+never moves out from under the finger, and nothing is dimmed for being unpicked — only
+what can never be walked to, which is also the only thing that cannot be picked.
+
+A tile is two controls: the picture, which means the flow's own verb, and the caption,
+which always opens the entry. **Nothing is drawn for the second** — a word under a hundred
+plates is a hundred words, and the wall is a wall of pictures. The pointer says what a tap
+will do instead: a picked work is outlined at the plate, which hugs a work of any
+proportions where a corner badge would not, and hovering a pickable one shows the same
+outline at half strength. In the guided flow both controls do the one thing, so the
+caption carries `tabindex="-1"` and the tile stays the single tab stop it has always been.
 - Dark only. There is no theme switch and no `prefers-color-scheme` branch; the tokens in
   `app.css` sit on bare `:root` and override the design system's light ones.
 - The line runs inside the column on a phone and survives in the gaps between entries; from
