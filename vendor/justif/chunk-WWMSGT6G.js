@@ -1,3 +1,68 @@
+// src/core/types.ts
+var ItemType = {
+  Box: 0,
+  Glue: 1,
+  Penalty: 2
+};
+var defaultBuildOptions = {
+  hyphenPenalty: 50,
+  exHyphenPenalty: 50,
+  protrusion: false,
+  expansion: false,
+  tracking: false,
+  lastLineFit: 0,
+  lastLineMinWidth: 0,
+  boundaryShrink: 0
+};
+var defaultBreakOptions = {
+  tolerance: 200,
+  pretolerance: 100,
+  linePenalty: 10,
+  adjDemerits: 1e4,
+  doubleHyphenDemerits: 1e4,
+  finalHyphenDemerits: 5e3,
+  emergencyStretch: "auto",
+  lastLineMinWidth: 0
+};
+function lineWidthAt(widths, line) {
+  if (typeof widths === "number") return widths;
+  return widths[Math.min(line, widths.length - 1)] ?? 0;
+}
+function caseTransformedText(text, transform) {
+  if (transform === "uppercase") return text.toUpperCase();
+  if (transform === "lowercase") return text.toLowerCase();
+  return text;
+}
+
+// src/core/cjk.ts
+var CJK_CHAR = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\u3000-\u303F\u30A0\u30FB\u30FC\u31F0-\u31FF\uFF00-\uFF65\uFFE0-\uFFE6]/u;
+var kinsokuNotAtLineStart = "\u3001\u3002\uFF0C\uFF0E\u30FB\uFF1A\uFF1B\uFF1F\uFF01\u309B\u309C\xB4\xA8\u2010\u2013\u2014\u301C\u30A0\u2026\u2025\u300D\u300F\uFF09\u3015\uFF3D\uFF5D\u3009\u300B\u3011\u3019\u3017\u301F\u2019\u201D\uFF60\xBB\u203A\u3041\u3043\u3045\u3047\u3049\u3063\u3083\u3085\u3087\u308E\u3095\u3096\u30A1\u30A3\u30A5\u30A7\u30A9\u30C3\u30E3\u30E5\u30E7\u30EE\u30F5\u30F6\u31F0\u31F1\u31F2\u31F3\u31F4\u31F5\u31F6\u31F7\u31F8\u31F9\u31FA\u31FB\u31FC\u31FD\u31FE\u31FF\u30FC\u30FD\u30FE\u309D\u309E\u3005\u303B\uFF61\uFF63\uFF64\uFF65\uFF70!?,.:;)]}\u203C\u2047\u2048\u2049%\u2030\xB0\u2032\u2033\u2103-";
+var kinsokuNotAtLineEnd = "\u300C\u300E\uFF08\u3014\uFF3B\uFF5B\u3008\u300A\u3010\u3018\u3016\u301D\u2018\u201C\uFF5F\xAB\u2039\uFF62([{";
+var NOT_AT_START = new Set(kinsokuNotAtLineStart);
+var NOT_AT_END = new Set(kinsokuNotAtLineEnd);
+function cjkBreakAllowed(before, after) {
+  return !NOT_AT_END.has(before) && !NOT_AT_START.has(after);
+}
+var CJK_GLUE_STRETCH = 0.1;
+var CJK_GLUE_SHRINK = 0.02;
+var segmenter;
+function graphemes(text) {
+  if (segmenter === void 0) {
+    const ctor = typeof Intl !== "undefined" ? Intl.Segmenter : void 0;
+    segmenter = ctor === void 0 ? null : new ctor(void 0, {
+      granularity: "grapheme"
+    });
+  }
+  if (segmenter !== null) {
+    return Array.from(segmenter.segment(text), s => s.segment);
+  }
+  const out = [];
+  for (const cp of text) {
+    if (out.length > 0 && /\p{M}/u.test(cp)) out[out.length - 1] += cp;else out.push(cp);
+  }
+  return out;
+}
+
 // src/core/badness.ts
 var INF_BAD = 1e4;
 var UNDERFULL_RATIO = Math.cbrt(10);
@@ -34,35 +99,6 @@ function demeritsUncapped(linePenalty, b, p) {
   let d = base * base;
   if (p > 0) d += p * p;else if (p > -INF_PENALTY) d -= p * p;
   return d;
-}
-
-// src/core/cjk.ts
-var CJK_CHAR = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\u3000-\u303F\u30A0\u30FB\u30FC\u31F0-\u31FF\uFF00-\uFF65\uFFE0-\uFFE6]/u;
-var kinsokuNotAtLineStart = "\u3001\u3002\uFF0C\uFF0E\u30FB\uFF1A\uFF1B\uFF1F\uFF01\u309B\u309C\xB4\xA8\u2010\u2013\u2014\u301C\u30A0\u2026\u2025\u300D\u300F\uFF09\u3015\uFF3D\uFF5D\u3009\u300B\u3011\u3019\u3017\u301F\u2019\u201D\uFF60\xBB\u203A\u3041\u3043\u3045\u3047\u3049\u3063\u3083\u3085\u3087\u308E\u3095\u3096\u30A1\u30A3\u30A5\u30A7\u30A9\u30C3\u30E3\u30E5\u30E7\u30EE\u30F5\u30F6\u31F0\u31F1\u31F2\u31F3\u31F4\u31F5\u31F6\u31F7\u31F8\u31F9\u31FA\u31FB\u31FC\u31FD\u31FE\u31FF\u30FC\u30FD\u30FE\u309D\u309E\u3005\u303B\uFF61\uFF63\uFF64\uFF65\uFF70!?,.:;)]}\u203C\u2047\u2048\u2049%\u2030\xB0\u2032\u2033\u2103-";
-var kinsokuNotAtLineEnd = "\u300C\u300E\uFF08\u3014\uFF3B\uFF5B\u3008\u300A\u3010\u3018\u3016\u301D\u2018\u201C\uFF5F\xAB\u2039\uFF62([{";
-var NOT_AT_START = new Set(kinsokuNotAtLineStart);
-var NOT_AT_END = new Set(kinsokuNotAtLineEnd);
-function cjkBreakAllowed(before, after) {
-  return !NOT_AT_END.has(before) && !NOT_AT_START.has(after);
-}
-var CJK_GLUE_STRETCH = 0.1;
-var CJK_GLUE_SHRINK = 0.02;
-var segmenter;
-function graphemes(text) {
-  if (segmenter === void 0) {
-    const ctor = typeof Intl !== "undefined" ? Intl.Segmenter : void 0;
-    segmenter = ctor === void 0 ? null : new ctor(void 0, {
-      granularity: "grapheme"
-    });
-  }
-  if (segmenter !== null) {
-    return Array.from(segmenter.segment(text), s => s.segment);
-  }
-  const out = [];
-  for (const cp of text) {
-    if (out.length > 0 && /\p{M}/u.test(cp)) out[out.length - 1] += cp;else out.push(cp);
-  }
-  return out;
 }
 
 // src/core/protrusion.ts
@@ -502,42 +538,6 @@ function composeProtrusion(base, user, hang, chars) {
   };
 }
 
-// src/core/types.ts
-var ItemType = {
-  Box: 0,
-  Glue: 1,
-  Penalty: 2
-};
-var defaultBuildOptions = {
-  hyphenPenalty: 50,
-  exHyphenPenalty: 50,
-  protrusion: false,
-  expansion: false,
-  tracking: false,
-  lastLineFit: 0,
-  lastLineMinWidth: 0,
-  boundaryShrink: 0
-};
-var defaultBreakOptions = {
-  tolerance: 200,
-  pretolerance: 100,
-  linePenalty: 10,
-  adjDemerits: 1e4,
-  doubleHyphenDemerits: 1e4,
-  finalHyphenDemerits: 5e3,
-  emergencyStretch: "auto",
-  lastLineMinWidth: 0
-};
-function lineWidthAt(widths, line) {
-  if (typeof widths === "number") return widths;
-  return widths[Math.min(line, widths.length - 1)] ?? 0;
-}
-function caseTransformedText(text, transform) {
-  if (transform === "uppercase") return text.toUpperCase();
-  if (transform === "lowercase") return text.toLowerCase();
-  return text;
-}
-
 // src/core/items.ts
 var SOFT_HYPHEN = "\xAD";
 var WORD_CORE = /^(\P{L}*)(\p{L}+)(\P{L}*)$/u;
@@ -553,6 +553,7 @@ var NO_LINE_END = /[([{\u00AB\u2039\u2018\u201C\u00BF\u00A1]/;
 var DIGIT = /\p{Nd}/u;
 var NEAR_PROHIBITIVE_PENALTY = 9999;
 var FIXED_SPACE_BREAK_PENALTY = 0;
+var ATOMIC_BREAK_PENALTY = 500;
 var TEXT_SEPARATOR_SPLIT = /([\u0009\u000A\u000D\u0020]+|[\u1680\u2000-\u200A\u205F\u3000])/;
 function mayBeCJK(text) {
   for (let i = 0; i < text.length; i++) {
@@ -744,6 +745,7 @@ function buildItems(texts, runs, opts, measure) {
   let piecePaintedEnd = false;
   let pendingBoxStartProtrusion = 0;
   let pendingPaintedStart = false;
+  let atomicBreakPending = false;
   const emitBox = (box, runIndex) => {
     if (pendingPad > 0 || pendingPaintedStart) {
       if (pendingPad > 0) {
@@ -759,7 +761,7 @@ function buildItems(texts, runs, opts, measure) {
     }
     items.push(box);
     hasBox = true;
-    if ((box.flowChars ?? box.text.length) > 0) hasFlowBox = true;
+    if ((box.flowChars ?? box.text.length) > 0 || box.atomic === true) hasFlowBox = true;
     lastBox = box;
     lastBoxRun = runIndex;
     lastBoxKey = pieceKey;
@@ -875,13 +877,35 @@ function buildItems(texts, runs, opts, measure) {
     pieceText[pieceCount++] = chunk;
     return false;
   };
-  const flushPendingSpace = function (nextRun, dashInitial, fixedSpaceInitial) {
+  const flushPendingSpace = function (nextRun, dashInitial, fixedSpaceInitial, nextInitial, nextAtomic) {
     if (dashInitial === void 0) {
       dashInitial = false;
     }
     if (fixedSpaceInitial === void 0) {
       fixedSpaceInitial = false;
     }
+    if (nextInitial === void 0) {
+      nextInitial = "";
+    }
+    if (nextAtomic === void 0) {
+      nextAtomic = false;
+    }
+    if (pendingSpaceRun < 0 && (atomicBreakPending || nextAtomic) && !fixedSpaceInitial) {
+      const last = items[items.length - 1];
+      if (last?.type === ItemType.Box && !(pieceKey !== void 0 && pieceKey === lastBoxKey) && (nextInitial === "" || !NO_LINE_START.test(nextInitial)) && (last.text.length === 0 || !NO_LINE_END.test(lastCodePoint(last.text)))) {
+        items.push({
+          type: ItemType.Penalty,
+          penalty: ATOMIC_BREAK_PENALTY,
+          width: 0,
+          flagged: false,
+          hyphen: false,
+          rp: last.rp,
+          run: nextRun,
+          atomic: true
+        });
+      }
+    }
+    atomicBreakPending = false;
     if (pendingSpaceRun >= 0 && hasBox) {
       const space = runs[pendingSpaceRun].space;
       if (pendingLeadingSpace || fixedSpaceInitial || pieceKey !== void 0 && pieceKey === lastBoxKey) {
@@ -926,7 +950,7 @@ function buildItems(texts, runs, opts, measure) {
       }
     }
     if (pieceCount === 0) return;
-    flushPendingSpace(runIndex, isAnyDash(token.charCodeAt(0)));
+    flushPendingSpace(runIndex, isAnyDash(token.charCodeAt(0)), false, firstCodePoint(token));
     if (pieceCount === 1 && pieceAfter[0] === 0 && exclusion === null) {
       const only = pieceText[0];
       emitBox(makeBox(only, runIndex, measure.width(only, run)), runIndex);
@@ -955,6 +979,27 @@ function buildItems(texts, runs, opts, measure) {
         pushPenalty(after === 3 ? NEAR_PROHIBITIVE_PENALTY : opts.exHyphenPenalty, 0, true, false, box.rp, runIndex);
       }
     }
+  };
+  const pushAtomic = (widthPx, runIndex) => {
+    const occupies = widthPx > 0;
+    flushPendingSpace(runIndex, false, false, "", occupies);
+    emitBox({
+      type: ItemType.Box,
+      width: widthPx,
+      run: runIndex,
+      text: "",
+      lp: 0,
+      lpFirst: 0,
+      rp: 0,
+      hangStretch: 0,
+      hangShrink: 0,
+      expStretch: 0,
+      expShrink: 0,
+      trackStretch: 0,
+      trackShrink: 0,
+      atomic: true
+    }, runIndex);
+    atomicBreakPending = occupies && pieceKey === void 0;
   };
   const pushOtherSpace = (separator, runIndex, exclusion) => {
     const run = runs[runIndex];
@@ -1025,7 +1070,7 @@ function buildItems(texts, runs, opts, measure) {
         flowExclusion: clusterExclusion
       });
     }
-    flushPendingSpace(runIndex, isAnyDash(clean.charCodeAt(0)));
+    flushPendingSpace(runIndex, isAnyDash(clean.charCodeAt(0)), false, firstCodePoint(clean));
     let prev = null;
     for (const group of groups2) {
       const width = measure.width(group.flowText, run);
@@ -1073,6 +1118,9 @@ function buildItems(texts, runs, opts, measure) {
     if (opts.protrusion !== false && piece.boxStartProtrusionPx !== void 0) {
       pendingPaintedStart = true;
       pendingBoxStartProtrusion += piece.boxStartProtrusionPx;
+    }
+    if (piece.atomic !== void 0) {
+      pushAtomic(piece.atomic.widthPx, run);
     }
     const parts = text.split(TEXT_SEPARATOR_SPLIT);
     let pieceOffset = 0;
@@ -1191,613 +1239,6 @@ function withSums(items, runs) {
     firstBoxAfter,
     lastBoxBefore
   };
-}
-
-// src/core/breaker.ts
-function breakParagraph(para, widths, opts) {
-  if (para.firstBoxAfter[0] === para.items.length) {
-    return {
-      breakpoints: [para.items.length - 1],
-      pass: 1,
-      overfull: [false],
-      demerits: 0,
-      endingMinWidth: opts.lastLineMinWidth
-    };
-  }
-  let emergency = 0;
-  if (opts.emergencyStretch === "auto") {
-    for (const run of para.runs) emergency = Math.max(emergency, 12 * run.space.width);
-  } else {
-    emergency = opts.emergencyStretch;
-  }
-  let end = null;
-  let pass = 1;
-  let achieved = opts.lastLineMinWidth;
-  const hunt = minWidth => {
-    const o = {
-      ...opts,
-      lastLineMinWidth: minWidth
-    };
-    let e = null;
-    let p = 1;
-    if (o.pretolerance >= 0) {
-      e = attempt(para, widths, o, {
-        tolerance: o.pretolerance,
-        hyphens: false,
-        extraStretch: 0,
-        rescue: false,
-        strictEnding: true
-      });
-    }
-    if (e === null) {
-      p = 2;
-      e = attempt(para, widths, o, {
-        tolerance: o.tolerance,
-        hyphens: true,
-        extraStretch: 0,
-        rescue: false,
-        strictEnding: true
-      });
-    }
-    return {
-      end: e,
-      pass: p
-    };
-  };
-  if (opts.lastLineMinWidth > 0) {
-    var _hunt = hunt(opts.lastLineMinWidth);
-    end = _hunt.end;
-    pass = _hunt.pass;
-    if (end === null) {
-      let lo = 1;
-      let hi = Math.min(15, Math.ceil(opts.lastLineMinWidth * 16) - 1);
-      while (lo <= hi) {
-        const mid = lo + hi >> 1;
-        const r = hunt(mid / 16);
-        if (r.end !== null) {
-          end = r.end;
-          pass = r.pass;
-          achieved = mid / 16;
-          lo = mid + 1;
-        } else {
-          hi = mid - 1;
-        }
-      }
-    }
-  }
-  const ladder = o => {
-    let e = null;
-    let p = 1;
-    if (o.pretolerance >= 0) {
-      e = attempt(para, widths, o, {
-        tolerance: o.pretolerance,
-        hyphens: false,
-        extraStretch: 0,
-        rescue: false,
-        strictEnding: false
-      });
-    }
-    if (e === null) {
-      p = 2;
-      e = attempt(para, widths, o, {
-        tolerance: o.tolerance,
-        hyphens: true,
-        extraStretch: 0,
-        rescue: false,
-        strictEnding: false
-      });
-    }
-    if (e === null && emergency > 0) {
-      p = 3;
-      e = attempt(para, widths, o, {
-        tolerance: o.tolerance,
-        hyphens: true,
-        extraStretch: emergency,
-        rescue: false,
-        strictEnding: false
-      });
-    }
-    if (e === null) e = attempt(para, widths, o, {
-      tolerance: INF_BAD,
-      hyphens: true,
-      extraStretch: emergency,
-      rescue: true,
-      strictEnding: false
-    });
-    return {
-      end: e,
-      pass: p
-    };
-  };
-  if (opts.lastLineMinWidth > 0 && end !== null && achieved < opts.lastLineMinWidth) {
-    const off = ladder({
-      ...opts,
-      lastLineMinWidth: 0
-    });
-    if (off.end !== null && renderedEndingWidth(para, widths, off.end, achieved) + 1e-9 >= renderedEndingWidth(para, widths, end, achieved)) {
-      end = off.end;
-      pass = off.pass;
-    }
-  } else if (end === null && opts.lastLineMinWidth > 0) {
-    const bounded = attempt(para, widths, opts, {
-      tolerance: opts.tolerance,
-      hyphens: true,
-      extraStretch: 0,
-      rescue: false,
-      strictEnding: false
-    });
-    const off = ladder({
-      ...opts,
-      lastLineMinWidth: 0
-    });
-    const v = opts.lastLineMinWidth;
-    achieved = v;
-    if (bounded !== null && (off.end === null || renderedEndingWidth(para, widths, bounded, v) > renderedEndingWidth(para, widths, off.end, v) + 1e-9)) {
-      end = bounded;
-      pass = 2;
-    } else {
-      end = off.end;
-      pass = off.pass;
-    }
-  } else if (end === null) {
-    var _ladder = ladder(opts);
-    end = _ladder.end;
-    pass = _ladder.pass;
-  }
-  if (end === null) throw new Error("justif: rescue pass failed (bug)");
-  const breakpoints = [];
-  const overfull = [];
-  for (let node = end; node !== null && node.item >= 0; node = node.prev) {
-    breakpoints.push(node.item);
-    overfull.push(node.overfull);
-  }
-  breakpoints.reverse();
-  overfull.reverse();
-  return {
-    breakpoints,
-    pass,
-    overfull,
-    demerits: end.totalDemerits,
-    endingMinWidth: achieved
-  };
-}
-function renderedEndingWidth(para, widths, end, minWidth) {
-  const items = para.items,
-    cumW = para.cumW,
-    cumY = para.cumY,
-    cumTrackY = para.cumTrackY,
-    cumExpY = para.cumExpY,
-    firstBoxAfter = para.firstBoxAfter;
-  const from = end.prev;
-  const start = from === null ? firstBoxAfter[0] : from.start;
-  const line = from === null ? 0 : from.line;
-  const b = end.item;
-  let L = cumW[b] - cumW[start];
-  const startItem = items[start];
-  if (startItem !== void 0 && startItem.type === ItemType.Box) {
-    L -= line === 0 ? startItem.lpFirst : startItem.lp;
-  }
-  const endBox = breakEndBox(para, b);
-  L -= rpAt(items[b], endBox);
-  const need = minWidth * lineWidthAt(widths, line) - L;
-  if (need <= 0) return L;
-  const trackY = cumTrackY[b] - cumTrackY[start];
-  const glueOnly = Math.max(0, cumY[b] - cumY[start] - trackY - (endBox?.hangStretch ?? 0));
-  const flexY = trackY + (cumExpY[b] - cumExpY[start]);
-  return endingFloorRatio(need, glueOnly, flexY, maxEndingStretch(minWidth)) !== null ? L + need : L;
-}
-var slotOf = new Int32Array(0);
-var slotStamp = new Int32Array(0);
-var stamp = 0;
-function attempt(para, widths, opts, mode) {
-  const tolerance = mode.tolerance,
-    allowHyphens = mode.hyphens,
-    extraStretch = mode.extraStretch,
-    rescue = mode.rescue,
-    strictEnding = mode.strictEnding;
-  const items = para.items,
-    cumW = para.cumW,
-    cumY = para.cumY,
-    cumYfil = para.cumYfil,
-    cumZ = para.cumZ,
-    cumExpY = para.cumExpY,
-    cumExpZ = para.cumExpZ,
-    cumTrackY = para.cumTrackY,
-    firstBoxAfter = para.firstBoxAfter;
-  const lastBoxBefore = para.lastBoxBefore;
-  const n = items.length;
-  const lpAdjAt = (start, line) => {
-    const it = items[start];
-    if (it === void 0 || it.type !== ItemType.Box) return 0;
-    return line === 0 ? it.lpFirst : it.lp;
-  };
-  const firstStart = firstBoxAfter[0];
-  let active = {
-    item: -1,
-    start: firstStart,
-    line: 0,
-    fitness: Fitness.Decent,
-    flagged: false,
-    overfull: false,
-    totalDemerits: 0,
-    prev: null,
-    next: null,
-    lpAdj: lpAdjAt(firstStart, 0),
-    lineW: lineWidthAt(widths, 0)
-  };
-  const easyLine = typeof widths === "number" ? 0 : Math.max(0, widths.length - 1);
-  let candN = 0;
-  const candFrom = [];
-  const candFit = [];
-  const candDem = [];
-  const candOver = [];
-  const cap = 4 * (n + 2);
-  if (slotOf.length < cap || stamp > 2147483647 - cap) {
-    slotOf = new Int32Array(cap);
-    slotStamp = new Int32Array(cap);
-    stamp = 0;
-  }
-  for (let b = 0; b < n; b++) {
-    const it = items[b];
-    let p;
-    let flagged;
-    let penWidth;
-    if (it.type === ItemType.Glue) {
-      const prev = items[b - 1];
-      if (prev === void 0 || prev.type !== ItemType.Box) continue;
-      p = 0;
-      flagged = false;
-      penWidth = 0;
-    } else if (it.type === ItemType.Penalty) {
-      if (it.penalty >= INF_PENALTY) continue;
-      if (it.hyphen && !allowHyphens) continue;
-      p = it.penalty;
-      flagged = it.flagged;
-      penWidth = it.width;
-    } else {
-      continue;
-    }
-    const lastBox = lastBoxBefore[b];
-    const endBox = lastBox < 0 ? void 0 : items[lastBox];
-    const rp = rpAt(it, endBox);
-    const hangStretch = endBox?.hangStretch ?? 0;
-    const hangShrink = endBox?.hangShrink ?? 0;
-    const forced = it.type === ItemType.Penalty && it.penalty <= -INF_PENALTY;
-    const wB = cumW[b];
-    const yB = cumY[b] - hangStretch;
-    const yFilB = cumYfil[b];
-    const zB = cumZ[b] - hangShrink;
-    const eyB = cumExpY[b];
-    const ezB = cumExpZ[b];
-    const tyB = cumTrackY[b];
-    candN = 0;
-    stamp++;
-    let bestDead = null;
-    let bestDeadOver = Infinity;
-    let prevLink = null;
-    let node = active;
-    while (node !== null) {
-      const next = node.next;
-      const start = node.start;
-      let L = wB - cumW[start] + penWidth;
-      L -= node.lpAdj;
-      L -= rp;
-      const W = node.lineW;
-      const Y = yB - cumY[start] + (eyB - cumExpY[start]);
-      const Yfil = yFilB - cumYfil[start];
-      const Z = zB - cumZ[start] + (ezB - cumExpZ[start]);
-      let r;
-      if (L < W) r = Yfil > 0 ? 0 : Y > 0 ? (W - L) / Y : Infinity;else if (L > W) r = Z > 0 ? (L - W) / -Z : -Infinity;else r = 0;
-      if (r >= -1) {
-        let bad;
-        let filLine = false;
-        let filReachable = true;
-        let filFitness = null;
-        if (L >= W) {
-          bad = badness(L - W, Z);
-        } else if (Yfil > 0) {
-          filLine = true;
-          const need = opts.lastLineMinWidth * W - L;
-          if (need <= 0) {
-            bad = 0;
-          } else {
-            const trackY = tyB - cumTrackY[start];
-            const glueOnly = Math.max(0, yB - cumY[start] - trackY);
-            const flexY = trackY + (eyB - cumExpY[start]);
-            const rFloor = endingFloorRatio(need, glueOnly, flexY, maxEndingStretch(opts.lastLineMinWidth));
-            filReachable = rFloor !== null;
-            filFitness = rFloor !== null ? fitness(false, 100 * rFloor * rFloor * rFloor) : Fitness.Decent;
-            const rFil = need / (glueOnly + flexY + extraStretch);
-            bad = 100 * rFil * rFil * rFil;
-            if (!strictEnding) bad = Math.min(bad, INF_BAD);
-          }
-        } else {
-          bad = badness(W - L, Y + extraStretch);
-        }
-        if (bad <= tolerance || filLine && (strictEnding ? filReachable : true)) {
-          const fit = filFitness ?? fitness(L > W, bad);
-          let d = filLine ? demeritsUncapped(opts.linePenalty, bad, p) : demerits(opts.linePenalty, bad, p);
-          if (flagged && node.flagged) d += opts.doubleHyphenDemerits;
-          if (Math.abs(fit - node.fitness) > 1) d += opts.adjDemerits;
-          if (forced && b === n - 1 && node.flagged) d += opts.finalHyphenDemerits;
-          const total = node.totalDemerits + d;
-          const key = Math.min(node.line, easyLine) * 4 + fit;
-          const slot = slotStamp[key] === stamp ? slotOf[key] : -1;
-          if (slot < 0) {
-            slotStamp[key] = stamp;
-            slotOf[key] = candN;
-            candFrom[candN] = node;
-            candFit[candN] = fit;
-            candDem[candN] = total;
-            candOver[candN] = false;
-            candN++;
-          } else if (total < candDem[slot] ||
-          // Collapsed classes tie often in emergency and rescue passes;
-          // choose a stable representative that uses fewer lines.
-          total === candDem[slot] && node.line < candFrom[slot].line) {
-            candFrom[slot] = node;
-            candFit[slot] = fit;
-            candDem[slot] = total;
-            candOver[slot] = false;
-          }
-        }
-      }
-      if (r < -1 || forced) {
-        if (prevLink === null) active = next;else prevLink.next = next;
-        const over = L - W - Z;
-        if (bestDead === null || over < bestDeadOver || over === bestDeadOver && node.totalDemerits < bestDead.totalDemerits) {
-          bestDead = node;
-          bestDeadOver = over;
-        }
-      } else {
-        prevLink = node;
-      }
-      node = next;
-    }
-    if (rescue && active === null && candN === 0 && bestDead !== null) {
-      candFrom[0] = bestDead;
-      candFit[0] = Fitness.Decent;
-      candDem[0] = bestDead.totalDemerits;
-      candOver[0] = bestDeadOver > 0;
-      candN = 1;
-    }
-    if (candN > 0) {
-      const start = firstBoxAfter[b + 1];
-      for (let q = 0; q < candN; q++) {
-        const from = candFrom[q];
-        const line = from.line + 1;
-        const fresh = {
-          item: b,
-          start,
-          line,
-          fitness: candFit[q],
-          flagged,
-          overfull: candOver[q],
-          totalDemerits: candDem[q],
-          prev: from,
-          next: active,
-          lpAdj: lpAdjAt(start, line),
-          lineW: lineWidthAt(widths, line)
-        };
-        active = fresh;
-      }
-    }
-    if (active === null) return null;
-  }
-  let best = null;
-  for (let node = active; node !== null; node = node.next) {
-    if (best === null || node.totalDemerits < best.totalDemerits) best = node;
-  }
-  return best;
-}
-
-// src/core/layout.ts
-function solveExpansion(need, glueFlex, expFlex, limit, step) {
-  const frac = Math.min(need / (glueFlex + expFlex), 1);
-  const limitPct = 100 * limit;
-  const stepPct = 100 * step;
-  const quantized = stepPct > 0 ? Math.round(frac * limitPct / stepPct) * stepPct : frac * limitPct;
-  return Math.min(quantized, limitPct);
-}
-function expansionGainAt(para, start, end, stretchPct, limitPct) {
-  const key = Math.round(stretchPct * 1e3) / 1e3;
-  const deltaPct = stretchPct - 100;
-  let gain = 0;
-  for (let i = start; i < end; i++) {
-    const it = para.items[i];
-    if (it.type !== ItemType.Box) continue;
-    const ratio = para.runs[it.run]?.expansionRatios?.get(key);
-    if (ratio !== void 0) {
-      gain += (it.width - (it.padPx ?? 0)) * (ratio - 1);
-    } else if (deltaPct >= 0) {
-      gain += it.expStretch * (deltaPct / limitPct);
-    } else {
-      gain += -it.expShrink * (-deltaPct / limitPct);
-    }
-  }
-  return gain;
-}
-function layoutLines(para, breaks, widths, opts, priorLastLineFit) {
-  if (priorLastLineFit === void 0) {
-    priorLastLineFit = {
-      sum: 0,
-      count: 0
-    };
-  }
-  const items = para.items,
-    cumW = para.cumW,
-    cumY = para.cumY,
-    cumYfil = para.cumYfil,
-    cumZ = para.cumZ,
-    cumExpY = para.cumExpY,
-    cumExpZ = para.cumExpZ,
-    cumTrackY = para.cumTrackY,
-    firstBoxAfter = para.firstBoxAfter;
-  if (firstBoxAfter[0] === items.length) return [];
-  const lines = [];
-  const exp = opts.expansion;
-  for (let i = 0; i < breaks.breakpoints.length; i++) {
-    const b = breaks.breakpoints[i];
-    const prev = i === 0 ? -1 : breaks.breakpoints[i - 1];
-    const start = prev < 0 ? firstBoxAfter[0] : firstBoxAfter[prev + 1];
-    const it = items[b];
-    const isPenalty = it.type === ItemType.Penalty;
-    let end = b;
-    while (end > start) {
-      const tail = items[end - 1];
-      if (tail.type === ItemType.Penalty) end--;else if (tail.type === ItemType.Glue && tail.stretchFil > 0) end--;else break;
-    }
-    let leftHang = 0;
-    const startItem = items[start];
-    if (startItem !== void 0 && startItem.type === ItemType.Box) {
-      leftHang = i === 0 ? startItem.lpFirst : startItem.lp;
-    }
-    const endBox = breakEndBox(para, b);
-    const rightHang = rpAt(it, endBox);
-    const hangStretch = endBox?.hangStretch ?? 0;
-    const hangShrink = endBox?.hangShrink ?? 0;
-    const penWidth = isPenalty ? it.width : 0;
-    const L = cumW[b] - cumW[start] + penWidth - leftHang - rightHang;
-    const W = lineWidthAt(widths, i);
-    const Yg = Math.max(0, cumY[b] - cumY[start] - hangStretch);
-    const Yfil = cumYfil[b] - cumYfil[start];
-    const Zg = Math.max(0, cumZ[b] - cumZ[start] - hangShrink);
-    const Ye = cumExpY[b] - cumExpY[start];
-    const Ze = cumExpZ[b] - cumExpZ[start];
-    const Yt = cumTrackY[b] - cumTrackY[start];
-    const delta = W - L;
-    let ratio;
-    if (delta > 0) ratio = Yfil > 0 ? 0 : Yg + Ye > 0 ? delta / (Yg + Ye) : Infinity;else if (delta < 0) ratio = Zg + Ze > 0 ? delta / (Zg + Ze) : -Infinity;else ratio = 0;
-    let fontStretch = 100;
-    let glueRatio = 0;
-    let overflowPx = 0;
-    let overfull = breaks.overfull[i] ?? false;
-    let paintedTokenTrackRatio = null;
-    let filTrack = null;
-    const glueRatioFor = need => need >= 0 ? Yg > 0 ? need / Yg : 0 : Zg > 0 ? need / Zg : 0;
-    if (delta > 0 && Yfil === 0) {
-      if (exp !== false && Ye > 0) {
-        fontStretch = 100 + solveExpansion(delta, Yg, Ye, exp.max, exp.step);
-        const gain = expansionGainAt(para, start, end, fontStretch, 100 * exp.max);
-        glueRatio = glueRatioFor(delta - gain);
-      } else {
-        glueRatio = glueRatioFor(delta);
-      }
-    } else if (delta > 0 && Yfil > 0) {
-      const glueOnly = Yg - Yt;
-      let fitTarget = 0;
-      if (opts.lastLineFit > 0 && priorLastLineFit.count + lines.length > 0) {
-        let sum = priorLastLineFit.sum;
-        for (const l of lines) sum += l.glueRatio;
-        fitTarget = opts.lastLineFit * (sum / (priorLastLineFit.count + lines.length));
-      }
-      let floored = false;
-      const minWidth = breaks.endingMinWidth ?? opts.lastLineMinWidth;
-      if (minWidth > 0) {
-        const need = minWidth * W - L;
-        const maxR = maxEndingStretch(minWidth);
-        if (need > 0) {
-          const rFloor = endingFloorRatio(need, Math.max(0, glueOnly), Yt + Ye, maxR);
-          if (rFloor !== null) {
-            const flexCap = Math.min(maxR, 1);
-            let gain = 0;
-            if (exp !== false && Ye > 0) {
-              const stepPct = exp.step * 100;
-              let pct = Math.floor(Math.min(rFloor, flexCap) * exp.max * 100 / stepPct) * stepPct;
-              while (pct > 0) {
-                gain = expansionGainAt(para, start, end, 100 + pct, 100 * exp.max);
-                if (gain <= need) break;
-                pct -= stepPct;
-                gain = 0;
-              }
-              if (pct > 0) fontStretch = 100 + pct;
-            }
-            const residual = need - gain;
-            let rGlue = residual / (glueOnly + Yt);
-            const rTrack = Math.min(Math.max(rGlue, 0), flexCap);
-            if (rGlue > flexCap && glueOnly > 0) {
-              rGlue = (residual - Yt * flexCap) / glueOnly;
-            }
-            if (rGlue <= maxR + 1e-9) {
-              glueRatio = glueOnly > 0 ? Math.min(Math.max(rGlue, fitTarget), (delta - gain - rTrack * Yt) / glueOnly) : 0;
-              filTrack = rTrack;
-              floored = true;
-            } else {
-              fontStretch = 100;
-            }
-          }
-        } else if (fitTarget < 0) {
-          const Zfil = cumZ[b] - cumZ[start] - hangShrink;
-          if (Zfil > 0) fitTarget = Math.max(fitTarget, need / Zfil);
-        }
-      }
-      if (!floored && glueOnly > 0) {
-        glueRatio = Math.max(-1, Math.min(fitTarget, delta / glueOnly));
-      }
-    } else if (delta < 0) {
-      let need = delta;
-      if (exp !== false && Ze > 0) {
-        fontStretch = 100 - solveExpansion(-delta, Zg, Ze, exp.shrink, exp.step);
-        const gain = expansionGainAt(para, start, end, fontStretch, 100 * exp.shrink);
-        need = delta - gain;
-      }
-      glueRatio = glueRatioFor(need);
-      overflowPx = Math.max(0, -need - Zg);
-      if (overflowPx > 1e-6) overfull = true;
-      if (overflowPx > 1e-6 && opts.protrusion === false && opts.tracking !== false) {
-        let soleBox = null;
-        for (let j = start; j < end; j++) {
-          const candidate = items[j];
-          if (candidate.type !== ItemType.Box) continue;
-          if (soleBox !== null) {
-            soleBox = null;
-            break;
-          }
-          soleBox = candidate;
-        }
-        if (soleBox?.paintedEnd === true && soleBox.trackShrink > 0 &&
-        // Never reverse/collapse a pathological token just to honor a
-        // huge author inset: emergency letterfit may at most double the
-        // configured shrink budget (−6% under the public default).
-        overflowPx <= soleBox.trackShrink + 1e-9) {
-          paintedTokenTrackRatio = -1 - overflowPx / soleBox.trackShrink;
-          overflowPx = 0;
-          overfull = false;
-        }
-      }
-    }
-    if (glueRatio < -1) glueRatio = -1;
-    let trackRatio = paintedTokenTrackRatio ?? (Yfil > 0 ? filTrack ?? Math.min(glueRatio, 0) : glueRatio);
-    if (Yfil === 0 && glueRatio > 1 && Yt > 0) {
-      trackRatio = 1;
-      const glueOnly = Yg - Yt;
-      glueRatio = glueOnly > 0 ? (glueRatio * Yg - Yt) / glueOnly : 1;
-    }
-    lines.push({
-      start,
-      end,
-      hyphenated: isPenalty && it.width > 0,
-      ratio,
-      fontStretch,
-      glueRatio,
-      trackRatio,
-      leftHang,
-      rightHang,
-      overfull,
-      overflowPx,
-      width: W
-    });
-  }
-  return lines;
-}
-function lineText(para, line) {
-  let out = "";
-  for (let i = line.start; i < line.end; i++) {
-    const it = para.items[i];
-    if (it.type === ItemType.Box) out += it.text;else if (it.type === ItemType.Glue && it.cjk !== true) out += " ";
-  }
-  if (line.hyphenated) out += "\u2010";
-  return out;
 }
 
 // src/core/protrusion-fonts.ts
@@ -3237,6 +2678,613 @@ function fontProtrusion(familyList) {
   const id = FAMILY_TO_TABLE[first];
   return id === void 0 ? void 0 : TABLES[id];
 }
+
+// src/core/breaker.ts
+function breakParagraph(para, widths, opts) {
+  if (para.firstBoxAfter[0] === para.items.length) {
+    return {
+      breakpoints: [para.items.length - 1],
+      pass: 1,
+      overfull: [false],
+      demerits: 0,
+      endingMinWidth: opts.lastLineMinWidth
+    };
+  }
+  let emergency = 0;
+  if (opts.emergencyStretch === "auto") {
+    for (const run of para.runs) emergency = Math.max(emergency, 12 * run.space.width);
+  } else {
+    emergency = opts.emergencyStretch;
+  }
+  let end = null;
+  let pass = 1;
+  let achieved = opts.lastLineMinWidth;
+  const hunt = minWidth => {
+    const o = {
+      ...opts,
+      lastLineMinWidth: minWidth
+    };
+    let e = null;
+    let p = 1;
+    if (o.pretolerance >= 0) {
+      e = attempt(para, widths, o, {
+        tolerance: o.pretolerance,
+        hyphens: false,
+        extraStretch: 0,
+        rescue: false,
+        strictEnding: true
+      });
+    }
+    if (e === null) {
+      p = 2;
+      e = attempt(para, widths, o, {
+        tolerance: o.tolerance,
+        hyphens: true,
+        extraStretch: 0,
+        rescue: false,
+        strictEnding: true
+      });
+    }
+    return {
+      end: e,
+      pass: p
+    };
+  };
+  if (opts.lastLineMinWidth > 0) {
+    var _hunt = hunt(opts.lastLineMinWidth);
+    end = _hunt.end;
+    pass = _hunt.pass;
+    if (end === null) {
+      let lo = 1;
+      let hi = Math.min(15, Math.ceil(opts.lastLineMinWidth * 16) - 1);
+      while (lo <= hi) {
+        const mid = lo + hi >> 1;
+        const r = hunt(mid / 16);
+        if (r.end !== null) {
+          end = r.end;
+          pass = r.pass;
+          achieved = mid / 16;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
+      }
+    }
+  }
+  const ladder = o => {
+    let e = null;
+    let p = 1;
+    if (o.pretolerance >= 0) {
+      e = attempt(para, widths, o, {
+        tolerance: o.pretolerance,
+        hyphens: false,
+        extraStretch: 0,
+        rescue: false,
+        strictEnding: false
+      });
+    }
+    if (e === null) {
+      p = 2;
+      e = attempt(para, widths, o, {
+        tolerance: o.tolerance,
+        hyphens: true,
+        extraStretch: 0,
+        rescue: false,
+        strictEnding: false
+      });
+    }
+    if (e === null && emergency > 0) {
+      p = 3;
+      e = attempt(para, widths, o, {
+        tolerance: o.tolerance,
+        hyphens: true,
+        extraStretch: emergency,
+        rescue: false,
+        strictEnding: false
+      });
+    }
+    if (e === null) e = attempt(para, widths, o, {
+      tolerance: INF_BAD,
+      hyphens: true,
+      extraStretch: emergency,
+      rescue: true,
+      strictEnding: false
+    });
+    return {
+      end: e,
+      pass: p
+    };
+  };
+  if (opts.lastLineMinWidth > 0 && end !== null && achieved < opts.lastLineMinWidth) {
+    const off = ladder({
+      ...opts,
+      lastLineMinWidth: 0
+    });
+    if (off.end !== null && renderedEndingWidth(para, widths, off.end, achieved) + 1e-9 >= renderedEndingWidth(para, widths, end, achieved)) {
+      end = off.end;
+      pass = off.pass;
+    }
+  } else if (end === null && opts.lastLineMinWidth > 0) {
+    const bounded = attempt(para, widths, opts, {
+      tolerance: opts.tolerance,
+      hyphens: true,
+      extraStretch: 0,
+      rescue: false,
+      strictEnding: false
+    });
+    const off = ladder({
+      ...opts,
+      lastLineMinWidth: 0
+    });
+    const v = opts.lastLineMinWidth;
+    achieved = v;
+    if (bounded !== null && (off.end === null || renderedEndingWidth(para, widths, bounded, v) > renderedEndingWidth(para, widths, off.end, v) + 1e-9)) {
+      end = bounded;
+      pass = 2;
+    } else {
+      end = off.end;
+      pass = off.pass;
+    }
+  } else if (end === null) {
+    var _ladder = ladder(opts);
+    end = _ladder.end;
+    pass = _ladder.pass;
+  }
+  if (end === null) throw new Error("justif: rescue pass failed (bug)");
+  const breakpoints = [];
+  const overfull = [];
+  for (let node = end; node !== null && node.item >= 0; node = node.prev) {
+    breakpoints.push(node.item);
+    overfull.push(node.overfull);
+  }
+  breakpoints.reverse();
+  overfull.reverse();
+  return {
+    breakpoints,
+    pass,
+    overfull,
+    demerits: end.totalDemerits,
+    endingMinWidth: achieved
+  };
+}
+function renderedEndingWidth(para, widths, end, minWidth) {
+  const items = para.items,
+    cumW = para.cumW,
+    cumY = para.cumY,
+    cumTrackY = para.cumTrackY,
+    cumExpY = para.cumExpY,
+    firstBoxAfter = para.firstBoxAfter;
+  const from = end.prev;
+  const start = from === null ? firstBoxAfter[0] : from.start;
+  const line = from === null ? 0 : from.line;
+  const b = end.item;
+  let L = cumW[b] - cumW[start];
+  const startItem = items[start];
+  if (startItem !== void 0 && startItem.type === ItemType.Box) {
+    L -= line === 0 ? startItem.lpFirst : startItem.lp;
+  }
+  const endBox = breakEndBox(para, b);
+  L -= rpAt(items[b], endBox);
+  const need = minWidth * lineWidthAt(widths, line) - L;
+  if (need <= 0) return L;
+  const trackY = cumTrackY[b] - cumTrackY[start];
+  const glueOnly = Math.max(0, cumY[b] - cumY[start] - trackY - (endBox?.hangStretch ?? 0));
+  const flexY = trackY + (cumExpY[b] - cumExpY[start]);
+  return endingFloorRatio(need, glueOnly, flexY, maxEndingStretch(minWidth)) !== null ? L + need : L;
+}
+var slotOf = new Int32Array(0);
+var slotStamp = new Int32Array(0);
+var stamp = 0;
+function attempt(para, widths, opts, mode) {
+  const tolerance = mode.tolerance,
+    allowHyphens = mode.hyphens,
+    extraStretch = mode.extraStretch,
+    rescue = mode.rescue,
+    strictEnding = mode.strictEnding;
+  const items = para.items,
+    cumW = para.cumW,
+    cumY = para.cumY,
+    cumYfil = para.cumYfil,
+    cumZ = para.cumZ,
+    cumExpY = para.cumExpY,
+    cumExpZ = para.cumExpZ,
+    cumTrackY = para.cumTrackY,
+    firstBoxAfter = para.firstBoxAfter;
+  const lastBoxBefore = para.lastBoxBefore;
+  const n = items.length;
+  const lpAdjAt = (start, line) => {
+    const it = items[start];
+    if (it === void 0 || it.type !== ItemType.Box) return 0;
+    return line === 0 ? it.lpFirst : it.lp;
+  };
+  const firstStart = firstBoxAfter[0];
+  let active = {
+    item: -1,
+    start: firstStart,
+    line: 0,
+    fitness: Fitness.Decent,
+    flagged: false,
+    overfull: false,
+    totalDemerits: 0,
+    prev: null,
+    next: null,
+    lpAdj: lpAdjAt(firstStart, 0),
+    lineW: lineWidthAt(widths, 0)
+  };
+  const easyLine = typeof widths === "number" ? 0 : Math.max(0, widths.length - 1);
+  let candN = 0;
+  const candFrom = [];
+  const candFit = [];
+  const candDem = [];
+  const candOver = [];
+  const cap = 4 * (n + 2);
+  if (slotOf.length < cap || stamp > 2147483647 - cap) {
+    slotOf = new Int32Array(cap);
+    slotStamp = new Int32Array(cap);
+    stamp = 0;
+  }
+  for (let b = 0; b < n; b++) {
+    const it = items[b];
+    let p;
+    let flagged;
+    let penWidth;
+    if (it.type === ItemType.Glue) {
+      const prev = items[b - 1];
+      if (prev === void 0 || prev.type !== ItemType.Box) continue;
+      p = 0;
+      flagged = false;
+      penWidth = 0;
+    } else if (it.type === ItemType.Penalty) {
+      if (it.penalty >= INF_PENALTY) continue;
+      if (it.hyphen && !allowHyphens) continue;
+      p = it.penalty;
+      flagged = it.flagged;
+      penWidth = it.width;
+    } else {
+      continue;
+    }
+    const lastBox = lastBoxBefore[b];
+    const endBox = lastBox < 0 ? void 0 : items[lastBox];
+    const rp = rpAt(it, endBox);
+    const hangStretch = endBox?.hangStretch ?? 0;
+    const hangShrink = endBox?.hangShrink ?? 0;
+    const forced = it.type === ItemType.Penalty && it.penalty <= -INF_PENALTY;
+    const wB = cumW[b];
+    const yB = cumY[b] - hangStretch;
+    const yFilB = cumYfil[b];
+    const zB = cumZ[b] - hangShrink;
+    const eyB = cumExpY[b];
+    const ezB = cumExpZ[b];
+    const tyB = cumTrackY[b];
+    candN = 0;
+    stamp++;
+    let bestDead = null;
+    let bestDeadOver = Infinity;
+    let prevLink = null;
+    let node = active;
+    while (node !== null) {
+      const next = node.next;
+      const start = node.start;
+      let L = wB - cumW[start] + penWidth;
+      L -= node.lpAdj;
+      L -= rp;
+      const W = node.lineW;
+      const Y = yB - cumY[start] + (eyB - cumExpY[start]);
+      const Yfil = yFilB - cumYfil[start];
+      const Z = zB - cumZ[start] + (ezB - cumExpZ[start]);
+      let r;
+      if (L < W) r = Yfil > 0 ? 0 : Y > 0 ? (W - L) / Y : Infinity;else if (L > W) r = Z > 0 ? (L - W) / -Z : -Infinity;else r = 0;
+      if (r >= -1) {
+        let bad;
+        let filLine = false;
+        let filReachable = true;
+        let filFitness = null;
+        if (L >= W) {
+          bad = badness(L - W, Z);
+        } else if (Yfil > 0) {
+          filLine = true;
+          const need = opts.lastLineMinWidth * W - L;
+          if (need <= 0) {
+            bad = 0;
+          } else {
+            const trackY = tyB - cumTrackY[start];
+            const glueOnly = Math.max(0, yB - cumY[start] - trackY);
+            const flexY = trackY + (eyB - cumExpY[start]);
+            const rFloor = endingFloorRatio(need, glueOnly, flexY, maxEndingStretch(opts.lastLineMinWidth));
+            filReachable = rFloor !== null;
+            filFitness = rFloor !== null ? fitness(false, 100 * rFloor * rFloor * rFloor) : Fitness.Decent;
+            const rFil = need / (glueOnly + flexY + extraStretch);
+            bad = 100 * rFil * rFil * rFil;
+            if (!strictEnding) bad = Math.min(bad, INF_BAD);
+          }
+        } else {
+          bad = badness(W - L, Y + extraStretch);
+        }
+        if (bad <= tolerance || filLine && (strictEnding ? filReachable : true)) {
+          const fit = filFitness ?? fitness(L > W, bad);
+          let d = filLine ? demeritsUncapped(opts.linePenalty, bad, p) : demerits(opts.linePenalty, bad, p);
+          if (flagged && node.flagged) d += opts.doubleHyphenDemerits;
+          if (Math.abs(fit - node.fitness) > 1) d += opts.adjDemerits;
+          if (forced && b === n - 1 && node.flagged) d += opts.finalHyphenDemerits;
+          const total = node.totalDemerits + d;
+          const key = Math.min(node.line, easyLine) * 4 + fit;
+          const slot = slotStamp[key] === stamp ? slotOf[key] : -1;
+          if (slot < 0) {
+            slotStamp[key] = stamp;
+            slotOf[key] = candN;
+            candFrom[candN] = node;
+            candFit[candN] = fit;
+            candDem[candN] = total;
+            candOver[candN] = false;
+            candN++;
+          } else if (total < candDem[slot] ||
+          // Collapsed classes tie often in emergency and rescue passes;
+          // choose a stable representative that uses fewer lines.
+          total === candDem[slot] && node.line < candFrom[slot].line) {
+            candFrom[slot] = node;
+            candFit[slot] = fit;
+            candDem[slot] = total;
+            candOver[slot] = false;
+          }
+        }
+      }
+      if (r < -1 || forced) {
+        if (prevLink === null) active = next;else prevLink.next = next;
+        const over = L - W - Z;
+        if (bestDead === null || over < bestDeadOver || over === bestDeadOver && node.totalDemerits < bestDead.totalDemerits) {
+          bestDead = node;
+          bestDeadOver = over;
+        }
+      } else {
+        prevLink = node;
+      }
+      node = next;
+    }
+    if (rescue && active === null && candN === 0 && bestDead !== null) {
+      candFrom[0] = bestDead;
+      candFit[0] = Fitness.Decent;
+      candDem[0] = bestDead.totalDemerits;
+      candOver[0] = bestDeadOver > 0;
+      candN = 1;
+    }
+    if (candN > 0) {
+      const start = firstBoxAfter[b + 1];
+      for (let q = 0; q < candN; q++) {
+        const from = candFrom[q];
+        const line = from.line + 1;
+        const fresh = {
+          item: b,
+          start,
+          line,
+          fitness: candFit[q],
+          flagged,
+          overfull: candOver[q],
+          totalDemerits: candDem[q],
+          prev: from,
+          next: active,
+          lpAdj: lpAdjAt(start, line),
+          lineW: lineWidthAt(widths, line)
+        };
+        active = fresh;
+      }
+    }
+    if (active === null) return null;
+  }
+  let best = null;
+  for (let node = active; node !== null; node = node.next) {
+    if (best === null || node.totalDemerits < best.totalDemerits) best = node;
+  }
+  return best;
+}
+
+// src/core/layout.ts
+function solveExpansion(need, glueFlex, expFlex, limit, step) {
+  const frac = Math.min(need / (glueFlex + expFlex), 1);
+  const limitPct = 100 * limit;
+  const stepPct = 100 * step;
+  const quantized = stepPct > 0 ? Math.round(frac * limitPct / stepPct) * stepPct : frac * limitPct;
+  return Math.min(quantized, limitPct);
+}
+function expansionGainAt(para, start, end, stretchPct, limitPct) {
+  const key = Math.round(stretchPct * 1e3) / 1e3;
+  const deltaPct = stretchPct - 100;
+  let gain = 0;
+  for (let i = start; i < end; i++) {
+    const it = para.items[i];
+    if (it.type !== ItemType.Box) continue;
+    const ratio = para.runs[it.run]?.expansionRatios?.get(key);
+    if (ratio !== void 0) {
+      gain += (it.width - (it.padPx ?? 0)) * (ratio - 1);
+    } else if (deltaPct >= 0) {
+      gain += it.expStretch * (deltaPct / limitPct);
+    } else {
+      gain += -it.expShrink * (-deltaPct / limitPct);
+    }
+  }
+  return gain;
+}
+function layoutLines(para, breaks, widths, opts, priorLastLineFit) {
+  if (priorLastLineFit === void 0) {
+    priorLastLineFit = {
+      sum: 0,
+      count: 0
+    };
+  }
+  const items = para.items,
+    cumW = para.cumW,
+    cumY = para.cumY,
+    cumYfil = para.cumYfil,
+    cumZ = para.cumZ,
+    cumExpY = para.cumExpY,
+    cumExpZ = para.cumExpZ,
+    cumTrackY = para.cumTrackY,
+    firstBoxAfter = para.firstBoxAfter;
+  if (firstBoxAfter[0] === items.length) return [];
+  const lines = [];
+  const exp = opts.expansion;
+  for (let i = 0; i < breaks.breakpoints.length; i++) {
+    const b = breaks.breakpoints[i];
+    const prev = i === 0 ? -1 : breaks.breakpoints[i - 1];
+    const start = prev < 0 ? firstBoxAfter[0] : firstBoxAfter[prev + 1];
+    const it = items[b];
+    const isPenalty = it.type === ItemType.Penalty;
+    let end = b;
+    while (end > start) {
+      const tail = items[end - 1];
+      if (tail.type === ItemType.Penalty) end--;else if (tail.type === ItemType.Glue && tail.stretchFil > 0) end--;else break;
+    }
+    let leftHang = 0;
+    const startItem = items[start];
+    if (startItem !== void 0 && startItem.type === ItemType.Box) {
+      leftHang = i === 0 ? startItem.lpFirst : startItem.lp;
+    }
+    const endBox = breakEndBox(para, b);
+    const rightHang = rpAt(it, endBox);
+    const hangStretch = endBox?.hangStretch ?? 0;
+    const hangShrink = endBox?.hangShrink ?? 0;
+    const penWidth = isPenalty ? it.width : 0;
+    const L = cumW[b] - cumW[start] + penWidth - leftHang - rightHang;
+    const W = lineWidthAt(widths, i);
+    const Yg = Math.max(0, cumY[b] - cumY[start] - hangStretch);
+    const Yfil = cumYfil[b] - cumYfil[start];
+    const Zg = Math.max(0, cumZ[b] - cumZ[start] - hangShrink);
+    const Ye = cumExpY[b] - cumExpY[start];
+    const Ze = cumExpZ[b] - cumExpZ[start];
+    const Yt = cumTrackY[b] - cumTrackY[start];
+    const delta = W - L;
+    let ratio;
+    if (delta > 0) ratio = Yfil > 0 ? 0 : Yg + Ye > 0 ? delta / (Yg + Ye) : Infinity;else if (delta < 0) ratio = Zg + Ze > 0 ? delta / (Zg + Ze) : -Infinity;else ratio = 0;
+    let fontStretch = 100;
+    let glueRatio = 0;
+    let overflowPx = 0;
+    let overfull = breaks.overfull[i] ?? false;
+    let paintedTokenTrackRatio = null;
+    let filTrack = null;
+    const glueRatioFor = need => need >= 0 ? Yg > 0 ? need / Yg : 0 : Zg > 0 ? need / Zg : 0;
+    if (delta > 0 && Yfil === 0) {
+      if (exp !== false && Ye > 0) {
+        fontStretch = 100 + solveExpansion(delta, Yg, Ye, exp.max, exp.step);
+        const gain = expansionGainAt(para, start, end, fontStretch, 100 * exp.max);
+        glueRatio = glueRatioFor(delta - gain);
+      } else {
+        glueRatio = glueRatioFor(delta);
+      }
+    } else if (delta > 0 && Yfil > 0) {
+      const glueOnly = Yg - Yt;
+      let fitTarget = 0;
+      if (opts.lastLineFit > 0 && priorLastLineFit.count + lines.length > 0) {
+        let sum = priorLastLineFit.sum;
+        for (const l of lines) sum += l.glueRatio;
+        fitTarget = opts.lastLineFit * (sum / (priorLastLineFit.count + lines.length));
+      }
+      let floored = false;
+      const minWidth = breaks.endingMinWidth ?? opts.lastLineMinWidth;
+      if (minWidth > 0) {
+        const need = minWidth * W - L;
+        const maxR = maxEndingStretch(minWidth);
+        if (need > 0) {
+          const rFloor = endingFloorRatio(need, Math.max(0, glueOnly), Yt + Ye, maxR);
+          if (rFloor !== null) {
+            const flexCap = Math.min(maxR, 1);
+            let gain = 0;
+            if (exp !== false && Ye > 0) {
+              const stepPct = exp.step * 100;
+              let pct = Math.floor(Math.min(rFloor, flexCap) * exp.max * 100 / stepPct) * stepPct;
+              while (pct > 0) {
+                gain = expansionGainAt(para, start, end, 100 + pct, 100 * exp.max);
+                if (gain <= need) break;
+                pct -= stepPct;
+                gain = 0;
+              }
+              if (pct > 0) fontStretch = 100 + pct;
+            }
+            const residual = need - gain;
+            let rGlue = residual / (glueOnly + Yt);
+            const rTrack = Math.min(Math.max(rGlue, 0), flexCap);
+            if (rGlue > flexCap && glueOnly > 0) {
+              rGlue = (residual - Yt * flexCap) / glueOnly;
+            }
+            if (rGlue <= maxR + 1e-9) {
+              glueRatio = glueOnly > 0 ? Math.min(Math.max(rGlue, fitTarget), (delta - gain - rTrack * Yt) / glueOnly) : 0;
+              filTrack = rTrack;
+              floored = true;
+            } else {
+              fontStretch = 100;
+            }
+          }
+        } else if (fitTarget < 0) {
+          const Zfil = cumZ[b] - cumZ[start] - hangShrink;
+          if (Zfil > 0) fitTarget = Math.max(fitTarget, need / Zfil);
+        }
+      }
+      if (!floored && glueOnly > 0) {
+        glueRatio = Math.max(-1, Math.min(fitTarget, delta / glueOnly));
+      }
+    } else if (delta < 0) {
+      let need = delta;
+      if (exp !== false && Ze > 0) {
+        fontStretch = 100 - solveExpansion(-delta, Zg, Ze, exp.shrink, exp.step);
+        const gain = expansionGainAt(para, start, end, fontStretch, 100 * exp.shrink);
+        need = delta - gain;
+      }
+      glueRatio = glueRatioFor(need);
+      overflowPx = Math.max(0, -need - Zg);
+      if (overflowPx > 1e-6) overfull = true;
+      if (overflowPx > 1e-6 && opts.protrusion === false && opts.tracking !== false) {
+        let soleBox = null;
+        for (let j = start; j < end; j++) {
+          const candidate = items[j];
+          if (candidate.type !== ItemType.Box) continue;
+          if (soleBox !== null) {
+            soleBox = null;
+            break;
+          }
+          soleBox = candidate;
+        }
+        if (soleBox?.paintedEnd === true && soleBox.trackShrink > 0 &&
+        // Never reverse/collapse a pathological token just to honor a
+        // huge author inset: emergency letterfit may at most double the
+        // configured shrink budget (−6% under the public default).
+        overflowPx <= soleBox.trackShrink + 1e-9) {
+          paintedTokenTrackRatio = -1 - overflowPx / soleBox.trackShrink;
+          overflowPx = 0;
+          overfull = false;
+        }
+      }
+    }
+    if (glueRatio < -1) glueRatio = -1;
+    let trackRatio = paintedTokenTrackRatio ?? (Yfil > 0 ? filTrack ?? Math.min(glueRatio, 0) : glueRatio);
+    if (Yfil === 0 && glueRatio > 1 && Yt > 0) {
+      trackRatio = 1;
+      const glueOnly = Yg - Yt;
+      glueRatio = glueOnly > 0 ? (glueRatio * Yg - Yt) / glueOnly : 1;
+    }
+    lines.push({
+      start,
+      end,
+      hyphenated: isPenalty && it.width > 0,
+      ratio,
+      fontStretch,
+      glueRatio,
+      trackRatio,
+      leftHang,
+      rightHang,
+      overfull,
+      overflowPx,
+      width: W
+    });
+  }
+  return lines;
+}
+function lineText(para, line) {
+  let out = "";
+  for (let i = line.start; i < line.end; i++) {
+    const it = para.items[i];
+    if (it.type === ItemType.Box) out += it.text;else if (it.type === ItemType.Glue && it.cjk !== true) out += " ";
+  }
+  if (line.hyphenated) out += "\u2010";
+  return out;
+}
 export { CJK_CHAR, Fitness, INF_BAD, INF_PENALTY, ItemType, UNDERFULL_RATIO, badness, breakEndBox, breakParagraph, breakRp, buildItems, caseTransformedText, cjkBreakAllowed, composeProtrusion, defaultBreakOptions, defaultBuildOptions, demerits, demeritsUncapped, fitness, fontProtrusion, graphemes, hangingCharacters, hangingPunctuation, kinsokuNotAtLineEnd, kinsokuNotAtLineStart, latinProtrusion, layoutLines, lineText, lineWidthAt, maxEndingStretch, normalizeHangingPunctuation, protrusionCodes, textMakesBox, withSums };
-//# sourceMappingURL=chunk-YVBFJY3S.js.map
-//# sourceMappingURL=chunk-YVBFJY3S.js.map
+//# sourceMappingURL=chunk-WWMSGT6G.js.map
+//# sourceMappingURL=chunk-WWMSGT6G.js.map

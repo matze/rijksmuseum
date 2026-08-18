@@ -5,35 +5,46 @@ function createHyphenator(data) {
   const rightmin = data.rightmin ?? 3;
   let root = null;
   let exceptionMap = null;
+  function add(pattern) {
+    const codes = [];
+    const points2 = [0];
+    for (const ch of pattern) {
+      if (ch >= "0" && ch <= "9") points2[points2.length - 1] = ch.charCodeAt(0) - 48;else {
+        codes.push(ch.codePointAt(0));
+        points2.push(0);
+      }
+    }
+    let node = root;
+    for (const code of codes) {
+      node.children ?? (node.children = /* @__PURE__ */new Map());
+      let next = node.children.get(code);
+      if (next === void 0) {
+        next = {
+          children: null,
+          points: null
+        };
+        node.children.set(code, next);
+      }
+      node = next;
+    }
+    node.points = Uint8Array.from(points2);
+  }
   function compile() {
     root = {
       children: /* @__PURE__ */new Map(),
       points: null
     };
-    for (const pattern of data.patterns.split(/\s+/)) {
-      if (pattern.length === 0) continue;
-      const codes = [];
-      const points2 = [0];
-      for (const ch of pattern) {
-        if (ch >= "0" && ch <= "9") points2[points2.length - 1] = ch.charCodeAt(0) - 48;else {
-          codes.push(ch.codePointAt(0));
-          points2.push(0);
-        }
+    if (data.packed !== void 0) {
+      let previous = "";
+      for (const token of data.packed.split(" ")) {
+        if (token.length === 0) continue;
+        previous = previous.slice(0, token.charCodeAt(0) - 48) + token.slice(1);
+        add(previous);
       }
-      let node = root;
-      for (const code of codes) {
-        node.children ?? (node.children = /* @__PURE__ */new Map());
-        let next = node.children.get(code);
-        if (next === void 0) {
-          next = {
-            children: null,
-            points: null
-          };
-          node.children.set(code, next);
-        }
-        node = next;
+    } else if (data.patterns !== void 0) {
+      for (const pattern of data.patterns.split(/\s+/)) {
+        if (pattern.length !== 0) add(pattern);
       }
-      node.points = Uint8Array.from(points2);
     }
     exceptionMap = /* @__PURE__ */new Map();
     if (data.exceptions !== void 0) {

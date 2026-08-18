@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import ASSETS, ROOT, Fetcher  # noqa: E402
 
-JUSTIF_VERSION = "0.8.0"
+JUSTIF_VERSION = "0.9.0"
 JUSTIF_CDN = f"https://cdn.jsdelivr.net/npm/justif@{JUSTIF_VERSION}/dist"
 JUSTIF_ENTRIES = ["index.js", "hyphenate/en-us.js"]
 VENDOR = ROOT / "vendor" / "justif"
