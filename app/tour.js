@@ -11,9 +11,9 @@ import { MODE } from './state.js';
 
 const PLATE_SIZES = '(min-width: 640px) 538px, calc(100vw - 36px)';
 
-/** Kinds whose marker needs an opaque backing to mask the rail behind it. A walk
- *  is drawn as a small hollow dot that masks the rail with its own fill. */
-const BACKED = new Set(['stop', 'break', 'terminus', 'floor']);
+/** Kinds whose marker needs an opaque backing to mask the rail behind it when
+ *  the marker dims. */
+const BACKED = new Set(['stop', 'break', 'terminus', 'floor', 'walk']);
 
 /** Marker geometry is CSS, per `.row-<kind>`: it differs between the connector
  *  inside the column on a phone and the left rail above the breakpoint, and
@@ -56,7 +56,7 @@ function stopEntry(item, state, route, actions) {
   el('div', { class: 'kicker affordance', text: 'Tap for the full entry' })));
 }
 
-const walkEntry = (item) => row('walk', el('div', { class: 'entry-walk' },
+const walkEntry = (item) => row('walk', el('div', { class: 'entry-walk', 'data-lit': 'true' },
   el('div', { class: 'walk-line muted' },
     el('span', { class: 'kicker mins', text: `${item.minutes} min` }),
     el('span', { class: 'what', text: item.text }))));

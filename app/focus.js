@@ -47,34 +47,34 @@ export function trackFocus(root, onFocusStop) {
   const update = () => {
     frame = 0;
 
-    // Only cards compete for the light; the markers follow whichever card wins,
-    // and walk segments carry no card because they are never dimmed.
-    const cards = [...root.querySelectorAll('.card[data-lit]')];
+    // Every entry on the line — a card or a walk — competes for the light; its
+    // marker follows whichever wins.
+    const entries = [...root.querySelectorAll('.card[data-lit], .entry-walk[data-lit]')];
 
-    if (!cards.length) return;
+    if (!entries.length) return;
 
-    const line = readingLine(cards[0].getBoundingClientRect(),
-      cards.at(-1).getBoundingClientRect());
-    let best = cards[0];
+    const line = readingLine(entries[0].getBoundingClientRect(),
+      entries.at(-1).getBoundingClientRect());
+    let best = entries[0];
     let bestDistance = Infinity;
 
-    for (const card of cards) {
-      const box = card.getBoundingClientRect();
+    for (const entry of entries) {
+      const box = entry.getBoundingClientRect();
       const distance = box.top > line ? box.top - line
         : box.bottom < line ? line - box.bottom
         : 0;
 
       if (distance < bestDistance) {
         bestDistance = distance;
-        best = card;
+        best = entry;
       }
     }
 
-    for (const card of cards) {
-      const lit = card === best;
-      card.dataset.lit = String(lit);
+    for (const entry of entries) {
+      const lit = entry === best;
+      entry.dataset.lit = String(lit);
 
-      const mark = card.parentElement?.querySelector('.mark');
+      const mark = entry.parentElement?.querySelector('.mark');
 
       if (mark) mark.dataset.lit = String(lit);
     }

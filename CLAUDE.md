@@ -243,9 +243,9 @@ dimming on scroll — is attribute mutation in a rAF callback and re-renders not
 
 - Every view change is a history entry, so Back closes the detail sheet and steps out of
   the timeline. Scroll position rides on the entry; `history.scrollRestoration` is manual.
-- `focus.js` lights exactly one `.card`, chosen by proximity to a reading line at 42% of
-  the viewport. The line slides to meet the first and last entries so the termini can win
-  at the ends of the page, where nothing can reach a fixed line.
+- `focus.js` lights exactly one entry — a card or a walk — chosen by proximity to a
+  reading line at 42% of the viewport. The line slides to meet the first and last entries
+  so the termini can win at the ends of the page, where nothing can reach a fixed line.
 - Route: floors in order `[0, 1, 3, 2]` so the visit ends on the Night Watch. Selection
   then layout; if the plan overruns the budget, drop the weakest stop and lay out again.
   A room and one of its own parts are one place — `2.30` and `2.30.1` are both the Gallery
@@ -304,8 +304,8 @@ caption carries `tabindex="-1"` and the tile stays the single tab stop it has al
   visit ends. The floor plan is centred inside its own `max-width`, so holding that card to
   `--text-limit` leaves the schematic its size.
 - Where the rail runs past a marker that dims, the opaque `.mark-back` goes behind it — so
-  break and floor carry one on a phone too. A walk is never dimmed and masks the rail with
-  its own fill.
+  break and floor carry one on a phone too. A walk dims like a card, so it carries one as
+  well.
 - The plate is a window, not an image: `.plate-wrap` holds the proportions of the work and
   the photograph is laid inside it, absolutely positioned and scaled so the content box
   fills the opening. `plate.js` sets `--crop-x/y/w/h` and `--crop-ratio` per work and the

@@ -515,9 +515,9 @@ a:hover { color: var(--color-accent); }
 .entry-walk, .entry-break, .entry-floor { max-width: var(--text-limit); }
 
 /* A break and a floor header dim with the card they head, and the rail runs
-   past them, so both take the opaque backing behind the mark. A walk carries no
-   card and is never dimmed: its ring masks the rail with its own fill. */
-.row-break > .mark-back, .row-floor > .mark-back { display: block; }
+   past them, so both take the opaque backing behind the mark. A walk dims like
+   a card, and the rail runs its whole height, so it takes the backing too. */
+.row-break > .mark-back, .row-floor > .mark-back, .row-walk > .mark-back { display: block; }
 
 /* `--mark` is the marker's width and `--mark-h` its height, which differ only
    for the floor rule. Above the breakpoint the rail runs the whole height of the
@@ -536,7 +536,7 @@ a:hover { color: var(--color-accent); }
 .mark { transition: opacity .12s linear; }
 
 .row-stop { --mark: 15px; --back: 23px; }
-.row-walk { --mark: 9px; }
+.row-walk { --mark: 9px; --back: 17px; }
 .row-break { --mark: 13px; --back: 21px; }
 .row-terminus { --mark: 17px; --back: 25px; }
 .row-floor { --mark: 15px; --mark-h: 1px; --back: 15px; }
@@ -557,7 +557,7 @@ a:hover { color: var(--color-accent); }
 .row-floor > .mark-back { height: 9px; }
 
 .card { transition: opacity .12s linear; border: 0; padding: 0; gap: 0; border-radius: 0; }
-.card[data-lit="false"], .mark[data-lit="false"] { opacity: var(--dim); }
+.card[data-lit="false"], .mark[data-lit="false"], .entry-walk[data-lit="false"] { opacity: var(--dim); }
 
 /* On a phone the connector carries all the space above an entry. Above the
    breakpoint the entry pads itself instead, and `--entry-top` is that padding —
