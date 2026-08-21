@@ -7,17 +7,47 @@
     "page was read and showed no badge.",
     "Regenerate with: just harvest"
   ],
-  "retrieved": "2026-08-16",
+  "retrieved": "2026-08-21",
   "works": {
+    "SK-A-124": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-124--4c3ac889667135992081179acc058c34"
+    },
     "SK-A-156": {
       "badge": null,
       "location": null,
       "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-156--3721f2c6ae5b0149b91d8001f1b47574"
     },
+    "SK-A-1601": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1601--674523e367097cc3a12c550c823c6519"
+    },
+    "SK-A-1673": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1673--43393603b2f65e54e0232cd128fbe00d"
+    },
+    "SK-A-1795": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-1795--470d4a85e2e27fcc5ffbad05aa1d04ad"
+    },
     "SK-A-2344": {
       "badge": "On display in Gallery of Honour",
       "location": "Gallery of Honour",
       "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-2344--42dd0e658c2979aec8e144d2357c55c0"
+    },
+    "SK-A-3113": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3113--821073441315906b6536a06124b4ffdb"
+    },
+    "SK-A-3240": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-3240--60e7bd82606e1937146c0334233ffe86"
     },
     "SK-A-347": {
       "badge": null,
@@ -33,6 +63,16 @@
       "badge": null,
       "location": null,
       "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4050--4faa97ed774e6e3f81b76cf3aed6226d"
+    },
+    "SK-A-4131": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4131--fc7b20af69aa4b8bd6d68612c52062d1"
+    },
+    "SK-A-4252": {
+      "badge": null,
+      "location": null,
+      "page": "https://www.rijksmuseum.nl/en/collection/object/SK-A-4252--8c4ce6938fb958f8c4cff400700d6c5e"
     },
     "SK-A-5033": {
       "badge": null,
